@@ -9,6 +9,8 @@
                      lua-mode
                      glsl-mode
                      undo-tree
+                     muse
+                     htmlize
                      fic-mode
                      web-mode
                      php-mode
