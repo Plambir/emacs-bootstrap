@@ -174,11 +174,12 @@ point reaches the beginning or end of the buffer, stop there."
                 'smarter-move-beginning-of-line)
 
 ;;;; copy line
-(defun copy-line (&optional arg)
-  (interactive "P")
-  (kill-line arg)
-  ;; TODO: save cursor position
-  (yank))
+(defun copy-line (arg)
+  "Copy lines (as many as prefix argument) in the kill ring"
+  (interactive "p")
+  (kill-ring-save (point)
+                  (line-beginning-position (+ 1 arg)))
+  (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
 (define-key global-map (kbd "C-c C-k") 'copy-line)
 
