@@ -25,6 +25,9 @@
 
 (define-key global-map (kbd "C-; C-/") 'ac-complete-filename)
 
+(define-key global-map (kbd "C-; d s") '(lambda () (interactive)(desktop-save "~/")))
+(define-key global-map (kbd "C-; d r") 'desktop-read)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
