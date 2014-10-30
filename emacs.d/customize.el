@@ -10,6 +10,7 @@
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/backup/" t))))
  '(backup-by-copying t)
  '(backup-directory-alist (quote (("" . "~/.emacs.d/backup/"))))
+ '(browse-url-browser-function (quote browse-url-chromium))
  '(c-basic-offset 2)
  '(c-default-style
    (quote
@@ -65,6 +66,7 @@
  '(kept-new-versions 6)
  '(kept-old-versions 2)
  '(reb-re-syntax (quote string))
+ '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(show-paren-style (quote expression))
  '(show-trailing-whitespace t)
