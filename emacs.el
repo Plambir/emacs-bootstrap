@@ -9,6 +9,7 @@
                      lua-mode
                      glsl-mode
                      undo-tree
+                     cmake-mode
                      muse
                      htmlize
                      fic-mode
