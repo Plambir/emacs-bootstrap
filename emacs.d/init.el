@@ -183,6 +183,13 @@ point reaches the beginning or end of the buffer, stop there."
 
 (define-key global-map (kbd "C-c C-k") 'copy-line)
 
+;;;; Open urxvt from emacs
+(defun shell-urxvt-in-default-dir ()
+  (interactive)
+  (start-process-shell-command "urxvt" nil "urxvt"))
+
+(define-key global-map (kbd "C-; RET") 'shell-urxvt-in-default-dir)
+
 ;;;; try load local settings
 (unwind-protect (load "~/.emacs.d/local.el") nil)
 
