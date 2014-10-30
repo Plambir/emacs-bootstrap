@@ -35,6 +35,8 @@
 
 ;;;; ispell
 ;; from http://www.emacswiki.org/FlySpell
+(defvar-local lang-ring nil)
+
 (let ((langs '("en" "ru")))
   (setq lang-ring (make-ring (length langs)))
   (dolist (elem langs) (ring-insert lang-ring elem)))
