@@ -39,6 +39,7 @@
  '(global-linum-mode t)
  '(global-subword-mode t)
  '(global-undo-tree-mode t)
+ '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
  '(ido-case-fold nil)
  '(ido-everywhere t)
  '(ido-ignore-buffers
