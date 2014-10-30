@@ -34,6 +34,8 @@
     (package-install package)))
 ;; }}}
 
+(byte-recompile-directory "~/.emacs.d")
+
 (add-hook 'after-init-hook (lambda () (load "~/.emacs.d/init")))
 
 ;; auto puts
