@@ -67,7 +67,30 @@
 ;; If you want to create a file, visit that file with C-x C-f,
 ;; then enter the text in that file's own buffer.
 
-;; (C-x z[z]) - repeat
+;; (C-x z[z])          - repeat
+;; (M-TAB)             - auto complete
+;; (C-; SPC)           - ace jump (word)
+;; (C-; y)             - browse kill ring
+;; (C-; u)             - undo tree visualize
+;; (C-; C-s)           - isearch-symbol-at-point
+;; (C-; r)             - regexp builder
+;; (C-; C-c)           - goto last change
+;; (C-; C-/)           - auto complete for filename
+;; (C-; d s)           - save session
+;; (C-; d r)           - read session
+;; (C-; d c)           - clear session
+;; (C-x C-b)           - ibuffer
+;; (C-; f d)           - cycle ispell languages
+;; (C-; f m)           - flyspell mode
+;; (C-; f p)           - flyspell prog mode
+;; (C-; f w)           - ispell word
+;; (C-c +/-)           - increment/decrement
+;; (SHIFT-RET)         - smart open line
+;; (CONTROL-SHIFT-RET) - smart open line above
+;; (C-c C-k)           - copy line
+;; (C-; RET)           - open urxvt
+;; (M-SHIFT-UP)        - move line up
+;; (M-SHIFT-DOWN)      - move line down
 
 ")
  '(ispell-dictionary "en")
