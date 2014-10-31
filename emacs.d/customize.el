@@ -62,6 +62,14 @@
  '(indent-tabs-mode nil)
  '(indicate-empty-lines t)
  '(inhibit-startup-screen t)
+ '(initial-scratch-message
+   ";; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+;; (C-x z[z]) - repeat
+
+")
  '(ispell-dictionary "en")
  '(kept-new-versions 6)
  '(kept-old-versions 2)
