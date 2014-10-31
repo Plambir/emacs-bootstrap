@@ -91,6 +91,8 @@
 ;; (C-; RET)           - open urxvt
 ;; (M-SHIFT-UP)        - move line up
 ;; (M-SHIFT-DOWN)      - move line down
+;; (M-SPACE)           - delete spaces, save only one
+;; (M-^)               - delete identation
 
 ")
  '(ispell-dictionary "en")
