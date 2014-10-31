@@ -10,6 +10,7 @@
                      glsl-mode
                      undo-tree
                      cmake-mode
+                     haskell-mode
                      muse
                      htmlize
                      fic-mode
