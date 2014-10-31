@@ -42,11 +42,8 @@
  '(global-subword-mode t)
  '(global-undo-tree-mode t)
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
- '(ido-case-fold nil)
  '(ido-everywhere t)
- '(ido-ignore-buffers
-   (quote
-    ("\\` " "\\*\\([^s][^c][^r][^a][^t][^c][^h]\\).*\\*")))
+ '(ido-ignore-buffers (quote ("\\` " ido-custom-filter-function)))
  '(ido-mode (quote both) nil (ido))
  '(ido-ubiquitous-command-overrides
    (quote
