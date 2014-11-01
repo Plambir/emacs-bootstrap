@@ -11,8 +11,8 @@
                      undo-tree
                      cmake-mode
                      haskell-mode
-                     muse
                      htmlize
+                     muse
                      fic-mode
                      web-mode
                      php-mode
