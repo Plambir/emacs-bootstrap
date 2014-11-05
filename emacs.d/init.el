@@ -230,7 +230,7 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key [(meta shift up)]  'move-line-up)
 (global-set-key [(meta shift down)]  'move-line-down)
 
-;;;; try load local settings
-(unwind-protect (load "~/.emacs.d/ext.el") nil)
+;;;; load my extension
+(load "~/.emacs.d/ext.el")
 
 (load "~/.emacs.d/customize")
