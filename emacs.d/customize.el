@@ -9,7 +9,7 @@
  '(ac-use-menu-map t)
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/backup/" t))))
  '(backup-by-copying t)
- '(backup-directory-alist (quote (("" . "~/.emacs.d/backup/"))))
+ '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backup/"))))
  '(browse-url-browser-function (quote browse-url-chromium))
  '(c-basic-offset 2)
  '(c-default-style
@@ -23,6 +23,7 @@
      (substatement-open . 0)
      (innamespace . -))))
  '(column-number-mode t)
+ '(create-lockfiles nil)
  '(cua-mode t nil (cua-base))
  '(cua-remap-control-v nil)
  '(cursor-type (quote bar))
