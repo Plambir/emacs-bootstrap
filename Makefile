@@ -14,4 +14,5 @@ install: all
 	cp emacs.d/init.el ~/.emacs.d/
 	cp emacs.d/customize.el ~/.emacs.d/
 	cp emacs.d/ext.el ~/.emacs.d/
+	touch ~/.emacs.d/local.el
 	emacs -l install.el
