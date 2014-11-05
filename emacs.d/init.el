@@ -231,6 +231,6 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key [(meta shift down)]  'move-line-down)
 
 ;;;; try load local settings
-(unwind-protect (load "~/.emacs.d/local.el") nil)
+(unwind-protect (load "~/.emacs.d/ext.el") nil)
 
 (load "~/.emacs.d/customize")
