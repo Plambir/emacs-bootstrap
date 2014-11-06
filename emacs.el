@@ -6,6 +6,7 @@
 (setq package-list '(ace-jump-mode
                      browse-kill-ring
                      auto-complete
+                     yasnippet
                      lua-mode
                      glsl-mode
                      undo-tree
@@ -39,6 +40,10 @@
 ;; }}}
 
 (byte-recompile-directory "~/.emacs.d")
+
+;; Off suspend
+(global-set-key (kbd "C-x C-z") nil)
+(global-set-key (kbd "C-z") nil)
 
 (add-hook 'after-init-hook (lambda () (load "~/.emacs.d/init")))
 
