@@ -9,5 +9,6 @@
 (byte-compile-file-if-need "~/.emacs.d/init.el")
 (byte-compile-file-if-need "~/.emacs.d/customize.el")
 (byte-compile-file-if-need "~/.emacs.d/ext.el")
+(byte-compile-file-if-need "~/.emacs.d/local.el")
 
 (kill-emacs)
