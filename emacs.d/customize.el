@@ -24,8 +24,6 @@
      (innamespace . -))))
  '(column-number-mode t)
  '(create-lockfiles nil)
- '(cua-mode t nil (cua-base))
- '(cua-remap-control-v nil)
  '(cursor-type (quote bar))
  '(custom-file "~/.emacs.d/customize.el")
  '(delete-old-versions t)
@@ -68,32 +66,43 @@
 ;; If you want to create a file, visit that file with C-x C-f,
 ;; then enter the text in that file's own buffer.
 
-;; (C-x z[z])          - repeat
-;; (M-TAB)             - auto complete
-;; (C-; SPC)           - ace jump (word)
-;; (C-; y)             - browse kill ring
-;; (C-; u)             - undo tree visualize
-;; (C-; C-s)           - isearch-symbol-at-point
-;; (C-; r)             - regexp builder
-;; (C-; C-c)           - goto last change
-;; (C-; C-/)           - auto complete for filename
-;; (C-; d s)           - save session
-;; (C-; d r)           - read session
-;; (C-; d c)           - clear session
-;; (C-x C-b)           - ibuffer
-;; (C-; f d)           - cycle ispell languages
-;; (C-; f m)           - flyspell mode
-;; (C-; f p)           - flyspell prog mode
-;; (C-; f w)           - ispell word
-;; (C-c +/-)           - increment/decrement
-;; (SHIFT-RET)         - smart open line
-;; (CONTROL-SHIFT-RET) - smart open line above
-;; (C-c C-k)           - copy line
-;; (C-; RET)           - open urxvt
-;; (M-SHIFT-UP)        - move line up
-;; (M-SHIFT-DOWN)      - move line down
-;; (M-SPACE)           - delete spaces, save only one
-;; (M-^)               - delete identation
+;; C-x z[z]          - repeat
+;; M-TAB             - auto complete
+;; C-; SPC           - ace jump (word)
+;; C-; y             - browse kill ring
+;; C-; u             - undo tree visualize
+;; C-; C-s           - isearch-symbol-at-point
+;; C-; r             - regexp builder
+;; C-; C-c           - goto last change
+;; C-; C-/           - auto complete for filename
+;; C-; d s           - save session
+;; C-; d r           - read session
+;; C-; d c           - clear session
+;; C-x C-b           - ibuffer
+;; C-; f d           - cycle ispell languages
+;; C-; f m           - flyspell mode
+;; C-; f p           - flyspell prog mode
+;; C-; f w           - ispell word
+;; C-c +/-           - increment/decrement
+;; SHIFT-RET         - smart open line
+;; CONTROL-SHIFT-RET - smart open line above
+;; C-c C-k           - copy line
+;; C-; RET           - open urxvt
+;; M-SHIFT-UP        - move line up
+;; M-SHIFT-DOWN      - move line down
+;; M-SPACE           - delete spaces, save only one
+;; M-^               - delete identation
+;; C-x r k           - kill the text of the region-rectangle
+;; C-x r M-w         - save the text of the region-rectangle
+;; C-x r d           - delete the text of the region-rectangle
+;; C-x r y           - yank the last killed rectangle with its upper left corner at point
+;; C-x r o           - insert blank space to fill the space of the region-rectangle
+;; C-x r N           - insert line numbers along the left edge of the region-rectangle
+;; C-x r c           - clear the region-rectangle by replacing all of its contents with spaces
+;; C-x <SPC>         - toggle Rectangle Mark mode
+;; C-x r t           - replace rectangle contents with string on each line
+;; C-x r I           - insert string on each line of the rectengle
+
 
 ")
  '(ispell-dictionary "en")
