@@ -1,4 +1,4 @@
 #name : #include "..."
-#key  : #"
+#key  : #i
 # --
 #include "$1"
