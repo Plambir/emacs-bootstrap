@@ -23,6 +23,7 @@
      (substatement-open . 0)
      (innamespace . -))))
  '(column-number-mode t)
+ '(compilation-scroll-output (quote first-error))
  '(create-lockfiles nil)
  '(cursor-type (quote bar))
  '(custom-file "~/.emacs.d/customize.el")
