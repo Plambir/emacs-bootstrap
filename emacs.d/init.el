@@ -4,6 +4,7 @@
 
 (require 'window-number)
 (require 'tramp)
+(require 'yasnippet)
 
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-; SPC") 'ace-jump-mode)
