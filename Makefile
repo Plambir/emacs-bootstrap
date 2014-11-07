@@ -7,6 +7,7 @@ update:
 	cp ~/.emacs.d/init.el emacs.d/init.el
 	cp ~/.emacs.d/customize.el emacs.d/customize.el
 	cp ~/.emacs.d/ext.el emacs.d/ext.el
+	cp -R ~/.emacs.d/snippets emacs.d/
 
 install: all
 	mkdir -p ~/.emacs.d
@@ -14,5 +15,6 @@ install: all
 	cp emacs.d/init.el ~/.emacs.d/
 	cp emacs.d/customize.el ~/.emacs.d/
 	cp emacs.d/ext.el ~/.emacs.d/
+	cp -R emacs.d/snippets ~/.emacs.d/
 	touch ~/.emacs.d/local.el
 	emacs -l install.el
