@@ -8,7 +8,12 @@
 (setq package-list '(ace-jump-mode
                      2048-game
                      browse-kill-ring
+                     js2-mode
                      auto-complete
+                     ac-math
+                     ac-octave
+                     ac-js2
+                     auctex
                      yasnippet
                      lua-mode
                      glsl-mode
