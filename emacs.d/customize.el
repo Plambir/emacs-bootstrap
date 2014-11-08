@@ -3,8 +3,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(TeX-auto-save t)
+ '(TeX-parse-self t)
  '(ac-dictionary-directories (quote ("~/.emacs.d/dict/")))
  '(ac-dictionary-files (quote ("~/.emacs.d/dict/dict")))
+ '(ac-math-unicode-in-math-p t)
  '(ac-use-fuzzy t)
  '(ac-use-menu-map t)
  '(auto-insert (quote other))
@@ -109,6 +112,9 @@
 
 ")
  '(ispell-dictionary "en")
+ '(js2-include-jslint-globals nil)
+ '(js2-mode-show-parse-errors nil)
+ '(js2-mode-show-strict-warnings nil)
  '(kept-new-versions 6)
  '(kept-old-versions 2)
  '(mouse-yank-at-point t)
