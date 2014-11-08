@@ -16,6 +16,7 @@
                      auctex
                      yasnippet
                      lua-mode
+                     git-commit-mode
                      glsl-mode
                      undo-tree
                      cmake-mode
