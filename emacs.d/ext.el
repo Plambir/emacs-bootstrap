@@ -7,8 +7,6 @@
 ;;;; Auto Insert
 (require 'autoinsert)
 (add-hook 'find-file-hooks 'auto-insert)
-(setq auto-insert 'other)
-(setq auto-insert-query nil)
 (setq auto-insert-alist
 	  '(
 		;; C/C++ Header
