@@ -108,6 +108,12 @@
 ;; C-x <SPC>         - toggle Rectangle Mark mode
 ;; C-x r t           - replace rectangle contents with string on each line
 ;; C-x r I           - insert string on each line of the rectengle
+;; C-x (             - start defining the keyboard macro
+;; C-x )             - stop defining the keyboard macro
+;; C-x e             - execute the keyboard macro
+;; C-x C-k ?         - show help for keyboard macro
+
+;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 
 
 ")
