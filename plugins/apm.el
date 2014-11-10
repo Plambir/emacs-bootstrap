@@ -3,6 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Your Name <yourname@example.com>
+;; Version: 1.0.0
 ;; Maintainer: Someone Else <someone@example.com>
 ;; Created: 14 Jul 2010
 ;; Keywords: project
@@ -59,7 +60,8 @@
 (defun apm-local-find-project (path)
   (let ((path (expand-file-name path))
         (projects apm-projects)
-        (result nil))
+        (result nil)
+        (proj-path ""))
     (while (and (not result) projects)
       (setq proj-path (expand-file-name (apm-project-path (eval (car projects)))))
       (if (string-prefix-p proj-path path)
