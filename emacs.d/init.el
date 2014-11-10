@@ -234,6 +234,6 @@ point reaches the beginning or end of the buffer, stop there."
 (global-set-key [(meta shift down)]  'move-line-down)
 
 ;;;; load my extension
-(load "~/.emacs.d/ext.el")
+(load "~/.emacs.d/ext")
 
 (load "~/.emacs.d/customize")

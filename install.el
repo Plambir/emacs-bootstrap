@@ -1,7 +1,7 @@
 ;; Compile startup scripts
 (byte-recompile-directory "~/.emacs.d")
 
-(package-install-file (concat (file-name-directory (expand-file-name (buffer-file-name))) "plugins/apm.el"))
+(package-install-file "plugins/apm.el")
 
 (defun byte-compile-file-if-need (file)
   (when (file-exists-p file)
