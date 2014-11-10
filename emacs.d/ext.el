@@ -1,6 +1,5 @@
 (defun load-if-exists (file)
-  (when (file-exists-p file)
-    (load file)))
+  (unwind-protect (load "~/.emacs.d/local") nil))
 
 (load-if-exists "~/.emacs.d/local")
 
