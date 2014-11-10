@@ -2,7 +2,7 @@
   (when (file-exists-p file)
     (load file)))
 
-(load-if-exists "~/.emacs.d/local.el")
+(load-if-exists "~/.emacs.d/local")
 
 ;;;; Auto Insert
 (require 'autoinsert)
