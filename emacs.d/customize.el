@@ -40,6 +40,7 @@
  '(electric-pair-mode t)
  '(fill-column 80)
  '(gdb-many-windows t)
+ '(global-apm-minor-mode t)
  '(global-auto-complete-mode t)
  '(global-auto-highlight-symbol-mode t)
  '(global-hl-line-mode t)
