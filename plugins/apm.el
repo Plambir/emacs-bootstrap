@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Your Name <yourname@example.com>
-;; Version: 1.0.5
+;; Version: 1.0.6
 ;; Maintainer: Someone Else <someone@example.com>
 ;; Created: 14 Jul 2010
 ;; Keywords: project
@@ -48,6 +48,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 1.0.6 - Fix up settings
 ;; 1.0.5 - Up settings in find project
 ;; 1.0.4 - Fix apply settings.
 ;; 1.0.3 - Fix compilation
