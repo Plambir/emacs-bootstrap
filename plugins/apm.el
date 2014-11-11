@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Your Name <yourname@example.com>
-;; Version: 1.0.4
+;; Version: 1.0.5
 ;; Maintainer: Someone Else <someone@example.com>
 ;; Created: 14 Jul 2010
 ;; Keywords: project
@@ -48,6 +48,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 1.0.5 - Up settings in find project
 ;; 1.0.4 - Fix apply settings.
 ;; 1.0.3 - Fix compilation
 ;; 1.0.2 - Initializing `apm-projects' via defvar
@@ -128,6 +129,7 @@
   (let ((projects-list (apm-local-get-projects-path)))
     (with-temp-buffer
       (setq default-directory (ido-completing-read "Project: " projects-list))
+      (apm-local-apply-settings)
       (ido-find-file))))
 
 ;;;###autoload
