@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Your Name <yourname@example.com>
-;; Version: 1.0.2
+;; Version: 1.0.3
 ;; Maintainer: Someone Else <someone@example.com>
 ;; Created: 14 Jul 2010
 ;; Keywords: project
@@ -48,6 +48,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 1.0.3 - Fix compilation
 ;; 1.0.2 - Initializing `apm-projects' via defvar
 ;; 1.0.1 - Add example of settings
 ;; 1.0.0 - Initial version
@@ -101,7 +102,7 @@
         command))
     (consp current-prefix-arg)))
   (with-temp-buffer
-    (setq default-directory (apm-local-get-project-dir default-directory))
+    (setq default-directory (concat (apm-local-get-project-dir default-directory) "/"))
     (compile command comint)))
 
 (defun apm-compile-close ()
