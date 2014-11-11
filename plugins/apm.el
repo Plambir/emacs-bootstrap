@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Your Name <yourname@example.com>
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; Maintainer: Someone Else <someone@example.com>
 ;; Created: 14 Jul 2010
 ;; Keywords: project
@@ -16,6 +16,10 @@
 ;; Use `apm-compile' for compile opened project.
 ;; Use `apm-minor-mode' for auto up setting for project files.
 ;; Project files - it's always files from project dir.
+;; For add project use code like this:
+;; (setq apm-projects '((make-apm-project :path "~/path/to/project"
+;;                                        :settings '((setq compile-command "make -k")
+;;                                                    (setq other-settings t)))))
 
 ;;; License:
 ;;
@@ -44,6 +48,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 1.0.1 - Add example of settings
 ;; 1.0.0 - Initial version
 
 ;;; Code:
