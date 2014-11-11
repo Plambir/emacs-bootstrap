@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Your Name <yourname@example.com>
-;; Version: 1.0.6
+;; Version: 1.1.0
 ;; Maintainer: Someone Else <someone@example.com>
 ;; Created: 14 Jul 2010
 ;; Keywords: project
@@ -12,10 +12,9 @@
 ;;; Commentary:
 ;; Simple project manager for setup compile comand and open project directory.
 ;;
-;; Use `apm-find-project' for open project.
+;; Use `apm-find-project' for open project and up settings.
 ;; Use `apm-compile' for compile opened project.
-;; Use `apm-minor-mode' for auto up setting for project files.
-;; Project files - it's always files from project dir.
+;; Use `apm-minor-mode' for keymap settings.
 ;; For add project use code like this:
 ;; (setq apm-projects '((make-apm-project :path "~/path/to/project"
 ;;                                        :settings '((setq compile-command "make -k")
@@ -48,6 +47,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 1.1.0 - Use minor mode only for keymap
 ;; 1.0.6 - Fix up settings
 ;; 1.0.5 - Up settings in find project
 ;; 1.0.4 - Fix apply settings.
@@ -138,11 +138,7 @@
   "APM mode."
   :lighter " APM"
   :keymap apm-mode-map
-  :group apm
-  (if apm-minor-mode
-      (apm-local-apply-settings)
-    nil))
-
+  :group apm)
 
 (define-key apm-mode-map (kbd "C-c c") 'apm-compile)
 (define-key apm-mode-map (kbd "C-c q") 'apm-compile-close)
