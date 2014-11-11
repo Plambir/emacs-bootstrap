@@ -39,6 +39,7 @@
  '(electric-layout-mode nil)
  '(electric-pair-mode t)
  '(fill-column 80)
+ '(flycheck-standard-error-navigation nil)
  '(gdb-many-windows t)
  '(global-apm-minor-mode t)
  '(global-auto-complete-mode t)
