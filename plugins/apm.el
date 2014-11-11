@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Your Name <yourname@example.com>
-;; Version: 1.0.3
+;; Version: 1.0.4
 ;; Maintainer: Someone Else <someone@example.com>
 ;; Created: 14 Jul 2010
 ;; Keywords: project
@@ -48,6 +48,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 1.0.4 - Fix apply settings.
 ;; 1.0.3 - Fix compilation
 ;; 1.0.2 - Initializing `apm-projects' via defvar
 ;; 1.0.1 - Add example of settings
@@ -90,7 +91,7 @@
     (if project
         (let ((settings (apm-project-settings project)))
           (while settings
-            (unwind-protect (eval (car settings)) (setq settings '()))
+            (eval (car settings))
             (setq settings (cdr settings)))))))
 
 (defun apm-compile (command &optional comint)
@@ -123,8 +124,9 @@
 (defun apm-find-project ()
   (interactive)
   (let ((projects-list (apm-local-get-projects-path)))
-    (cd (ido-completing-read "Project: " projects-list))
-    (ido-find-file)))
+    (with-temp-buffer
+      (setq default-directory (ido-completing-read "Project: " projects-list))
+      (ido-find-file))))
 
 ;;;###autoload
 (define-minor-mode apm-minor-mode
@@ -133,8 +135,8 @@
   :keymap apm-mode-map
   :group apm
   (if apm-minor-mode
-      (add-hook 'change-major-mode-hook 'apm-local-apply-settings nil t)
-    (remove-hook 'change-major-mode-hook 'apm-local-apply-settings t)))
+      (apm-local-apply-settings)
+    nil))
 
 
 (define-key apm-mode-map (kbd "C-c c") 'apm-compile)
