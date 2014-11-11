@@ -89,10 +89,12 @@
 (defun apm-local-apply-settings ()
   (let ((project (apm-local-find-project default-directory)))
     (if project
-        (let ((settings (apm-project-settings project)))
-          (while settings
-            (eval (car settings))
-            (setq settings (cdr settings)))))))
+        (with-temp-buffer
+          (setq default-directory (concat (apm-project-path project) "/"))
+          (let ((settings (apm-project-settings project)))
+            (while settings
+              (eval (car settings))
+              (setq settings (cdr settings))))))))
 
 (defun apm-compile (command &optional comint)
   (interactive
