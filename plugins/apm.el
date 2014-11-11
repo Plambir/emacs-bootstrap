@@ -90,7 +90,7 @@
 (defun apm-local-apply-settings ()
   (let ((project (apm-local-find-project default-directory)))
     (if project
-        (with-temp-buffer
+        (progn
           (setq default-directory (concat (apm-project-path project) "/"))
           (let ((settings (apm-project-settings project)))
             (while settings
