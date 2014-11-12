@@ -114,6 +114,7 @@
 ;; C-x )             - stop defining the keyboard macro
 ;; C-x e             - execute the keyboard macro
 ;; C-x C-k ?         - show help for keyboard macro
+;; C-x C-a           - edit auto highlight symbols
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 
