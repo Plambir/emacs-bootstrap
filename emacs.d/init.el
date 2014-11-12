@@ -34,6 +34,8 @@
 
 (define-key global-map (kbd "C-x r I") 'string-insert-rectangle)
 
+(define-key global-map (kbd "C-; C-f") 'ff-find-related-file)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
