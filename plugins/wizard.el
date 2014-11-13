@@ -10,17 +10,19 @@
 
 ;;; Commentary:
 ;; `wizard-move-to-char'      - afoo|bar -> a -> afooba|r
-;; `wizard-move-to-back-char' - afoo|bar -> a -> |afoobar
-;; `wizard-role-to-char'      - afoo|bar -> a -> afoob|ar
-;; `wizard-role-to-back-char' - afoo|bar -> a -> a|foobar
-;; `wizard-repeat-move-or-role' - repeat last move and role command
+;; `wizard-move-back-to-char' - afoo|bar -> a -> |afoobar
+;; `wizard-up-to-char'      - afoo|bar -> a -> afoob|ar
+;; `wizard-up-back-to-char' - afoo|bar -> a -> a|foobar
+;; `wizard-repeat-move-or-up' - repeat last move and up command
 
-;; `wizard-zap-to-char'       - afoo|bar -> a -> afoo|r
-;; `wizard-zap-to-back-char'  - afoo|bar -> a -> |bar
-;; `wizard-zap-inner-pair'    - h(fo|o)h -> ( or ) -> h()h
-;; `wizard-zap-append-pair'   - h(fo|o)h -> ( or ) -> hh
-;; `wizard-zap-inner-tag'     - h<hello>fo|o</hello>h -> hello -> h<hello>|</hello>h
-;; `wizard-zap-append-tag'    - h<hello>fo|o</hello>h -> hello -> hh
+;; `wizard-zap-to-char'         - afoo|bar -> a -> afoo|r
+;; `wizard-zap-back-to-char'    - afoo|bar -> a -> |bar
+;; `wizard-zap-up-to-char'      - afoo|bar -> a -> afoo|ar
+;; `wizard-zap-up-back-to-char' - afoo|bar -> a -> a|bar
+;; `wizard-zap-inner-pair'      - h(fo|o)h -> ( or ) -> h()h
+;; `wizard-zap-append-pair'     - h(fo|o)h -> ( or ) -> hh
+;; `wizard-zap-inner-tag'       - h<hello>fo|o</hello>h -> hello -> h<hello>|</hello>h
+;; `wizard-zap-append-tag'      - h<hello>fo|o</hello>h -> hello -> hh
 
 ;; `wizard-mark-word'         - mark word at point
 ;; `wizard-mark-inner-pair' and `wizard-mark-append-pair' selected text in/with pair
@@ -65,32 +67,53 @@
 
 (defvar-local wizard-last-char nil)
 
+(defun wizard-local-get-char-from-arg (char)
+  (with-no-warnings
+    (if (char-table-p translation-table-for-input)
+        (setq char (or (aref translation-table-for-input char) char))))
+  (setq wizard-last-char char)
+  char)
+
 (defun wizard-move-to-char (arg char)
   (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Move to char: " t)))
-  (with-no-warnings
-    (if (char-table-p translation-table-for-input)
-        (setq char (or (aref translation-table-for-input char) char))))
-  (setq wizard-last-char char)
+  (setq char (wizard-local-get-char-from-arg char))
   (setq wizard-last-command 'wizard-move-to-char)
-  (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) nil arg))
+  (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) t arg))
 
-(defun wizard-move-to-back-char (arg char)
+(defun wizard-move-back-to-char (arg char)
   (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Move back to char: " t)))
-  (with-no-warnings
-    (if (char-table-p translation-table-for-input)
-        (setq char (or (aref translation-table-for-input char) char))))
-  (setq wizard-last-char char)
-  (setq wizard-last-command 'wizard-move-to-back-char)
-  (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) nil arg))
+  (setq char (wizard-local-get-char-from-arg char))
+  (setq wizard-last-command 'wizard-move-back-to-char)
+  (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) t arg))
 
-(defun wizard-repeat-move-or-role (arg)
+(defun wizard-up-to-char (arg char)
+  (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Up to char: " t)))
+  (setq char (wizard-local-get-char-from-arg char))
+  (setq wizard-last-command 'wizard-up-to-char)
+  (if (/= (point) (line-end-position))
+      (progn
+        (forward-char)
+        (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) t arg)
+        (backward-char))))
+
+(defun wizard-up-back-to-char (arg char)
+  (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Up back to char: " t)))
+  (setq char (wizard-local-get-char-from-arg char))
+  (setq wizard-last-command 'wizard-up-back-to-char)
+  (if (/= (point) (line-beginning-position))
+      (progn
+        (backward-char)
+        (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) t arg)
+        (forward-char))))
+
+(defun wizard-repeat-move-or-up (arg)
   (interactive (list (prefix-numeric-value current-prefix-arg)))
   (if (and wizard-last-char wizard-last-command)
       (funcall wizard-last-command arg wizard-last-char)))
 
 (define-key global-map (kbd "C-; C-t") nil)
-(define-key global-map (kbd "C-; C-t") 'wizard-move-to-back-char)
-(define-key global-map (kbd "C-; C-z") 'wizard-repeat-move-or-role)
+(define-key global-map (kbd "C-; C-t") 'wizard-up-back-to-char)
+(define-key global-map (kbd "C-; C-z") 'wizard-repeat-move-or-up)
 
 ;;;###autoload
 (define-minor-mode wizard-minor-mode
