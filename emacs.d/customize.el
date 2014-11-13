@@ -116,6 +116,7 @@
 ;; C-x C-k ?         - show help for keyboard macro
 ;; C-x C-a           - edit auto highlight symbols
 ;; C-; C-f           - find related file (.h <-> .cpp)
+;; C-; C-a           - align regexp
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 
