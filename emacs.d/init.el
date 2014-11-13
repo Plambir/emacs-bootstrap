@@ -34,7 +34,7 @@
 
 (define-key global-map (kbd "C-x r I") 'string-insert-rectangle)
 
-(define-key global-map (kbd "C-; C-f") 'ff-find-related-file)
+(define-key global-map (kbd "C-; C-f") '(lambda () (interactive)(ff-find-related-file nil t)))
 
 (define-key global-map (kbd "C-; C-a") 'align-regexp)
 
