@@ -4,7 +4,7 @@
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
 ;; Version: 1.1.0
-;; Created: 14 Jul 2010
+;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
 
