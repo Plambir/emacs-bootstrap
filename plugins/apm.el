@@ -2,9 +2,8 @@
 
 ;; Copyright (C) 2014 Alexander Prusov
 
-;; Author: Your Name <yourname@example.com>
+;; Author: Alexander Prusov <alexprusov@gmail.com>
 ;; Version: 1.1.0
-;; Maintainer: Someone Else <someone@example.com>
 ;; Created: 14 Jul 2010
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
