@@ -59,3 +59,6 @@
                                               ac-source-math-latex
                                               ac-source-latex-commands)
                                             ac-sources))))
+
+;;;; C/C++
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
