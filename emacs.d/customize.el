@@ -117,6 +117,8 @@
 ;; C-x C-a           - edit auto highlight symbols
 ;; C-; C-f           - find related file (.h <-> .cpp)
 ;; C-; C-a           - align regexp
+;; C-=               - expand region
+;; C-- C-=           - reverse expand region
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 
