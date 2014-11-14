@@ -63,11 +63,11 @@
 
 (defvar-local wizard-last-char nil)
 
-(defun wizard-local-get-char-from-arg (char)
+(defun wizard-local-get-char-from-arg (char &optional no-save-char)
   (with-no-warnings
     (if (char-table-p translation-table-for-input)
         (setq char (or (aref translation-table-for-input char) char))))
-  (setq wizard-last-char char)
+  (if (not no-save-char) (setq wizard-last-char char))
   char)
 
 (defun wizard-move-to-char (arg char)
@@ -107,9 +107,59 @@
   (if (and wizard-last-char wizard-last-command)
       (funcall wizard-last-command arg wizard-last-char)))
 
+(defun wizard-zap-to-char (arg char)
+  (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Move to char: " t)))
+  (setq char (wizard-local-get-char-from-arg char t))
+  (kill-region
+   (point)
+   (progn
+     (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) t arg)
+     (point))))
+
+(defun wizard-zap-back-to-char (arg char)
+  (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Move to char: " t)))
+  (setq char (wizard-local-get-char-from-arg char t))
+  (kill-region
+   (point)
+   (progn
+     (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) t arg)
+     (point))))
+
+(defun wizard-zap-up-to-char (arg char)
+  (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Up to char: " t)))
+  (setq char (wizard-local-get-char-from-arg char))
+  (setq wizard-last-command 'wizard-up-to-char)
+  (if (/= (point) (line-end-position))
+      (progn
+        (kill-region (point)
+                     (progn
+                       (forward-char)
+                       (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) t arg)
+                       (backward-char)
+                       (point))))))
+
+(defun wizard-zap-up-back-to-char (arg char)
+  (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Up back to char: " t)))
+  (setq char (wizard-local-get-char-from-arg char))
+  (setq wizard-last-command 'wizard-up-back-to-char)
+  (if (/= (point) (line-beginning-position))
+      (progn
+        (kill-region (point)
+                     (progn
+                       (backward-char)
+                       (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) t arg)
+                       (forward-char)
+                       (point))))))
+
+;; TODO:
+;; `wizard-zap-inner-pair'      - h(fo|o)h -> ( or ) -> h()h
+;; `wizard-zap-append-pair'     - h(fo|o)h -> ( or ) -> hh
+;; `wizard-zap-inner-tag'       - h<hello>fo|o</hello>h -> hello -> h<hello>|</hello>h
+;; `wizard-zap-append-tag'      - h<hello>fo|o</hello>h -> hello -> hh
+
 ; TODO: Kill in release version
 (define-key global-map (kbd "C-; C-t") nil)
-(define-key global-map (kbd "C-; C-t") 'wizard-move-to-char)
+(define-key global-map (kbd "C-; C-t") 'wizard-zap-inner-pair)
 (define-key global-map (kbd "C-; C-z") 'wizard-repeat-move-or-up)
 
 ;;;###autoload
