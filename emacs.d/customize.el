@@ -80,6 +80,7 @@
  '(global-linum-mode t)
  '(global-subword-mode t)
  '(global-undo-tree-mode t)
+ '(global-wizard-minor-mode t)
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
  '(ido-everywhere t)
  '(ido-ignore-buffers (quote ("\\` " ido-custom-filter-function)))
