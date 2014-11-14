@@ -19,6 +19,7 @@
                      git-commit-mode
                      glsl-mode
                      undo-tree
+                     expand-region
                      cmake-mode
                      haskell-mode
                      htmlize

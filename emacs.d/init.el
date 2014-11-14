@@ -38,6 +38,8 @@
 
 (define-key global-map (kbd "C-; C-a") 'align-regexp)
 
+(define-key global-map (kbd "C-=") 'er/expand-region)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))

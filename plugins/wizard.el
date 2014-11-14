@@ -14,7 +14,7 @@
 ;; `wizard-up-to-char'      - afoo|bar -> a -> afoob|ar
 ;; `wizard-up-back-to-char' - afoo|bar -> a -> a|foobar
 ;; `wizard-repeat-move-or-up' - repeat last move and up command
-
+;;
 ;; `wizard-zap-to-char'         - afoo|bar -> a -> afoo|r
 ;; `wizard-zap-back-to-char'    - afoo|bar -> a -> |bar
 ;; `wizard-zap-up-to-char'      - afoo|bar -> a -> afoo|ar
@@ -23,10 +23,6 @@
 ;; `wizard-zap-append-pair'     - h(fo|o)h -> ( or ) -> hh
 ;; `wizard-zap-inner-tag'       - h<hello>fo|o</hello>h -> hello -> h<hello>|</hello>h
 ;; `wizard-zap-append-tag'      - h<hello>fo|o</hello>h -> hello -> hh
-
-;; `wizard-mark-word'         - mark word at point
-;; `wizard-mark-inner-pair' and `wizard-mark-append-pair' selected text in/with pair
-;; `wizard-mark-inner-tag' and `wizard-mark-append-tag' selected text in/with tag
 
 ;;; License:
 ;;
@@ -111,8 +107,9 @@
   (if (and wizard-last-char wizard-last-command)
       (funcall wizard-last-command arg wizard-last-char)))
 
+; TODO: Kill in release version
 (define-key global-map (kbd "C-; C-t") nil)
-(define-key global-map (kbd "C-; C-t") 'wizard-up-back-to-char)
+(define-key global-map (kbd "C-; C-t") 'wizard-move-to-char)
 (define-key global-map (kbd "C-; C-z") 'wizard-repeat-move-or-up)
 
 ;;;###autoload
