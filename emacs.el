@@ -27,6 +27,7 @@
                      fic-mode
                      web-mode
                      php-mode
+                     wrap-region
                      auto-highlight-symbol
                      org
                      isearch-symbol-at-point

@@ -40,6 +40,9 @@
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
 
+(define-key global-map (kbd "C-; C-l") 'list-matching-lines)
+(define-key global-map (kbd "C-; C-d") 'delete-matching-lines)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))

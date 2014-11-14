@@ -151,6 +151,8 @@
 ;; C-; C-a           - align regexp
 ;; C-=               - expand region
 ;; C-- C-=           - reverse expand region
+;; C-; C-d           - delete matching lines
+;; C-; C-l           - show matching lines
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 
@@ -180,6 +182,7 @@
  '(visible-bell t)
  '(window-number-meta-mode t)
  '(window-number-mode t)
+ '(wrap-region-global-mode t nil (wrap-region))
  '(x-stretch-cursor t)
  '(yas-global-mode t nil (yasnippet))
  '(yas-prompt-functions (quote (yas-ido-prompt yas-no-prompt)))
