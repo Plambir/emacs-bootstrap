@@ -163,7 +163,7 @@
 
 ;;;###autoload
 (define-globalized-minor-mode global-wizard-minor-mode
-  apm-minor-mode
+  wizard-minor-mode
   (lambda ()
     (if (not (minibufferp (current-buffer)))
         (wizard-minor-mode t)
