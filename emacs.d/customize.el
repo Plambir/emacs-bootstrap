@@ -27,6 +27,38 @@
     ((inline-open . 0)
      (substatement-open . 0)
      (innamespace . -))))
+ '(cc-other-file-alist
+   (quote
+    (("\\.cc\\'"
+      (".hh" ".h"))
+     ("\\.hh\\'"
+      (".cc" ".C"))
+     ("\\.c\\'"
+      (".h"))
+     ("\\.m\\'"
+      (".h"))
+     ("\\.h\\'"
+      (".cpp" ".cc" ".C" ".CC" ".cxx" ".c" ".m"))
+     ("\\.C\\'"
+      (".H" ".hh" ".h"))
+     ("\\.H\\'"
+      (".C" ".CC"))
+     ("\\.CC\\'"
+      (".HH" ".H" ".hh" ".h"))
+     ("\\.HH\\'"
+      (".CC"))
+     ("\\.c\\+\\+\\'"
+      (".h++" ".hh" ".h"))
+     ("\\.h\\+\\+\\'"
+      (".c++"))
+     ("\\.cpp\\'"
+      (".h" ".hh" ".hpp"))
+     ("\\.hpp\\'"
+      (".cpp"))
+     ("\\.cxx\\'"
+      (".hxx" ".hh" ".h"))
+     ("\\.hxx\\'"
+      (".cxx")))))
  '(column-number-mode t)
  '(compilation-scroll-output (quote first-error))
  '(create-lockfiles nil)
