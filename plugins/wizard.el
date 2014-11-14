@@ -171,4 +171,4 @@
   :group 'wizard)
 
 (provide 'wizard)
-;;; apm.el ends here
+;;; wizard.el ends here

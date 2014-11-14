@@ -17,5 +17,6 @@ install: all
 	cp emacs.d/ext.el ~/.emacs.d/
 	cp -R emacs.d/snippets ~/.emacs.d/
 	rm -rf ~/.emacs.d/elpa/apm-*
+	rm -rf ~/.emacs.d/elpa/wizard-*
 	touch ~/.emacs.d/local.el
 	emacs -l install.el
