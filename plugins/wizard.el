@@ -5,7 +5,7 @@
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
 ;; Version: 1.0.0
 ;; Created: 13.11.2014
-;; Keywords: project
+;; Keywords: edit vi
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
 
 ;;; Commentary:
@@ -19,10 +19,6 @@
 ;; `wizard-zap-back-to-char'    - afoo|bar -> a -> |bar
 ;; `wizard-zap-up-to-char'      - afoo|bar -> a -> afoo|ar
 ;; `wizard-zap-up-back-to-char' - afoo|bar -> a -> a|bar
-;; `wizard-zap-inner-pair'      - h(fo|o)h -> ( or ) -> h()h
-;; `wizard-zap-append-pair'     - h(fo|o)h -> ( or ) -> hh
-;; `wizard-zap-inner-tag'       - h<hello>fo|o</hello>h -> hello -> h<hello>|</hello>h
-;; `wizard-zap-append-tag'      - h<hello>fo|o</hello>h -> hello -> hh
 
 ;;; License:
 ;;
@@ -130,37 +126,34 @@
   (setq char (wizard-local-get-char-from-arg char))
   (setq wizard-last-command 'wizard-up-to-char)
   (if (/= (point) (line-end-position))
-      (progn
-        (kill-region (point)
-                     (progn
-                       (forward-char)
-                       (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) t arg)
-                       (backward-char)
-                       (point))))))
+      (kill-region (point)
+                   (progn
+                     (forward-char)
+                     (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) t arg)
+                     (backward-char)
+                     (point)))))
 
 (defun wizard-zap-up-back-to-char (arg char)
   (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Up back to char: " t)))
   (setq char (wizard-local-get-char-from-arg char))
   (setq wizard-last-command 'wizard-up-back-to-char)
   (if (/= (point) (line-beginning-position))
-      (progn
-        (kill-region (point)
-                     (progn
-                       (backward-char)
-                       (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) t arg)
-                       (forward-char)
-                       (point))))))
+      (kill-region (point)
+                   (progn
+                     (backward-char)
+                     (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) t arg)
+                     (forward-char)
+                     (point)))))
 
-;; TODO:
-;; `wizard-zap-inner-pair'      - h(fo|o)h -> ( or ) -> h()h
-;; `wizard-zap-append-pair'     - h(fo|o)h -> ( or ) -> hh
-;; `wizard-zap-inner-tag'       - h<hello>fo|o</hello>h -> hello -> h<hello>|</hello>h
-;; `wizard-zap-append-tag'      - h<hello>fo|o</hello>h -> hello -> hh
-
-; TODO: Kill in release version
-(define-key global-map (kbd "C-; C-t") nil)
-(define-key global-map (kbd "C-; C-t") 'wizard-zap-inner-pair)
-(define-key global-map (kbd "C-; C-z") 'wizard-repeat-move-or-up)
+(define-key wizard-mode-map (kbd "C-c f")   'wizard-move-to-char)
+(define-key wizard-mode-map (kbd "C-c F")   'wizard-move-back-to-char)
+(define-key wizard-mode-map (kbd "C-c t")   'wizard-up-to-char)
+(define-key wizard-mode-map (kbd "C-c T")   'wizard-up-back-to-char)
+(define-key wizard-mode-map (kbd "C-c d f") 'wizard-zap-to-char)
+(define-key wizard-mode-map (kbd "C-c d F") 'wizard-zap-back-to-char)
+(define-key wizard-mode-map (kbd "C-c d t") 'wizard-zap-up-to-char)
+(define-key wizard-mode-map (kbd "C-c d T") 'wizard-zap-up-back-to-char)
+(define-key wizard-mode-map (kbd "C-c z")   'wizard-repeat-move-or-up)
 
 ;;;###autoload
 (define-minor-mode wizard-minor-mode
