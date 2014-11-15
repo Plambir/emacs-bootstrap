@@ -10,6 +10,7 @@
  '(ac-math-unicode-in-math-p t)
  '(ac-use-fuzzy t)
  '(ac-use-menu-map t)
+ '(ahs-default-range (quote ahs-range-whole-buffer))
  '(auto-insert (quote other))
  '(auto-insert-query nil)
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/backup/" t))))
@@ -25,7 +26,9 @@
  '(c-offsets-alist
    (quote
     ((inline-open . 0)
+     (statement-case-open . 0)
      (substatement-open . 0)
+     (case-label . +)
      (innamespace . -))))
  '(cc-other-file-alist
    (quote
