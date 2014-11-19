@@ -205,8 +205,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 83 :width normal))))
- '(dropdown-list-face ((t (:inherit default :background "lightgray" :foreground "black"))))
- '(dropdown-list-selection-face ((t (:inherit dropdown-list :foreground "white" :background "blue"))))
+ '(dropdown-list-face ((t (:inherit default :background "lightgray" :foreground "dimgray"))))
+ '(dropdown-list-selection-face ((t (:inherit dropdown-list :foreground "white" :background "steelblue"))))
  '(highlight ((t (:background "lemon chiffon"))))
  '(isearch ((t (:background "peach puff"))))
  '(linum ((t (:inherit (shadow default) :background "gray91"))))
