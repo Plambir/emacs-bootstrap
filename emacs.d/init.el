@@ -1,15 +1,13 @@
 (require 'auto-complete)
 (ac-config-default)
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+(define-key ac-completing-map "\t" nil)
+(define-key ac-completing-map [tab] nil)
 
 (require 'window-number)
 (require 'tramp)
 (require 'yasnippet)
 (require 'dropdown-list)
-
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "C-<return>") 'yas-expand)
 
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-; SPC") 'ace-jump-mode)

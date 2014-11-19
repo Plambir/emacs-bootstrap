@@ -11,7 +11,6 @@
  '(ac-modes
    (quote
     (latex-mode octave-mode emacs-lisp-mode lisp-mode lisp-interaction-mode slime-repl-mode c-mode cc-mode c++-mode go-mode java-mode malabar-mode clojure-mode clojurescript-mode scala-mode scheme-mode ocaml-mode tuareg-mode coq-mode haskell-mode agda-mode agda2-mode perl-mode cperl-mode python-mode ruby-mode lua-mode tcl-mode ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode less-css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode web-mode ts-mode sclang-mode verilog-mode qml-mode js2-mode)))
- '(ac-trigger-key "TAB")
  '(ac-use-fuzzy t)
  '(ac-use-menu-map t)
  '(ahs-default-range (quote ahs-range-whole-buffer))
