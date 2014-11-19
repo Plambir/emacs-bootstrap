@@ -14,6 +14,7 @@
                      ac-octave
                      ac-js2
                      auctex
+                     dropdown-list
                      yasnippet
                      lua-mode
                      git-commit-mode

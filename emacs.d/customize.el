@@ -197,7 +197,7 @@
  '(wrap-region-global-mode t nil (wrap-region))
  '(x-stretch-cursor t)
  '(yas-global-mode t nil (yasnippet))
- '(yas-prompt-functions (quote (yas-ido-prompt yas-no-prompt)))
+ '(yas-prompt-functions (quote (yas-dropdown-prompt yas-ido-prompt yas-no-prompt)))
  '(yas-snippet-dirs (quote ("~/.emacs.d/snippets")) nil (yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -205,6 +205,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 83 :width normal))))
+ '(dropdown-list-face ((t (:inherit default :background "lightgray" :foreground "black"))))
+ '(dropdown-list-selection-face ((t (:inherit dropdown-list :foreground "white" :background "blue"))))
  '(highlight ((t (:background "lemon chiffon"))))
  '(isearch ((t (:background "peach puff"))))
  '(linum ((t (:inherit (shadow default) :background "gray91"))))
