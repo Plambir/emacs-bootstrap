@@ -32,6 +32,7 @@
      (statement-case-open . 0)
      (substatement-open . 0)
      (case-label . +)
+     (arglist-close . 0)
      (innamespace . -))))
  '(cc-other-file-alist
    (quote
