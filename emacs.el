@@ -10,6 +10,7 @@
                      browse-kill-ring
                      js2-mode
                      auto-complete
+                     magit
                      ac-math
                      ac-octave
                      ac-js2
