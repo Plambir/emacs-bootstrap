@@ -34,8 +34,11 @@
   ))
 
 ;;;; java script
-(add-hook 'js2-mode-hook '(lambda () (ac-js2-mode)
-                            (flycheck-mode)))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js2-mode-hook '(lambda ()
+                            (ac-js2-mode)
+                            (flycheck-mode)
+                            (setq tab-width 2)))
 ; (setq ac-js2-external-libraries '("full/path/to/a-library.js"))
 
 ;;;; octave
