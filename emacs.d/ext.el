@@ -41,6 +41,10 @@
                             (setq tab-width 2)))
 ; (setq ac-js2-external-libraries '("full/path/to/a-library.js"))
 
+;;;; php
+(add-hook 'php-mode-hook '(lambda ()
+                            (setq c-basic-offset 2)))
+
 ;;;; octave
 (require 'ac-octave)
 (add-to-list 'ac-modes 'octave-mode)
