@@ -161,10 +161,11 @@
 ;; C-=               - expand region
 ;; C-- C-=           - reverse expand region
 ;; C-; C-d           - delete matching lines
-;; C-; C-l           - show matching lines
+;; C-; C-l           - helm-occur
 ;; C-x TAB           - indent region
 ;; C-; TAB           - imenu
-;; C-; h [gor]       - helm g=helm-do-grep o=helm-occur r=helm-regexp
+;; C-; C-g           - helm-do-grep
+;; C-; C-r           - helm-regexp
 ;; C-; b             - helm mini
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
