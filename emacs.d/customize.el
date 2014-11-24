@@ -175,6 +175,7 @@
  '(kept-new-versions 6)
  '(kept-old-versions 2)
  '(mouse-yank-at-point t)
+ '(popwin:popup-window-height 25)
  '(reb-re-syntax (quote string))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
