@@ -18,6 +18,7 @@
                      dropdown-list
                      yasnippet
                      idomenu
+                     popwin
                      lua-mode
                      git-commit-mode
                      glsl-mode

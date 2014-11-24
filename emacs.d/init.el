@@ -8,6 +8,8 @@
 (require 'tramp)
 (require 'yasnippet)
 (require 'dropdown-list)
+(require 'popwin)
+(popwin-mode t)
 
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-; SPC") 'ace-jump-mode)
