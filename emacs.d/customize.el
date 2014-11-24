@@ -136,7 +136,6 @@
 ;; SHIFT-RET         - smart open line
 ;; CONTROL-SHIFT-RET - smart open line above
 ;; C-c C-k           - copy line
-;; C-; RET           - open urxvt
 ;; M-SHIFT-UP        - move line up
 ;; M-SHIFT-DOWN      - move line down
 ;; M-SPACE           - delete spaces, save only one
