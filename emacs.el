@@ -17,6 +17,7 @@
                      auctex
                      dropdown-list
                      yasnippet
+                     idomenu
                      lua-mode
                      git-commit-mode
                      glsl-mode

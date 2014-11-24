@@ -46,7 +46,7 @@
 (define-key global-map (kbd "C-; C-l") 'list-matching-lines)
 (define-key global-map (kbd "C-; C-d") 'delete-matching-lines)
 
-(define-key global-map (kbd "C-; TAB") 'imenu)
+(define-key global-map (kbd "C-; TAB") 'idomenu)
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
