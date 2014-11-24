@@ -113,10 +113,7 @@
  '(indicate-empty-lines t)
  '(inhibit-startup-screen t)
  '(initial-scratch-message
-   ";; This buffer is for notes you don't want to save, and for Lisp evaluation.
-;; If you want to create a file, visit that file with C-x C-f,
-;; then enter the text in that file's own buffer.
-
+   ";; Bindings:
 ;; C-x z[z]          - repeat
 ;; M-TAB             - auto complete
 ;; C-; SPC           - ace jump (word)
@@ -164,6 +161,8 @@
 ;; C-- C-=           - reverse expand region
 ;; C-; C-d           - delete matching lines
 ;; C-; C-l           - show matching lines
+;; C-x TAB           - indent region
+;; C-; TAB           - imenu
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 
