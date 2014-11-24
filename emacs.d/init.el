@@ -45,13 +45,13 @@
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
 
-(define-key global-map (kbd "C-; C-l") 'list-matching-lines)
+
 (define-key global-map (kbd "C-; C-d") 'delete-matching-lines)
 
 (define-key global-map (kbd "C-; TAB") 'helm-imenu)
-(define-key global-map (kbd "C-; h g") 'helm-do-grep)
-(define-key global-map (kbd "C-; h o") 'helm-occur)
-(define-key global-map (kbd "C-; h r") 'helm-regexp)
+(define-key global-map (kbd "C-; C-g") 'helm-do-grep)
+(define-key global-map (kbd "C-; C-l") 'helm-occur)
+(define-key global-map (kbd "C-; C-r") 'helm-regexp)
 (define-key global-map (kbd "C-; b")   'helm-mini)
 
 (require 'web-mode)
