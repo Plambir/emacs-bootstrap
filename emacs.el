@@ -17,7 +17,7 @@
                      auctex
                      dropdown-list
                      yasnippet
-                     idomenu
+                     helm
                      popwin
                      lua-mode
                      git-commit-mode
