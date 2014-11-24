@@ -118,7 +118,7 @@
 ;; C-x z[z]          - repeat
 ;; M-TAB             - auto complete
 ;; C-; SPC           - ace jump (word)
-;; C-; y             - browse kill ring
+;; C-; y             - helm show kill ring
 ;; C-; u             - undo tree visualize
 ;; C-; C-s           - isearch-symbol-at-point
 ;; C-; r             - regexp builder
@@ -164,8 +164,11 @@
 ;; C-; C-l           - show matching lines
 ;; C-x TAB           - indent region
 ;; C-; TAB           - imenu
+;; C-; h [gor]       - helm g=helm-do-grep o=helm-occur r=helm-regexp
+;; C-; b             - helm mini
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
+;; M-x calculator
 
 
 ")
@@ -177,6 +180,29 @@
  '(kept-old-versions 2)
  '(mouse-yank-at-point t)
  '(popwin:popup-window-height 25)
+ '(popwin:special-display-config
+   (quote
+    (("*Miniedit Help*" :noselect t)
+     (help-mode)
+     (completion-list-mode :noselect t)
+     (compilation-mode :noselect t)
+     (grep-mode :noselect t)
+     (occur-mode :noselect t)
+     ("*Pp Macroexpand Output*" :noselect t)
+     ("*Shell Command Output*")
+     ("*vc-diff*")
+     ("*vc-change-log*")
+     (" *undo-tree*" :width 60 :position right)
+     ("^\\*anything.*\\*$" :regexp t)
+     ("*slime-apropos*")
+     ("*slime-macroexpansion*")
+     ("*slime-description*")
+     ("*slime-compilation*" :noselect t)
+     ("*slime-xref*")
+     (sldb-mode :stick t)
+     (slime-repl-mode)
+     (slime-connection-list-mode)
+     ("^\\*helm.*\\*$" :regexp t :height 0.3))))
  '(reb-re-syntax (quote string))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
@@ -216,6 +242,7 @@
  '(helm-grep-finish ((t (:foreground "dark green"))))
  '(helm-locate-finish ((t (:foreground "dark green"))))
  '(helm-match ((t (:inherit isearch))))
+ '(helm-moccur-buffer ((t (:foreground "DeepSkyBlue4" :underline t))))
  '(helm-selection ((t (:inherit highlight))))
  '(helm-selection-line ((t (:inherit helm-selection))))
  '(helm-source-header ((t (:background "white smoke" :foreground "black" :weight bold :height 1.3 :family "Sans Serif"))))

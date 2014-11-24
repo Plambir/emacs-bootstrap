@@ -49,6 +49,10 @@
 (define-key global-map (kbd "C-; C-d") 'delete-matching-lines)
 
 (define-key global-map (kbd "C-; TAB") 'helm-imenu)
+(define-key global-map (kbd "C-; h g") 'helm-do-grep)
+(define-key global-map (kbd "C-; h o") 'helm-occur)
+(define-key global-map (kbd "C-; h r") 'helm-regexp)
+(define-key global-map (kbd "C-; b")   'helm-mini)
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
