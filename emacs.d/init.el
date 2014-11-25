@@ -17,9 +17,6 @@
 (require 'undo-tree)
 (define-key global-map (kbd "C-; u") 'undo-tree-visualize)
 
-(require 'isearch-symbol-at-point)
-(define-key global-map (kbd "C-; C-s") 'isearch-symbol-at-point)
-
 (define-key global-map (kbd "C-; r") 'regexp-builder)
 
 (require 'goto-last-change)
