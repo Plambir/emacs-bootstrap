@@ -118,7 +118,6 @@
 ;; C-x z[z]          - repeat
 ;; M-TAB             - auto complete
 ;; C-; SPC           - ace jump (word)
-;; C-; y             - helm show kill ring
 ;; C-; u             - undo tree visualize
 ;; C-; C-s           - isearch-symbol-at-point
 ;; C-; r             - regexp builder
@@ -179,6 +178,11 @@
  '(js2-mode-show-strict-warnings nil)
  '(kept-new-versions 6)
  '(kept-old-versions 2)
+ '(mode-line-format
+   (quote
+    ("%n%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position
+     (vc-mode vc-mode)
+     "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)))
  '(mouse-yank-at-point t)
  '(popwin:popup-window-height 25)
  '(popwin:special-display-config
@@ -219,8 +223,6 @@
  '(vc-make-backup-files t)
  '(version-control t)
  '(visible-bell t)
- '(window-number-meta-mode t)
- '(window-number-mode t)
  '(wrap-region-global-mode t nil (wrap-region))
  '(x-stretch-cursor t)
  '(yas-global-mode t nil (yasnippet))
