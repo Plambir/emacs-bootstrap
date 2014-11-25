@@ -166,6 +166,7 @@
 ;; C-; C-r           - helm-regexp
 ;; C-; b             - helm mini
 ;; C-; C-y           - helm show kill ring
+;; C-; C-;           - ace window jump
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 ;; M-x calculator
