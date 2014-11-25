@@ -7,7 +7,6 @@
 ;; {{{
 (setq package-list '(ace-jump-mode
                      2048-game
-                     browse-kill-ring
                      js2-mode
                      auto-complete
                      magit
@@ -38,7 +37,6 @@
                      ido-ubiquitous
                      ido-vertical-mode
                      smex
-                     window-number
                      fuzzy
                      goto-last-change
                      markdown-mode

@@ -4,7 +4,6 @@
 (define-key ac-completing-map "\t" nil)
 (define-key ac-completing-map [tab] nil)
 
-(require 'window-number)
 (require 'tramp)
 (require 'yasnippet)
 (require 'dropdown-list)
@@ -14,9 +13,6 @@
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-; SPC") 'ace-jump-mode)
 (setq ace-jump-word-mode-use-query-char nil)
-
-(require 'browse-kill-ring)
-(define-key global-map (kbd "C-; y") 'browse-kill-ring)
 
 (require 'undo-tree)
 (define-key global-map (kbd "C-; u") 'undo-tree-visualize)
@@ -44,7 +40,6 @@
 (define-key global-map (kbd "C-; C-a") 'align-regexp)
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
-
 
 (define-key global-map (kbd "C-; C-d") 'delete-matching-lines)
 
