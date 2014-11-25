@@ -80,6 +80,8 @@
  '(display-time-mode t)
  '(electric-layout-mode nil)
  '(electric-pair-mode t)
+ '(fic-background-color nil)
+ '(fic-highlighted-words (quote ("FIXME" "TODO" "BUG" "NOTE")))
  '(fill-column 80)
  '(flycheck-standard-error-navigation nil)
  '(gdb-many-windows t)
