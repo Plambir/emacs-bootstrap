@@ -50,6 +50,8 @@
 (define-key global-map (kbd "C-; b")   'helm-mini)
 (define-key global-map (kbd "C-; C-y") 'helm-show-kill-ring)
 
+(define-key global-map (kbd "C-; C-;") 'ace-window)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
