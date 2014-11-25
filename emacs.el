@@ -34,7 +34,6 @@
                      wrap-region
                      auto-highlight-symbol
                      org
-                     isearch-symbol-at-point
                      ido-ubiquitous
                      ido-vertical-mode
                      smex
