@@ -9,11 +9,8 @@
                      ace-window
                      2048-game
                      js2-mode
-                     auto-complete
                      magit
-                     ac-math
-                     ac-octave
-                     ac-js2
+                     company
                      auctex
                      dropdown-list
                      yasnippet

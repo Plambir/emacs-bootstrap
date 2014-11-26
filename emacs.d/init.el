@@ -1,8 +1,5 @@
-(require 'auto-complete)
-(ac-config-default)
-(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-(define-key ac-completing-map "\t" nil)
-(define-key ac-completing-map [tab] nil)
+(require 'company)
+(define-key company-mode-map (kbd "M-TAB") 'company-complete)
 
 (require 'tramp)
 (require 'yasnippet)
@@ -22,7 +19,7 @@
 (require 'goto-last-change)
 (define-key global-map (kbd "C-; C-c") 'goto-last-change)
 
-(define-key global-map (kbd "C-; C-/") 'ac-complete-filename)
+(define-key global-map (kbd "C-; C-/") 'company-files)
 
 (define-key global-map (kbd "C-; d s") '(lambda () (interactive)(desktop-save "~/")))
 (define-key global-map (kbd "C-; d r") 'desktop-read)
