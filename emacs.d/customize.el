@@ -88,6 +88,7 @@
  '(global-apm-minor-mode t)
  '(global-auto-complete-mode t)
  '(global-auto-highlight-symbol-mode t)
+ '(global-company-mode t)
  '(global-hl-line-mode t)
  '(global-linum-mode t)
  '(global-subword-mode t)
