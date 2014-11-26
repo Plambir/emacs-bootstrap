@@ -193,7 +193,7 @@
     (("*Miniedit Help*" :noselect t)
      (help-mode)
      (completion-list-mode :noselect t)
-     (compilation-mode :noselect t)
+     (compilation-mode :noselect t :dedicated t :stick t)
      (grep-mode :noselect t)
      (occur-mode :noselect t)
      ("*Pp Macroexpand Output*" :noselect t)
