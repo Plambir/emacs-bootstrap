@@ -174,6 +174,8 @@
 ;; C-x r b           - jump to bookmark
 ;; C-x r l           - list of bookmarks
 ;; M-r               - reposition point in window (no scroll)
+;; C-M-a             - beginning of defun
+;; C-M-e             - end of defun
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 ;; M-x calculator
