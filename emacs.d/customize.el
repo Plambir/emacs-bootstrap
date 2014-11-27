@@ -70,6 +70,11 @@
      ("\\.hxx\\'"
       (".cxx")))))
  '(column-number-mode t)
+ '(company-backends
+   (quote
+    (company-tern company-bbdb company-nxml company-css company-eclim company-semantic company-clang company-xcode company-ropemacs company-cmake company-capf
+                  (company-dabbrev-code company-gtags company-etags company-keywords)
+                  company-oddmuse company-files company-dabbrev)))
  '(company-idle-delay 0.2)
  '(compilation-scroll-output (quote first-error))
  '(create-lockfiles nil)
@@ -174,6 +179,7 @@
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 ;; M-x calculator
+;; M-x run-skewer
 
 
 ")
