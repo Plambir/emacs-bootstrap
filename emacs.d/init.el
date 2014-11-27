@@ -40,7 +40,7 @@
 (define-key global-map (kbd "C-; TAB") 'helm-imenu)
 (define-key global-map (kbd "C-; C-g") 'helm-do-grep)
 (define-key global-map (kbd "C-; C-l") 'helm-occur)
-(define-key global-map (kbd "C-; C-r") 'helm-regexp)
+(define-key global-map (kbd "C-; C-r") 'helm-register)
 (define-key global-map (kbd "C-; b")   'helm-mini)
 (define-key global-map (kbd "C-; C-y") 'helm-show-kill-ring)
 
