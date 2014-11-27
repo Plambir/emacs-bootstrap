@@ -44,6 +44,12 @@
 (define-key global-map (kbd "C-; b")   'helm-mini)
 (define-key global-map (kbd "C-; C-y") 'helm-show-kill-ring)
 
+(define-key company-mode-map   (kbd "C-:") 'helm-company)
+(define-key company-active-map (kbd "C-:") 'helm-company)
+
+(require 'python)
+(define-key python-mode-map (kbd "C-c C-d") 'helm-pydoc)
+
 (define-key global-map (kbd "C-; C-;") 'ace-window)
 
 (require 'web-mode)
