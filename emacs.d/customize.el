@@ -171,11 +171,17 @@
 ;; C-; C-l           - helm-occur
 ;; C-x TAB           - indent region
 ;; C-; TAB           - imenu
-;; C-; C-g           - helm-do-grep
-;; C-; C-r           - helm-regexp
+;; C-; C-g           - helm do grep
+;; C-; C-r           - helm register
 ;; C-; b             - helm mini
 ;; C-; C-y           - helm show kill ring
 ;; C-; C-;           - ace window jump
+;; C-x r <SPC>       - save position
+;; C-x r j           - jump to position
+;; C-x r m           - save bookmark
+;; C-x r b           - jump to bookmark
+;; C-x r l           - list of bookmarks
+;; M-r               - reposition point in window (no scroll)
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 ;; M-x calculator
