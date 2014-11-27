@@ -242,3 +242,16 @@ point reaches the beginning or end of the buffer, stop there."
 (load "~/.emacs.d/ext")
 
 (load "~/.emacs.d/customize")
+
+(defun fix-mac-os ()
+  (if (string= system-type "darwin")   ; Mac OS X
+      (progn
+        (custom-set-faces
+         '(default ((t (:family "Liberation Mono"
+                        :foundry "unknown"
+                        :slant normal
+                        :weight normal
+                        :height 130
+                        :width normal))))))))
+
+(fix-mac-os)
