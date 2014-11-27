@@ -11,6 +11,8 @@
                      js2-mode
                      magit
                      company
+                     company-tern
+                     skewer-mode
                      auctex
                      dropdown-list
                      yasnippet
