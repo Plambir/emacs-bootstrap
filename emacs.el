@@ -12,6 +12,7 @@
                      magit
                      company
                      company-tern
+                     company-anaconda
                      skewer-mode
                      auctex
                      dropdown-list
