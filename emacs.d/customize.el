@@ -5,7 +5,6 @@
  ;; If there is more than one, they won't work right.
  '(TeX-auto-save t)
  '(TeX-parse-self t)
- '(ahs-default-range (quote ahs-range-whole-buffer))
  '(ahs-modes
    (quote
     (actionscript-mode apache-mode bat-generic-mode c++-mode c-mode csharp-mode css-mode dos-mode emacs-lisp-mode html-mode ini-generic-mode java-mode javascript-mode js-mode lisp-interaction-mode lua-mode latex-mode makefile-mode makefile-gmake-mode markdown-mode moccur-edit-mode nxml-mode nxhtml-mode outline-mode perl-mode cperl-mode php-mode python-mode rc-generic-mode reg-generic-mode ruby-mode sgml-mode sh-mode squirrel-mode text-mode tcl-mode visual-basic-mode js2-mode)))
@@ -64,8 +63,8 @@
  '(column-number-mode t)
  '(company-backends
    (quote
-    (company-anaconda company-tern company-bbdb company-nxml company-css company-eclim company-semantic company-clang company-xcode company-ropemacs company-cmake company-capf
-                      (company-dabbrev-code company-gtags company-etags company-keywords)
+    (company-anaconda company-tern company-bbdb company-nxml company-css company-eclim company-xcode company-ropemacs company-cmake company-capf
+                      (company-dabbrev-code company-gtags company-etags company-keywords company-clang)
                       company-oddmuse company-files company-dabbrev)))
  '(company-idle-delay 0.2)
  '(compilation-scroll-output (quote first-error))
