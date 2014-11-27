@@ -110,6 +110,7 @@
  '(ido-ubiquitous-mode t)
  '(ido-use-faces nil)
  '(ido-vertical-mode t)
+ '(iedit-toggle-key-default (kbd "C-; C-a"))
  '(indent-tabs-mode nil)
  '(indicate-empty-lines t)
  '(inhibit-startup-screen t)

@@ -13,6 +13,7 @@
                      company
                      company-tern
                      company-anaconda
+                     iedit
                      skewer-mode
                      auctex
                      dropdown-list
