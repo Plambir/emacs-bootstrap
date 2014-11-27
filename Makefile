@@ -20,3 +20,8 @@ install: all
 	rm -rf ~/.emacs.d/elpa/wizard-*
 	touch ~/.emacs.d/local.el
 	emacs -l install.el
+
+force_install: rm_old_packages install
+
+rm_old_packages:
+	find ~/.emacs.d/elpa/* -iname "*" -exec echo {} \; | grep -v 'archives' | xargs rm -rf
