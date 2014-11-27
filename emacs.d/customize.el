@@ -70,6 +70,7 @@
      ("\\.hxx\\'"
       (".cxx")))))
  '(column-number-mode t)
+ '(company-idle-delay 0.2)
  '(compilation-scroll-output (quote first-error))
  '(create-lockfiles nil)
  '(cursor-type (quote bar))
