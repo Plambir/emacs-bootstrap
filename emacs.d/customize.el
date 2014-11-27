@@ -176,6 +176,8 @@
 ;; M-r               - reposition point in window (no scroll)
 ;; C-M-a             - beginning of defun
 ;; C-M-e             - end of defun
+;; C-:               - helm company
+;; C-c C-d           - helm pydoc
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 ;; M-x calculator

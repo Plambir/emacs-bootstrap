@@ -19,6 +19,8 @@
                      dropdown-list
                      yasnippet
                      helm
+                     helm-company
+                     helm-pydoc
                      popwin
                      lua-mode
                      git-commit-mode
