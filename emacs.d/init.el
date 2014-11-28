@@ -52,6 +52,8 @@
 
 (define-key global-map (kbd "C-; C-;") 'ace-window)
 
+(define-key global-map (kbd "C-; C-e") 'iedit-mode)
+
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
