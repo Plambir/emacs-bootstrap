@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.0.0
+;; Version: 2.1.0
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -17,8 +17,10 @@
 ;; For add project use code like this:
 ;; (setq apm-projects '((make-apm-project :path "~/path/to/project"
 ;;                                        :open-action '(find-file "TODO.txt")
-;;                                        :local-vars '((nil . ((compile-command . "make -k")
-;;                                                              (other-settings . t)))))))
+;;                                        :global-vars '((setq compile-command "make -k")
+;;                                                       (setq other-settings t))
+;;                                        :local-vars '((nil . ((first-settings . nil)
+;;                                                              (second-settings . t)))))))
 ;; By default open-action is `ido-find-file'
 ;; See how to setup local-vars in documentation for `dir-locals-set-class-variables'
 
@@ -49,6 +51,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.1.0 - Add `global-vars' for change global emacs settings
 ;; 2.0.0 - Use `dir-locals-set-directory-class' for up project settings
 ;; 1.1.0 - Use minor mode only for keymap
 ;; 1.0.6 - Fix up settings
@@ -69,7 +72,7 @@
 (defvar apm-projects '()
   "You projects")
 
-(defstruct apm-project path local-vars open-action)
+(defstruct apm-project path local-vars open-action global-vars)
 
 (defun apm-local-find-project (path)
   (let ((path (expand-file-name path))
@@ -136,7 +139,8 @@
                       (call-interactively open-action))
                   (if ido-mode
                       (ido-find-file)
-                    (call-interactively 'find-file))))))))))
+                    (call-interactively 'find-file))))
+              (apm-local-apply-global-vars)))))))
 
 (defun apm-local-set-local-vars (isset)
   (let ((projects apm-projects))
@@ -162,6 +166,16 @@
                     (setq rm-local-vars (cdr rm-local-vars))))
                 )))))
       (setq projects (cdr projects)))))
+
+(defun apm-local-apply-global-vars ()
+  (let ((project (apm-local-find-project default-directory)))
+    (if project
+        (progn
+          (setq default-directory (concat (apm-project-path project) "/"))
+          (let ((global-vars (apm-project-global-vars project)))
+            (while global-vars
+              (eval (car global-vars))
+              (setq global-vars (cdr global-vars))))))))
 
 ;;;###autoload
 (define-minor-mode apm-minor-mode
