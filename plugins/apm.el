@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 1.1.0
+;; Version: 2.0.0
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -16,8 +16,11 @@
 ;; Use `apm-minor-mode' for keymap settings.
 ;; For add project use code like this:
 ;; (setq apm-projects '((make-apm-project :path "~/path/to/project"
-;;                                        :settings '((setq compile-command "make -k")
-;;                                                    (setq other-settings t)))))
+;;                                        :open-action '(find-file "TODO.txt")
+;;                                        :local-vars '((nil . ((compile-command . "make -k")
+;;                                                              (other-settings . t)))))))
+;; By default open-action is `ido-find-file'
+;; See how to setup local-vars in documentation for `dir-locals-set-class-variables'
 
 ;;; License:
 ;;
@@ -46,6 +49,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.0.0 - Use `dir-locals-set-directory-class' for up project settings
 ;; 1.1.0 - Use minor mode only for keymap
 ;; 1.0.6 - Fix up settings
 ;; 1.0.5 - Up settings in find project
@@ -65,7 +69,7 @@
 (defvar apm-projects '()
   "You projects")
 
-(defstruct apm-project path settings)
+(defstruct apm-project path local-vars open-action)
 
 (defun apm-local-find-project (path)
   (let ((path (expand-file-name path))
@@ -86,16 +90,6 @@
         (if project
             (apm-project-path project)
           path)))
-
-(defun apm-local-apply-settings ()
-  (let ((project (apm-local-find-project default-directory)))
-    (if project
-        (progn
-          (setq default-directory (concat (apm-project-path project) "/"))
-          (let ((settings (apm-project-settings project)))
-            (while settings
-              (eval (car settings))
-              (setq settings (cdr settings))))))))
 
 (defun apm-compile (command &optional comint)
   (interactive
@@ -122,22 +116,62 @@
     (while projects
       (setq path (cons (expand-file-name (apm-project-path (eval (car projects)))) path))
       (setq projects (cdr projects)))
-    path))
+    (nreverse path)))
 
 (defun apm-find-project ()
   (interactive)
   (let ((projects-list (apm-local-get-projects-path)))
     (with-temp-buffer
-      (setq default-directory (ido-completing-read "Project: " projects-list))
-      (apm-local-apply-settings)
-      (ido-find-file))))
+      (setq default-directory
+            (if ido-mode
+                (ido-completing-read "Project: " projects-list)
+                (completing-read "Project: " projects-list)))
+      (let ((project (apm-local-find-project default-directory)))
+        (if project
+            (progn
+              (let ((open-action (apm-project-open-action project)))
+                (if open-action
+                    (if (listp open-action)
+                        (eval open-action)
+                      (call-interactively open-action))
+                  (if ido-mode
+                      (ido-find-file)
+                    (call-interactively 'find-file))))))))))
+
+(defun apm-local-set-local-vars (isset)
+  (let ((projects apm-projects))
+    (while projects
+      (let ((project (eval (car projects))))
+        (let ((project-path (expand-file-name (apm-project-path project)))
+              (local-vars (apm-project-local-vars project)))
+          (let ((dir-var-name (concat "apm-dir-locals-" (replace-regexp-in-string "[^a-zA-Z]" "" project-path) "-variables")))
+            (if (and isset local-vars)
+                (progn
+                  (dir-locals-set-class-variables (intern dir-var-name) local-vars)
+                  (dir-locals-set-directory-class project-path (intern dir-var-name))
+                  (let ((add-local-vars (cdr (car local-vars))))
+                  (while add-local-vars
+                    (setq safe-local-variable-values (cons (car add-local-vars) safe-local-variable-values))
+                    (setq add-local-vars (cdr add-local-vars)))))
+              (progn
+                (dir-locals-set-class-variables (intern dir-var-name) '())
+                (dir-locals-set-directory-class project-path (intern dir-var-name))
+                (let ((rm-local-vars (cdr (car local-vars))))
+                  (while rm-local-vars
+                    (setq safe-local-variable-values (delete (car rm-local-vars) safe-local-variable-values))
+                    (setq rm-local-vars (cdr rm-local-vars))))
+                )))))
+      (setq projects (cdr projects)))))
 
 ;;;###autoload
 (define-minor-mode apm-minor-mode
   "APM mode."
   :lighter " APM"
   :keymap apm-mode-map
-  :group apm)
+  :group apm
+  (if apm-minor-mode
+      (apm-local-set-local-vars t)
+    (apm-local-set-local-vars nil)))
 
 (define-key apm-mode-map (kbd "C-c c") 'apm-compile)
 (define-key apm-mode-map (kbd "C-c q") 'apm-compile-close)
