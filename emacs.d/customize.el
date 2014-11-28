@@ -110,7 +110,7 @@
  '(ido-ubiquitous-mode t)
  '(ido-use-faces nil)
  '(ido-vertical-mode t)
- '(iedit-toggle-key-default (kbd "C-; C-a"))
+ '(iedit-toggle-key-default (kbd "C-; C-e"))
  '(indent-tabs-mode nil)
  '(indicate-empty-lines t)
  '(inhibit-startup-screen t)
@@ -178,6 +178,9 @@
 ;; C-M-e             - end of defun
 ;; C-:               - helm company
 ;; C-c C-d           - helm pydoc
+;; M-\\               - remove all spaces
+;; C-; C-e           - iedit mode
+;; C-'               - in iedit mode is show all edit lines
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 ;; M-x calculator
