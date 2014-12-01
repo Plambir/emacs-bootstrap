@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.1.0
+;; Version: 2.1.1
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -51,6 +51,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.1.1 - Fix apply global vars. Fix multiple apply local vars.
 ;; 2.1.0 - Add `global-vars' for change global emacs settings
 ;; 2.0.0 - Use `dir-locals-set-directory-class' for up project settings
 ;; 1.1.0 - Use minor mode only for keymap
@@ -71,6 +72,8 @@
 
 (defvar apm-projects '()
   "You projects")
+
+(defvar apm-project-local-vars-is-set nil)
 
 (defstruct apm-project path local-vars open-action global-vars)
 
@@ -143,34 +146,36 @@
               (apm-local-apply-global-vars)))))))
 
 (defun apm-local-set-local-vars (isset)
-  (let ((projects apm-projects))
-    (while projects
-      (let ((project (eval (car projects))))
-        (let ((project-path (expand-file-name (apm-project-path project)))
-              (local-vars (apm-project-local-vars project)))
-          (let ((dir-var-name (concat "apm-dir-locals-" (replace-regexp-in-string "[^a-zA-Z]" "" project-path) "-variables")))
-            (if (and isset local-vars)
-                (progn
-                  (dir-locals-set-class-variables (intern dir-var-name) local-vars)
-                  (dir-locals-set-directory-class project-path (intern dir-var-name))
-                  (let ((add-local-vars (cdr (car local-vars))))
-                  (while add-local-vars
-                    (setq safe-local-variable-values (cons (car add-local-vars) safe-local-variable-values))
-                    (setq add-local-vars (cdr add-local-vars)))))
-              (progn
-                (dir-locals-set-class-variables (intern dir-var-name) '())
-                (dir-locals-set-directory-class project-path (intern dir-var-name))
-                (let ((rm-local-vars (cdr (car local-vars))))
-                  (while rm-local-vars
-                    (setq safe-local-variable-values (delete (car rm-local-vars) safe-local-variable-values))
-                    (setq rm-local-vars (cdr rm-local-vars))))
-                )))))
-      (setq projects (cdr projects)))))
+  (if (not (equal apm-project-local-vars-is-set isset))
+      (let ((projects apm-projects))
+        (while projects
+          (let ((project (eval (car projects))))
+            (let ((project-path (expand-file-name (apm-project-path project)))
+                  (local-vars (apm-project-local-vars project)))
+              (let ((dir-var-name (concat "apm-dir-locals-" (replace-regexp-in-string "[^a-zA-Z]" "" project-path) "-variables")))
+                (if (and isset local-vars)
+                    (progn
+                      (dir-locals-set-class-variables (intern dir-var-name) local-vars)
+                      (dir-locals-set-directory-class project-path (intern dir-var-name))
+                      (let ((add-local-vars (cdr (car local-vars))))
+                        (while add-local-vars
+                          (setq safe-local-variable-values (cons (car add-local-vars) safe-local-variable-values))
+                          (setq add-local-vars (cdr add-local-vars)))))
+                  (progn
+                    (dir-locals-set-class-variables (intern dir-var-name) '())
+                    (dir-locals-set-directory-class project-path (intern dir-var-name))
+                    (let ((rm-local-vars (cdr (car local-vars))))
+                      (while rm-local-vars
+                        (setq safe-local-variable-values (delete (car rm-local-vars) safe-local-variable-values))
+                        (setq rm-local-vars (cdr rm-local-vars))))
+                    )))))
+          (setq projects (cdr projects)))
+        (setq apm-project-local-vars-is-set isset))))
 
 (defun apm-local-apply-global-vars ()
   (let ((project (apm-local-find-project default-directory)))
     (if project
-        (progn
+        (with-temp-buffer
           (setq default-directory (concat (apm-project-path project) "/"))
           (let ((global-vars (apm-project-global-vars project)))
             (while global-vars
