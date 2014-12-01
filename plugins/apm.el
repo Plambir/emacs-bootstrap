@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.1.2
+;; Version: 2.2.0
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -51,6 +51,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.2.0 - Add support irony-mode (autoload .clang_complete file from project directory)
 ;; 2.1.2 - Refactoring
 ;; 2.1.1 - Fix apply global vars. Fix multiple apply local vars.
 ;; 2.1.0 - Add `global-vars' for change global emacs settings
@@ -125,6 +126,14 @@
       (setq projects (cdr projects)))
     (nreverse path)))
 
+(defun apm-local-irony-support ()
+  (if (fboundp 'irony-mode)
+      (progn
+        (require 'irony-cdb)
+        (let ((cc-file (concat default-directory "/.clang_complete")))
+          (if (file-exists-p cc-file)
+              (irony-cdb--clang-complete-load-file cc-file))))))
+
 (defun apm-find-project ()
   (interactive)
   (let ((projects-list (apm-local-get-projects-path)))
@@ -136,6 +145,8 @@
       (let ((project (apm-local-find-project default-directory)))
         (if project
             (progn
+              (apm-local-apply-global-vars)
+              (apm-local-irony-support)
               (let ((open-action (apm-project-open-action project)))
                 (if open-action
                     (if (listp open-action)
@@ -143,8 +154,7 @@
                       (call-interactively open-action))
                   (if ido-mode
                       (ido-find-file)
-                    (call-interactively 'find-file))))
-              (apm-local-apply-global-vars)))))))
+                    (call-interactively 'find-file))))))))))
 
 (defun apm-local-change-safe-local-variable-values (local-vars action)
   (let ((vars local-vars))
