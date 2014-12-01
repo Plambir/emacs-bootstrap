@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.1.1
+;; Version: 2.1.2
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -51,6 +51,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.1.2 - Refactoring
 ;; 2.1.1 - Fix apply global vars. Fix multiple apply local vars.
 ;; 2.1.0 - Add `global-vars' for change global emacs settings
 ;; 2.0.0 - Use `dir-locals-set-directory-class' for up project settings
@@ -145,6 +146,17 @@
                     (call-interactively 'find-file))))
               (apm-local-apply-global-vars)))))))
 
+(defun apm-local-change-safe-local-variable-values (local-vars action)
+  (let ((vars local-vars))
+    (while vars
+      (if (stringp (car (car vars)))
+          (apm-local-change-safe-local-variable-values (cdr (car vars)) action)
+        (let ((change-local-vars (cdr (car vars))))
+          (while change-local-vars
+            (setq safe-local-variable-values (funcall action (car change-local-vars) safe-local-variable-values))
+            (setq change-local-vars (cdr change-local-vars)))))
+      (setq vars (cdr vars)))))
+
 (defun apm-local-set-local-vars (isset)
   (if (not (equal apm-project-local-vars-is-set isset))
       (let ((projects apm-projects))
@@ -157,17 +169,11 @@
                     (progn
                       (dir-locals-set-class-variables (intern dir-var-name) local-vars)
                       (dir-locals-set-directory-class project-path (intern dir-var-name))
-                      (let ((add-local-vars (cdr (car local-vars))))
-                        (while add-local-vars
-                          (setq safe-local-variable-values (cons (car add-local-vars) safe-local-variable-values))
-                          (setq add-local-vars (cdr add-local-vars)))))
+                      (apm-local-change-safe-local-variable-values local-vars 'cons))
                   (progn
                     (dir-locals-set-class-variables (intern dir-var-name) '())
                     (dir-locals-set-directory-class project-path (intern dir-var-name))
-                    (let ((rm-local-vars (cdr (car local-vars))))
-                      (while rm-local-vars
-                        (setq safe-local-variable-values (delete (car rm-local-vars) safe-local-variable-values))
-                        (setq rm-local-vars (cdr rm-local-vars))))
+                    (apm-local-change-safe-local-variable-values local-vars 'delete)
                     )))))
           (setq projects (cdr projects)))
         (setq apm-project-local-vars-is-set isset))))
