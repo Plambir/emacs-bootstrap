@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.2.0
+;; Version: 2.2.1
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -51,6 +51,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.2.1 - Refactoring
 ;; 2.2.0 - Add support irony-mode (autoload .clang_complete file from project directory)
 ;; 2.1.2 - Refactoring
 ;; 2.1.1 - Fix apply global vars. Fix multiple apply local vars.
@@ -79,7 +80,7 @@
 
 (defstruct apm-project path local-vars open-action global-vars)
 
-(defun apm-local-find-project (path)
+(defun apm--find-project (path)
   (let ((path (expand-file-name path))
         (projects apm-projects)
         (result nil)
@@ -93,8 +94,8 @@
         nil
       (eval result))))
 
-(defun apm-local-get-project-dir (path)
-  (let ((project (apm-local-find-project path)))
+(defun apm--get-project-dir (path)
+  (let ((project (apm--find-project path)))
         (if project
             (apm-project-path project)
           path)))
@@ -108,7 +109,7 @@
         command))
     (consp current-prefix-arg)))
   (with-temp-buffer
-    (setq default-directory (concat (apm-local-get-project-dir default-directory) "/"))
+    (setq default-directory (concat (apm--get-project-dir default-directory) "/"))
     (compile command comint)))
 
 (defun apm-compile-close ()
@@ -118,7 +119,7 @@
         (delete-windows-on (get-buffer "*compilation*"))
         (kill-buffer "*compilation*"))))
 
-(defun apm-local-get-projects-path ()
+(defun apm--get-projects-path ()
   (let ((path '())
         (projects apm-projects))
     (while projects
@@ -126,7 +127,7 @@
       (setq projects (cdr projects)))
     (nreverse path)))
 
-(defun apm-local-irony-support ()
+(defun apm--irony-support ()
   (if (fboundp 'irony-mode)
       (progn
         (require 'irony-cdb)
@@ -136,17 +137,17 @@
 
 (defun apm-find-project ()
   (interactive)
-  (let ((projects-list (apm-local-get-projects-path)))
+  (let ((projects-list (apm--get-projects-path)))
     (with-temp-buffer
       (setq default-directory
             (if ido-mode
                 (ido-completing-read "Project: " projects-list)
                 (completing-read "Project: " projects-list)))
-      (let ((project (apm-local-find-project default-directory)))
+      (let ((project (apm--find-project default-directory)))
         (if project
             (progn
-              (apm-local-apply-global-vars)
-              (apm-local-irony-support)
+              (apm--apply-global-vars)
+              (apm--irony-support)
               (let ((open-action (apm-project-open-action project)))
                 (if open-action
                     (if (listp open-action)
@@ -156,18 +157,18 @@
                       (ido-find-file)
                     (call-interactively 'find-file))))))))))
 
-(defun apm-local-change-safe-local-variable-values (local-vars action)
+(defun apm--change-safe-local-variable-values (local-vars action)
   (let ((vars local-vars))
     (while vars
       (if (stringp (car (car vars)))
-          (apm-local-change-safe-local-variable-values (cdr (car vars)) action)
+          (apm--change-safe-local-variable-values (cdr (car vars)) action)
         (let ((change-local-vars (cdr (car vars))))
           (while change-local-vars
             (setq safe-local-variable-values (funcall action (car change-local-vars) safe-local-variable-values))
             (setq change-local-vars (cdr change-local-vars)))))
       (setq vars (cdr vars)))))
 
-(defun apm-local-set-local-vars (isset)
+(defun apm--set-local-vars (isset)
   (if (not (equal apm-project-local-vars-is-set isset))
       (let ((projects apm-projects))
         (while projects
@@ -179,17 +180,17 @@
                     (progn
                       (dir-locals-set-class-variables (intern dir-var-name) local-vars)
                       (dir-locals-set-directory-class project-path (intern dir-var-name))
-                      (apm-local-change-safe-local-variable-values local-vars 'cons))
+                      (apm--change-safe-local-variable-values local-vars 'cons))
                   (progn
                     (dir-locals-set-class-variables (intern dir-var-name) '())
                     (dir-locals-set-directory-class project-path (intern dir-var-name))
-                    (apm-local-change-safe-local-variable-values local-vars 'delete)
+                    (apm--change-safe-local-variable-values local-vars 'delete)
                     )))))
           (setq projects (cdr projects)))
         (setq apm-project-local-vars-is-set isset))))
 
-(defun apm-local-apply-global-vars ()
-  (let ((project (apm-local-find-project default-directory)))
+(defun apm--apply-global-vars ()
+  (let ((project (apm--find-project default-directory)))
     (if project
         (with-temp-buffer
           (setq default-directory (concat (apm-project-path project) "/"))
@@ -205,8 +206,8 @@
   :keymap apm-mode-map
   :group apm
   (if apm-minor-mode
-      (apm-local-set-local-vars t)
-    (apm-local-set-local-vars nil)))
+      (apm--set-local-vars t)
+    (apm--set-local-vars nil)))
 
 (define-key apm-mode-map (kbd "C-c c") 'apm-compile)
 (define-key apm-mode-map (kbd "C-c q") 'apm-compile-close)
