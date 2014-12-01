@@ -13,6 +13,8 @@
                      company
                      company-tern
                      company-anaconda
+                     irony
+                     company-irony
                      iedit
                      skewer-mode
                      auctex
