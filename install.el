@@ -14,4 +14,6 @@
 (byte-compile-file-if-need "~/.emacs.d/ext.el")
 (byte-compile-file-if-need "~/.emacs.d/local.el")
 
+(irony-install-server)
+
 (kill-emacs)
