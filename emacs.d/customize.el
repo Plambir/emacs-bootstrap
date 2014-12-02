@@ -250,6 +250,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 83 :width normal))))
+ '(ahs-definition-face ((t (:background "light goldenrod yellow" :foreground "black" :underline t))))
+ '(ahs-face ((t (:background "light goldenrod yellow" :foreground "black"))))
  '(dropdown-list-face ((t (:inherit default :background "lightgray" :foreground "dimgray"))))
  '(dropdown-list-selection-face ((t (:inherit dropdown-list :foreground "white" :background "steelblue"))))
  '(helm-bookmark-file ((t (:foreground "DodgerBlue3"))))
