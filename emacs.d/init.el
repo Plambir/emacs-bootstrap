@@ -19,6 +19,12 @@
 (require 'goto-last-change)
 (define-key global-map (kbd "C-; C-c") 'goto-last-change)
 
+(define-key global-map (kbd "C-; C-s") 'isearch-symbol-at-point)
+
+;; Swap isearch-forward and isearch-regexp
+(define-key global-map (kbd "C-s") 'isearch-forward-regexp)
+(define-key global-map (kbd "C-M-s") 'isearch-forward)
+
 (define-key global-map (kbd "C-; C-/") 'company-files)
 
 (define-key global-map (kbd "C-; d s") '(lambda () (interactive)(desktop-save "~/")))
