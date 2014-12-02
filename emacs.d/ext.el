@@ -36,8 +36,8 @@
 ;;;; java script
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'js2-mode-hook '(lambda ()
-                            (flycheck-mode)
-                            (tern-mode)
+                            (flycheck-mode t)
+                            (tern-mode t)
                             (setq tab-width 2)))
 
 (add-hook 'js2-mode-hook  'skewer-mode)

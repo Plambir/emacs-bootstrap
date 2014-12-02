@@ -9,7 +9,6 @@
                      ace-window
                      2048-game
                      js2-mode
-                     magit
                      company
                      company-tern
                      company-anaconda
