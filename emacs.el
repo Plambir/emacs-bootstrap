@@ -8,6 +8,7 @@
 (setq package-list '(ace-jump-mode
                      ace-window
                      2048-game
+                     smooth-scrolling
                      js2-mode
                      company
                      company-tern
