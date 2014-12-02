@@ -25,6 +25,10 @@
 (define-key global-map (kbd "C-s") 'isearch-forward-regexp)
 (define-key global-map (kbd "C-M-s") 'isearch-forward)
 
+;; Swap query-replace and query-replace-regexp
+(define-key global-map (kbd "M-%") 'query-replace-regexp)
+(define-key global-map (kbd "C-M-%") 'query-replace)
+
 (define-key global-map (kbd "C-; C-/") 'company-files)
 
 (define-key global-map (kbd "C-; d s") '(lambda () (interactive)(desktop-save "~/")))
