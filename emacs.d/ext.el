@@ -95,7 +95,9 @@
 
 (defun c-irony-on ()
   (if (member major-mode '(c++-mode c-mode objc-mode))
-    (irony-mode t)))
+      (progn
+        (irony-mode t)
+        (irony-cdb-autosetup-compile-options))))
 
 (add-hook 'c++-mode-hook 'c-irony-on)
 (add-hook 'c-mode-hook 'c-irony-on)
