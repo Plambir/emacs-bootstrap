@@ -7,6 +7,7 @@
 ;; {{{
 (setq package-list '(ace-jump-mode
                      ace-window
+                     isearch-symbol-at-point
                      2048-game
                      smooth-scrolling
                      js2-mode
