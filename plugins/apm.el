@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.2.1
+;; Version: 2.2.2
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -51,6 +51,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.2.2 - Support new version irony-mode
 ;; 2.2.1 - Refactoring
 ;; 2.2.0 - Add support irony-mode (autoload .clang_complete file from project directory)
 ;; 2.1.2 - Refactoring
@@ -130,10 +131,10 @@
 (defun apm--irony-support ()
   (if (fboundp 'irony-mode)
       (progn
-        (require 'irony-cdb)
+        (require 'irony-cdb-clang-complete)
         (let ((cc-file (concat default-directory "/.clang_complete")))
           (if (file-exists-p cc-file)
-              (irony-cdb--clang-complete-load-file cc-file))))))
+              (irony-cdb-clang-complete--load-db cc-file))))))
 
 (defun apm-find-project ()
   (interactive)
