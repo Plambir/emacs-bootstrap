@@ -93,8 +93,12 @@
 
 (add-hook 'c++-mode-hook 'fix-enum-class)
 
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
+(defun c-irony-on ()
+  (if (member major-mode '(c++-mode c-mode objc-mode))
+    (irony-mode t)))
+
+(add-hook 'c++-mode-hook 'c-irony-on)
+(add-hook 'c-mode-hook 'c-irony-on)
+(add-hook 'objc-mode-hook 'c-irony-on)
 
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
