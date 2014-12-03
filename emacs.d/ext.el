@@ -31,10 +31,28 @@
 		 "# -*- coding: utf-8 -*-\n\n"
 		 _
 		 )
+    ;; tern_project
+    (("\\.tern_project$" . "js2-mode")
+     nil
+"{
+  \"libs\": [
+    \"browser\"
+  ],
+  \"loadEagerly\" : [
+  ],
+  \"plugins\": {
+    \"requirejs\": {
+      \"baseURL\": \"./\",
+      \"paths\": {}
+    }
+  }
+}"
+_)
   ))
 
 ;;;; java script
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.tern_project\\'" . js2-mode))
 (add-hook 'js2-mode-hook '(lambda ()
                             (flycheck-mode t)
                             (tern-mode t)
