@@ -214,7 +214,7 @@ point reaches the beginning or end of the buffer, stop there."
                   (line-end-position))
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
-(define-key global-map (kbd "C-c C-k") 'copy-line)
+(define-key global-map (kbd "C-; C-k") 'copy-line)
 
 ;;;; ido filter function
 (defvar-local ido-show-buffer-regexp "\\*\\(scratch\\|info\\|grep\\|compilation\\)\\*")
