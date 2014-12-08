@@ -122,3 +122,7 @@ _)
 (add-hook 'objc-mode-hook 'c-irony-on)
 
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+
+;;;; reStructureText
+(add-hook 'rst-mode-hook
+          '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)))

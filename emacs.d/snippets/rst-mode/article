@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: article
+# key: article
+# --
+${1:My super title}
+###
+
+:date: ${2:`(format-time-string "%Y-%m-%d %H:%M")`}
+:modified: $2
+:tags: ${3:howto}
+:category: ${4:blog}
+:slug: ${5:title-for-all-langs}
+${6::authors: ???}
+:summary: ${7:Short version for index and feeds}
