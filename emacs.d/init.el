@@ -49,6 +49,9 @@
 
 (define-key global-map (kbd "C-; C-d") 'delete-matching-lines)
 
+(require 'helm)
+(require 'helm-regexp)
+
 (define-key global-map (kbd "C-; TAB") 'helm-imenu)
 (define-key global-map (kbd "C-; C-g") 'helm-do-grep)
 (define-key global-map (kbd "C-; C-l") 'helm-occur)
