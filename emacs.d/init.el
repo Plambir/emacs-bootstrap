@@ -9,6 +9,9 @@
 (require 'popwin)
 (popwin-mode t)
 
+(require 'flyspell)
+(define-key flyspell-mode-map (kbd "C-;") 'nil)
+
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-; SPC") 'ace-jump-mode)
 (setq ace-jump-word-mode-use-query-char nil)
@@ -71,11 +74,9 @@
 
 ;;;; ispell
 ;; from http://www.emacswiki.org/FlySpell
-(defvar-local lang-ring nil)
-
-(let ((langs '("en" "ru")))
-  (setq lang-ring (make-ring (length langs)))
-  (dolist (elem langs) (ring-insert lang-ring elem)))
+(setq langs '("en" "ru"))
+(setq lang-ring (make-ring (length langs)))
+(dolist (elem langs) (ring-insert lang-ring elem))
 
 (defun cycle-ispell-languages ()
   (interactive)

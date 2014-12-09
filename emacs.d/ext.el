@@ -125,4 +125,7 @@ _)
 
 ;;;; reStructureText
 (add-hook 'rst-mode-hook
-          '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)))
+          '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)
+             (auto-fill-mode)
+             (flyspell-mode)))
+
