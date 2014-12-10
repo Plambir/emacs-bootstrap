@@ -6,10 +6,6 @@ ${1:$(make-string (string-width yas-text) ?\=)}
 ${1:My super title}
 ${1:$(make-string (string-width yas-text) ?\=)}
 
-:date: ${2:`(format-time-string "%Y-%m-%d %H:%M")`}
-:tags: ${3:howto}
-:category: ${4:blog}
-:slug: ${5:title-for-all-langs}
-:summary: ${6:Short version for index and feeds}
-
+:slug: ${2:title-for-all-langs}
+${3::tags: ${4:howto}`(insert "\n")`}${5::category: ${6:blog}`(insert "\n")`}
 $0
