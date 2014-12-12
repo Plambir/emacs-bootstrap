@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; Created: 13.11.2014
 ;; Keywords: edit vi
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -47,6 +47,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 1.0.1 - Improve code
 ;; 1.0.0 - Initial version
 
 ;;; Code:
@@ -155,6 +156,11 @@
 (define-key wizard-mode-map (kbd "C-c d T") 'wizard-zap-up-back-to-char)
 (define-key wizard-mode-map (kbd "C-c z")   'wizard-repeat-move-or-up)
 
+(defun wizard-minor-mode-not-for-minibuffer ()
+  (if (not (minibufferp (current-buffer)))
+      (wizard-minor-mode t)
+    nil))
+
 ;;;###autoload
 (define-minor-mode wizard-minor-mode
   "Wizard mode."
@@ -164,10 +170,7 @@
 ;;;###autoload
 (define-globalized-minor-mode global-wizard-minor-mode
   wizard-minor-mode
-  (lambda ()
-    (if (not (minibufferp (current-buffer)))
-        (wizard-minor-mode t)
-      nil))
+  wizard-minor-mode-not-for-minibuffer
   :group 'wizard)
 
 (provide 'wizard)

@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.2.3
+;; Version: 2.2.4
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -51,6 +51,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.2.4 - Improve code
 ;; 2.2.3 - Remove irony autoload .clang_complete
 ;;         (use irony-cdb-autosetup-compile-options in hooks)
 ;; 2.2.2 - Support new version irony-mode
@@ -193,6 +194,11 @@
               (eval (car global-vars))
               (setq global-vars (cdr global-vars))))))))
 
+(defun apm-minor-mode-not-for-minibuffer ()
+  (if (not (minibufferp (current-buffer)))
+      (apm-minor-mode t)
+    nil))
+
 ;;;###autoload
 (define-minor-mode apm-minor-mode
   "APM mode."
@@ -210,10 +216,7 @@
 ;;;###autoload
 (define-globalized-minor-mode global-apm-minor-mode
   apm-minor-mode
-  (lambda ()
-    (if (not (minibufferp (current-buffer)))
-        (apm-minor-mode t)
-      nil))
+  apm-minor-mode-not-for-minibuffer
   :group 'apm)
 
 (provide 'apm)
