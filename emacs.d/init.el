@@ -36,7 +36,7 @@
 
 (define-key global-map (kbd "C-; C-/") 'company-files)
 
-(define-key global-map (kbd "C-; d s") '(lambda () (interactive)(desktop-save "~/")))
+(define-key global-map (kbd "C-; d s") (lambda () (interactive)(desktop-save "~/")))
 (define-key global-map (kbd "C-; d r") 'desktop-read)
 (define-key global-map (kbd "C-; d c") 'desktop-clear)
 
@@ -44,7 +44,7 @@
 
 (define-key global-map (kbd "C-x r I") 'string-insert-rectangle)
 
-(define-key global-map (kbd "C-; C-f") '(lambda () (interactive)(ff-find-related-file nil t)))
+(define-key global-map (kbd "C-; C-f") (lambda () (interactive)(ff-find-related-file nil t)))
 
 (define-key global-map (kbd "C-; C-a") 'align-regexp)
 
