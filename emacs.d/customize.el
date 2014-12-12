@@ -75,6 +75,7 @@
  '(display-battery-mode t)
  '(display-time-24hr-format t)
  '(display-time-mode t)
+ '(echo-keystrokes 0.1)
  '(electric-layout-mode nil)
  '(electric-pair-mode t)
  '(fic-background-color nil)
