@@ -53,10 +53,10 @@ _)
 ;;;; java script
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.tern-project\\'" . js2-mode))
-(add-hook 'js2-mode-hook '(lambda ()
-                            (flycheck-mode t)
-                            (tern-mode t)
-                            (setq tab-width 2)))
+(add-hook 'js2-mode-hook (lambda ()
+                           (flycheck-mode t)
+                           (tern-mode t)
+                           (setq tab-width 2)))
 
 (add-hook 'js2-mode-hook  'skewer-mode)
 (add-hook 'css-mode-hook  'skewer-css-mode)
@@ -66,17 +66,17 @@ _)
 (setq company-tern-meta-as-single-line t)
 
 ;;;; php
-(add-hook 'php-mode-hook '(lambda ()
-                            (setq c-basic-offset 2)))
+(add-hook 'php-mode-hook (lambda ()
+                           (setq c-basic-offset 2)))
 
 ;;;; octave
 (add-to-list 'auto-mode-alist '("\\.m\\'" . octave-mode))
 
 ;;;; LaTeX
-(add-hook 'LaTeX-mode-hook '(lambda ()
-                              (LaTeX-math-mode)
-                              (flyspell-mode)
-                              (visual-line-mode)))
+(add-hook 'LaTeX-mode-hook (lambda ()
+                             (LaTeX-math-mode)
+                             (flyspell-mode)
+                             (visual-line-mode)))
 
 ;;;; C/C++
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
@@ -125,7 +125,7 @@ _)
 
 ;;;; reStructureText
 (add-hook 'rst-mode-hook
-          '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)
-             (auto-fill-mode)
-             (flyspell-mode)))
+          (lambda () (set (make-local-variable 'yas-indent-line) 'fixed)
+            (auto-fill-mode)
+            (flyspell-mode)))
 
