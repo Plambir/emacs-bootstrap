@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.2.4
+;; Version: 2.2.5
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -51,6 +51,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.2.5 - Remove ugly code
 ;; 2.2.4 - Improve code
 ;; 2.2.3 - Remove irony autoload .clang_complete
 ;;         (use irony-cdb-autosetup-compile-options in hooks)
@@ -135,10 +136,7 @@
   (interactive)
   (let ((projects-list (apm--get-projects-path)))
     (with-temp-buffer
-      (setq default-directory
-            (if ido-mode
-                (ido-completing-read "Project: " projects-list)
-              (completing-read "Project: " projects-list)))
+      (setq default-directory (completing-read "Project: " projects-list))
       (let ((project (apm--find-project default-directory)))
         (if project
             (progn
