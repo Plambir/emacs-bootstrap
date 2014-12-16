@@ -20,7 +20,8 @@
 ;;                                        :global-vars '((setq compile-command "make -k")
 ;;                                                       (setq other-settings t))
 ;;                                        :local-vars '((nil . ((first-settings . nil)
-;;                                                              (second-settings . t)))))))
+;;                                                              (second-settings . t))))
+;;                                        :find-args "-name '*.h' -or -name '*.cpp' -or -name 'Makefile' -or -name '*.md'")))
 ;; By default open-action is `ido-find-file'
 ;; See how to setup local-vars in documentation for `dir-locals-set-class-variables'
 
