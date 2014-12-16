@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.2.5
+;; Version: 2.3.0
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -51,6 +51,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.3.0 - Replace find-file if you in project
 ;; 2.2.5 - Remove ugly code
 ;; 2.2.4 - Improve code
 ;; 2.2.3 - Remove irony autoload .clang_complete
@@ -83,7 +84,7 @@
 
 (defvar apm-project-local-vars-is-set nil)
 
-(defstruct apm-project path local-vars open-action global-vars)
+(defstruct apm-project path local-vars open-action global-vars find-args)
 
 (defun apm--find-project (path)
   (let ((path (expand-file-name path))
@@ -185,6 +186,24 @@
           (setq projects (cdr projects)))
         (setq apm-project-local-vars-is-set isset))))
 
+(defun apm--get-project-files ()
+  (let ((project (apm--find-project default-directory)))
+    (when project
+      (with-temp-buffer
+          (setq default-directory (concat (apm-project-path project) "/"))
+          (let ((project-find-args (apm-project-find-args project)))
+            (split-string (shell-command-to-string (concat "find . -not -path '*/.*/*' -not -name '.*' -type f"
+                                                           (if project-find-args project-find-args "")))))))))
+
+(defun apm-find-file-in-project (arg)
+  (interactive "P")
+  (let ((project (apm--find-project default-directory)))
+    (if (and project (not arg))
+        (with-temp-buffer
+          (setq default-directory (concat (apm-project-path project) "/"))
+          (find-file (completing-read "Find file: " (apm--get-project-files))))
+      (call-interactively 'find-file))))
+
 (defun apm--apply-global-vars ()
   (let ((project (apm--find-project default-directory)))
     (if project
@@ -213,6 +232,7 @@
 (define-key apm-mode-map (kbd "C-c c") 'apm-compile)
 (define-key apm-mode-map (kbd "C-c q") 'apm-compile-close)
 (define-key apm-mode-map (kbd "C-c C-f") 'apm-find-project)
+(define-key apm-mode-map (kbd "C-x C-f") 'apm-find-file-in-project)
 
 ;;;###autoload
 (define-globalized-minor-mode global-apm-minor-mode
