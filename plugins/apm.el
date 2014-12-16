@@ -100,9 +100,9 @@
 
 (defun apm--get-project-dir (path)
   (let ((project (apm--find-project path)))
-        (if project
-            (apm-project-path project)
-          path)))
+    (if project
+        (apm-project-path project)
+      path)))
 
 (defun apm-compile (command &optional comint)
   (interactive
@@ -138,7 +138,7 @@
       (setq default-directory
             (if ido-mode
                 (ido-completing-read "Project: " projects-list)
-                (completing-read "Project: " projects-list)))
+              (completing-read "Project: " projects-list)))
       (let ((project (apm--find-project default-directory)))
         (if project
             (progn
