@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.3.0
+;; Version: 2.3.1
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -51,6 +51,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.3.1 - Minor fix
 ;; 2.3.0 - Replace find-file if you in project
 ;; 2.2.5 - Remove ugly code
 ;; 2.2.4 - Improve code
@@ -192,7 +193,7 @@
       (with-temp-buffer
           (setq default-directory (concat (apm-project-path project) "/"))
           (let ((project-find-args (apm-project-find-args project)))
-            (split-string (shell-command-to-string (concat "find . -not -path '*/.*/*' -not -name '.*' -type f"
+            (split-string (shell-command-to-string (concat "find . -not -path '*/.*/*' -not -name '.*' -type f "
                                                            (if project-find-args project-find-args "")))))))))
 
 (defun apm-find-file-in-project (arg)
