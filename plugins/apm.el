@@ -170,7 +170,10 @@
           (let ((project (eval (car projects))))
             (let ((project-path (expand-file-name (apm-project-path project)))
                   (local-vars (apm-project-local-vars project)))
-              (let ((dir-var-name (concat "apm-dir-locals-" (replace-regexp-in-string "[^a-zA-Z]" "" project-path) "-variables")))
+              (let ((dir-var-name (concat
+                                   "apm-dir-locals-"
+                                   (replace-regexp-in-string "[^a-zA-Z]" "" project-path)
+                                   "-variables")))
                 (if (and isset local-vars)
                     (progn
                       (dir-locals-set-class-variables (intern dir-var-name) local-vars)
