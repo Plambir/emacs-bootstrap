@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 1.0.1
+;; Version: 1.0.2
 ;; Created: 13.11.2014
 ;; Keywords: edit vi
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -47,6 +47,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 1.0.2 - Improve code
 ;; 1.0.1 - Improve code
 ;; 1.0.0 - Initial version
 
@@ -62,9 +63,9 @@
 
 (defun wizard-local-get-char-from-arg (char &optional no-save-char)
   (with-no-warnings
-    (if (char-table-p translation-table-for-input)
+    (when (char-table-p translation-table-for-input)
         (setq char (or (aref translation-table-for-input char) char))))
-  (if (not no-save-char) (setq wizard-last-char char))
+  (when (not no-save-char) (setq wizard-last-char char))
   char)
 
 (defun wizard-move-to-char (arg char)
@@ -83,26 +84,24 @@
   (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Up to char: " t)))
   (setq char (wizard-local-get-char-from-arg char))
   (setq wizard-last-command 'wizard-up-to-char)
-  (if (/= (point) (line-end-position))
-      (progn
-        (forward-char)
-        (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) t arg)
-        (backward-char))))
+  (when (/= (point) (line-end-position))
+    (forward-char)
+    (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) t arg)
+    (backward-char)))
 
 (defun wizard-up-back-to-char (arg char)
   (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Up back to char: " t)))
   (setq char (wizard-local-get-char-from-arg char))
   (setq wizard-last-command 'wizard-up-back-to-char)
-  (if (/= (point) (line-beginning-position))
-      (progn
-        (backward-char)
-        (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) t arg)
-        (forward-char))))
+  (when (/= (point) (line-beginning-position))
+    (backward-char)
+    (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) t arg)
+    (forward-char)))
 
 (defun wizard-repeat-move-or-up (arg)
   (interactive (list (prefix-numeric-value current-prefix-arg)))
-  (if (and wizard-last-char wizard-last-command)
-      (funcall wizard-last-command arg wizard-last-char)))
+  (when (and wizard-last-char wizard-last-command)
+    (funcall wizard-last-command arg wizard-last-char)))
 
 (defun wizard-zap-to-char (arg char)
   (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Move to char: " t)))
@@ -126,25 +125,25 @@
   (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Up to char: " t)))
   (setq char (wizard-local-get-char-from-arg char))
   (setq wizard-last-command 'wizard-up-to-char)
-  (if (/= (point) (line-end-position))
-      (kill-region (point)
-                   (progn
-                     (forward-char)
-                     (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) t arg)
-                     (backward-char)
-                     (point)))))
+  (when (/= (point) (line-end-position))
+    (kill-region (point)
+                 (progn
+                   (forward-char)
+                   (search-forward (char-to-string char) (if (>= arg 0) (line-end-position) (line-beginning-position)) t arg)
+                   (backward-char)
+                   (point)))))
 
 (defun wizard-zap-up-back-to-char (arg char)
   (interactive (list (prefix-numeric-value current-prefix-arg) (read-char "Up back to char: " t)))
   (setq char (wizard-local-get-char-from-arg char))
   (setq wizard-last-command 'wizard-up-back-to-char)
-  (if (/= (point) (line-beginning-position))
-      (kill-region (point)
-                   (progn
-                     (backward-char)
-                     (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) t arg)
-                     (forward-char)
-                     (point)))))
+  (when (/= (point) (line-beginning-position))
+    (kill-region (point)
+                 (progn
+                   (backward-char)
+                   (search-backward (char-to-string char) (if (>= arg 0) (line-beginning-position) (line-end-position)) t arg)
+                   (forward-char)
+                   (point)))))
 
 (define-key wizard-mode-map (kbd "C-c f")   'wizard-move-to-char)
 (define-key wizard-mode-map (kbd "C-c F")   'wizard-move-back-to-char)
@@ -157,9 +156,8 @@
 (define-key wizard-mode-map (kbd "C-c z")   'wizard-repeat-move-or-up)
 
 (defun wizard-minor-mode-not-for-minibuffer ()
-  (if (not (minibufferp (current-buffer)))
-      (wizard-minor-mode t)
-    nil))
+  (when (not (minibufferp (current-buffer)))
+    (wizard-minor-mode t)))
 
 ;;;###autoload
 (define-minor-mode wizard-minor-mode
