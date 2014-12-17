@@ -196,7 +196,8 @@
           (setq default-directory (concat (apm-project-path project) "/"))
           (let ((project-find-args (apm-project-find-args project)))
             (split-string (shell-command-to-string (concat "find . -not -path '*/.*/*' -not -name '.*' -type f "
-                                                           (if project-find-args project-find-args "")))))))))
+                                                           (if project-find-args project-find-args "")
+                                                           " -printf '%P\n'"))))))))
 
 (defun apm-find-file-in-project (&optional arg)
   (interactive "P")
