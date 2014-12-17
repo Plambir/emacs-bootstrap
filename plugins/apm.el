@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.3.2
+;; Version: 2.4.0
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -21,7 +21,9 @@
 ;;                                                       (setq other-settings t))
 ;;                                        :local-vars '((nil . ((first-settings . nil)
 ;;                                                              (second-settings . t))))
-;;                                        :find-args "-name '*.h' -or -name '*.cpp' -or -name 'Makefile' -or -name '*.md'")))
+;;                                        :project-files '("*.cpp" "*.h" "Makefile" "README.md")
+;;                                        :ignore-dirs '("*build*" "*bin*" "*assets*")
+;;                                        )))
 ;; By default open-action is `ido-find-file'
 ;; See how to setup local-vars in documentation for `dir-locals-set-class-variables'
 
@@ -52,6 +54,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.4.0 - Add more features for `apm-find-file-in-project'
 ;; 2.3.2 - Improve apm-find-file-in-project
 ;; 2.3.1 - Minor fix
 ;; 2.3.0 - Replace find-file if you in project
@@ -87,7 +90,110 @@
 
 (defvar apm-project-local-vars-is-set nil)
 
-(defstruct apm-project path local-vars open-action global-vars find-args)
+(defvar apm-find-args "-type f -printf '%P\\n'"
+  "Find args for `apm-find-file-in-project'.")
+
+(defcustom apm-replace-find-file t
+  "If non-nil apm mode replace binding `C-x C-f' on `apm-find-file-in-project'
+and bind C-u C-x C-f on default `find-file' function."
+  :type 'boolean
+  :group 'apm)
+
+(defcustom apm-default-ignore-files '(".*"
+                                      "*~"
+                                      "\#*\#"
+                                      "*.elc"
+                                      "*.o"
+                                      "*.ko"
+                                      "*.obj"
+                                      "*.elf"
+                                      "*.gch"
+                                      "*.pch"
+                                      "*.lib"
+                                      "*.a"
+                                      "*.la"
+                                      "*.lo"
+                                      "*.dll"
+                                      "*.so"
+                                      "*.so.*"
+                                      "*.dylib"
+                                      "*.exe"
+                                      "*.out"
+                                      "*.app"
+                                      "*.i*86"
+                                      "*.x86_64"
+                                      "*.slo"
+                                      "*.so"
+                                      "*.mod"
+                                      "*.lai"
+                                      "*.hex"
+                                      "*.py[cod]"
+                                      "*.mo"
+                                      "*.pot"
+                                      "*.log"
+                                      "*.class"
+                                      "*.[jwe]ar"
+                                      "CMakeCache.txt"
+                                      "cmake_install.cmake"
+                                      "install_manifest.txt"
+                                      "*.pro.user"
+                                      "*.pro.user.*"
+                                      "*.qbs.user"
+                                      "*.qbs.user.*"
+                                      "*.moc"
+                                      "moc_*.cpp"
+                                      "qrc_*.cpp"
+                                      "ui_*.h"
+                                      "*.autosave"
+                                      "*.qmlproject.user"
+                                      "*.qmlproject.user.*"
+                                      "*.aux"
+                                      "*.lof"
+                                      "*.log"
+                                      "*.lot"
+                                      "*.fls"
+                                      "*.out"
+                                      "*.toc"
+                                      "*.dvi"
+                                      "*.bbl"
+                                      "*.bcf"
+                                      "*.blg"
+                                      "*-blx.aux"
+                                      "*-blx.bib"
+                                      "*.brf"
+                                      "*.run.xml"
+                                      "*.png"
+                                      "*.jpeg"
+                                      "*.jpg"
+                                      "*.fla"
+                                      "*.swf"
+                                      "*.apk"
+                                      "*.ogg"
+                                      "*.ttf"
+                                      )
+  "Default ignore files for `apm-find-file-in-project'."
+  :type '(repeat (string :tag "File mask:"))
+  :group 'apm)
+
+(defcustom apm-default-ignore-dirs '("*/.*/*"
+                                     "*__pycache__/*"
+                                     "*docs/_build/*"
+                                     "*.xcodeproj/*"
+                                     "*.xcworkspace/*"
+                                     "*CMakeFiles*")
+  "Default ignore directories for `apm-find-file-in-project'."
+  :type '(repeat (string :tag "Path mask:"))
+  :group 'apm)
+
+(defstruct apm-project
+  path             ;; project dir
+  local-vars       ;; like .dir-locals.el
+  open-action      ;; execute lisp code after open project from `apm-find-project'
+  global-vars      ;; apply lisp code after open project from `apm-find-project'
+  ignore-files     ;; local ignore files for `apm-find-file-in-project'
+  ignore-dirs      ;; local ignore dirs for `apm-find-file-in-project'
+  project-files    ;; show only this files in `apm-find-file-in-project'
+  project-dirs)    ;; show only this dirs in `apm-find-file-in-project'
 
 (defun apm--find-project (path)
   (let ((path (expand-file-name path))
@@ -123,10 +229,9 @@
 
 (defun apm-compile-close ()
   (interactive)
-  (if (get-buffer "*compilation*")
-      (progn
-        (delete-windows-on (get-buffer "*compilation*"))
-        (kill-buffer "*compilation*"))))
+  (when (get-buffer "*compilation*")
+    (delete-windows-on (get-buffer "*compilation*"))
+    (kill-buffer "*compilation*")))
 
 (defun apm--get-projects-path ()
   (let ((path '())
@@ -142,17 +247,14 @@
     (with-temp-buffer
       (setq default-directory (completing-read "Project: " projects-list))
       (let ((project (apm--find-project default-directory)))
-        (if project
-            (progn
-              (apm--apply-global-vars)
-              (let ((open-action (apm-project-open-action project)))
-                (if open-action
-                    (if (listp open-action)
-                        (eval open-action)
-                      (call-interactively open-action))
-                  (if ido-mode
-                      (ido-find-file)
-                    (call-interactively 'find-file))))))))))
+        (when project
+          (apm--apply-global-vars)
+          (let ((open-action (apm-project-open-action project)))
+            (if open-action
+                (if (listp open-action)
+                    (eval open-action)
+                  (call-interactively open-action))
+              (call-interactively 'find-file))))))))
 
 (defun apm--change-safe-local-variable-values (local-vars action)
   (let ((vars local-vars))
@@ -181,47 +283,81 @@
                       (dir-locals-set-class-variables (intern dir-var-name) local-vars)
                       (dir-locals-set-directory-class project-path (intern dir-var-name))
                       (apm--change-safe-local-variable-values local-vars 'cons))
-                  (progn
-                    (dir-locals-set-class-variables (intern dir-var-name) '())
-                    (dir-locals-set-directory-class project-path (intern dir-var-name))
-                    (apm--change-safe-local-variable-values local-vars 'delete)
-                    )))))
+                  (dir-locals-set-class-variables (intern dir-var-name) '())
+                  (dir-locals-set-directory-class project-path (intern dir-var-name))
+                  (apm--change-safe-local-variable-values local-vars 'delete)))))
           (setq projects (cdr projects)))
         (setq apm-project-local-vars-is-set isset))))
+
+(defun apm--format-find-flags (name-or-path logic flag-list &optional set-not)
+  (concat (if set-not "-not") " -" name-or-path " '" (car flag-list) "' "
+          (let (flags)
+            (setq flag-list (cdr flag-list))
+            (dolist (element flag-list flags)
+              (setq flags (concat flags (concat "-" logic " " (if set-not "-not") " -" name-or-path " '" element "' ")))))))
+
+(defun apm--ignore-flags (&optional project)
+  (let ((files apm-default-ignore-files)
+        (dirs apm-default-ignore-dirs))
+    (if (or files
+            dirs
+            (and project (apm-project-ignore-files project))
+            (and project (apm-project-ignore-dirs project)))
+        (concat
+         " \\( "
+         (apm--format-find-flags "name" "and" files t)
+         (apm--format-find-flags "path" "and" dirs t)
+         (when project
+           (apm--format-find-flags "name" "and" (apm-project-ignore-files project) t)
+           (apm--format-find-flags "path" "and" (apm-project-ignore-dirs project) t))
+         "\\) ")
+      " ")))
+
+(defun apm--show-flags (&optional project)
+  (if (or (and project (apm-project-project-files project))
+          (and project (apm-project-project-dirs project)))
+      (concat
+       " \\( "
+       (apm--format-find-flags "name" "or" (apm-project-project-files project))
+       (apm--format-find-flags "path" "or" (apm-project-project-dirs project))
+       "\\) ")
+    " "))
 
 (defun apm--get-project-files ()
   (let ((project (apm--find-project default-directory)))
     (when project
       (with-temp-buffer
-          (setq default-directory (concat (apm-project-path project) "/"))
-          (let ((project-find-args (apm-project-find-args project)))
-            (split-string (shell-command-to-string (concat "find . -not -path '*/.*/*' -not -name '.*' -type f "
-                                                           (if project-find-args project-find-args "")
-                                                           " -printf '%P\n'"))))))))
+        (setq default-directory (concat (apm-project-path project) "/"))
+        (split-string (shell-command-to-string (concat "find . "
+                                                       (apm--ignore-flags project)
+                                                       (apm--show-flags project)
+                                                       apm-find-args " "))
+                        "\n" t)))))
 
 (defun apm-find-file-in-project (&optional arg)
   (interactive "P")
-  (let ((project (apm--find-project default-directory)))
-    (if (and project (not arg))
-        (with-temp-buffer
-          (setq default-directory (concat (apm-project-path project) "/"))
-          (find-file (completing-read "Find file: " (apm--get-project-files))))
-      (call-interactively 'find-file))))
+  (if (not apm-replace-find-file)
+      (call-interactively 'find-file)
+    (let ((project (apm--find-project default-directory)))
+      (if (and project (not arg))
+          (with-temp-buffer
+            (setq default-directory (concat (apm-project-path project) "/"))
+            (find-file (completing-read "Find file: " (apm--get-project-files))))
+        (call-interactively 'find-file)))))
 
 (defun apm--apply-global-vars ()
   (let ((project (apm--find-project default-directory)))
-    (if project
-        (with-temp-buffer
-          (setq default-directory (concat (apm-project-path project) "/"))
-          (let ((global-vars (apm-project-global-vars project)))
-            (while global-vars
-              (eval (car global-vars))
-              (setq global-vars (cdr global-vars))))))))
+    (when project
+      (with-temp-buffer
+        (setq default-directory (concat (apm-project-path project) "/"))
+        (let ((global-vars (apm-project-global-vars project)))
+          (while global-vars
+            (eval (car global-vars))
+            (setq global-vars (cdr global-vars))))))))
 
 (defun apm-minor-mode-not-for-minibuffer ()
-  (if (not (minibufferp (current-buffer)))
-      (apm-minor-mode t)
-    nil))
+  (when (not (minibufferp (current-buffer)))
+    (apm-minor-mode t)))
 
 ;;;###autoload
 (define-minor-mode apm-minor-mode
