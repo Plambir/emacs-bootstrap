@@ -45,7 +45,8 @@
                      fuzzy
                      goto-last-change
                      markdown-mode
-                     flycheck))
+                     flycheck
+                     flycheck-irony))
 
 (package-initialize)
 
