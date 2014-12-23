@@ -21,7 +21,9 @@ install: all
 	touch ~/.emacs.d/local.el
 	emacs -l install.el
 
-force_install: rm_old_packages install
+force_install:
+	make rm_old_packages
+	make install
 
 rm_old_packages:
 	find ~/.emacs.d/elpa/* -iname "*" -exec echo {} \; | grep -v 'archives' | xargs rm -rf

@@ -32,8 +32,6 @@
                      expand-region
                      cmake-mode
                      haskell-mode
-                     htmlize
-                     muse
                      fic-mode
                      php-mode
                      wrap-region
