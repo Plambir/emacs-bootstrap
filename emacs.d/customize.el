@@ -195,6 +195,7 @@
 ")
  '(ispell-dictionary "en")
  '(js2-include-jslint-globals nil)
+ '(js2-indent-switch-body t)
  '(js2-mode-show-parse-errors nil)
  '(js2-mode-show-strict-warnings nil)
  '(kept-new-versions 6)
