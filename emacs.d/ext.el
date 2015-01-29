@@ -50,6 +50,9 @@
 _)
   ))
 
+;;;; python
+(add-hook 'python-mode-hook (lambda () (anaconda-mode t)))
+
 ;;;; java script
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.tern-project\\'" . js2-mode))
