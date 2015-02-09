@@ -25,6 +25,7 @@
                      helm-company
                      helm-pydoc
                      popwin
+                     graphviz-dot-mode
                      lua-mode
                      git-commit-mode
                      glsl-mode
