@@ -93,7 +93,7 @@ _)
       (goto-char pos)
       (up-list -1)
       (backward-sexp 1)
-      (looking-back "enum[ \t]+class[ \t]+[^}]+"))))
+      (looking-back "enum[ \t]+class[ \t]+[^}]*"))))
 
 (defun align-enum-class (langelem)
   (if (inside-class-enum-p (c-langelem-pos langelem))
