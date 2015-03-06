@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.4.1
+;; Version: 2.4.2
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -54,6 +54,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.4.2 - Improve `apm-find-project'
 ;; 2.4.1 - Improve `apm-find-file-in-project'
 ;; 2.4.0 - Add more features for `apm-find-file-in-project'
 ;; 2.3.2 - Improve apm-find-file-in-project
@@ -246,7 +247,7 @@ and bind C-u C-x C-f on default `find-file' function."
   (interactive)
   (let ((projects-list (apm--get-projects-path)))
     (with-temp-buffer
-      (setq default-directory (completing-read "Project: " projects-list))
+      (setq default-directory (completing-read "Project: " projects-list nil t nil nil (car projects-list)))
       (let ((project (apm--find-project default-directory)))
         (when project
           (apm--apply-global-vars)
