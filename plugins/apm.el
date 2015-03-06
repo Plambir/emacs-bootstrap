@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.4.0
+;; Version: 2.4.1
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -54,6 +54,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.4.1 - Improve `pam-find-file-in-project'
 ;; 2.4.0 - Add more features for `apm-find-file-in-project'
 ;; 2.3.2 - Improve apm-find-file-in-project
 ;; 2.3.1 - Minor fix
@@ -328,7 +329,9 @@ and bind C-u C-x C-f on default `find-file' function."
     (when project
       (with-temp-buffer
         (setq default-directory (concat (apm-project-path project) "/"))
-        (split-string (shell-command-to-string (concat "find . "
+        (split-string (shell-command-to-string (concat "PATH='" (getenv "PATH")
+                                                       "' "
+                                                       "find . "
                                                        (apm--ignore-flags project)
                                                        (apm--show-flags project)
                                                        apm-find-args " "))
@@ -342,7 +345,7 @@ and bind C-u C-x C-f on default `find-file' function."
       (if (and project (not arg))
           (with-temp-buffer
             (setq default-directory (concat (apm-project-path project) "/"))
-            (find-file (completing-read "Find file: " (apm--get-project-files))))
+            (find-file (completing-read "Find file: " (apm--get-project-files) nil t nil nil (car (apm--get-project-files)))))
         (call-interactively 'find-file)))))
 
 (defun apm--apply-global-vars ()
