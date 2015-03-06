@@ -54,7 +54,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
-;; 2.4.1 - Improve `pam-find-file-in-project'
+;; 2.4.1 - Improve `apm-find-file-in-project'
 ;; 2.4.0 - Add more features for `apm-find-file-in-project'
 ;; 2.3.2 - Improve apm-find-file-in-project
 ;; 2.3.1 - Minor fix
