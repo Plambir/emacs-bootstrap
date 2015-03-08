@@ -186,6 +186,7 @@
 ;; M-\\               - remove all spaces
 ;; C-; C-e           - iedit mode
 ;; C-'               - in iedit mode is show all edit lines
+;; C-c C-o           - open external link in org-mode
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 ;; M-x calculator
