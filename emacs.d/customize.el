@@ -69,6 +69,7 @@
  '(company-idle-delay 0.2)
  '(compilation-scroll-output (quote first-error))
  '(create-lockfiles nil)
+ '(current-language-environment "Russian")
  '(cursor-type (quote bar))
  '(custom-file "~/.emacs.d/customize.el")
  '(delete-old-versions t)
