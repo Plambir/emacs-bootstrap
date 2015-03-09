@@ -72,6 +72,7 @@
  '(current-language-environment "UTF-8")
  '(cursor-type (quote bar))
  '(custom-file "~/.emacs.d/customize.el")
+ '(default-input-method "russian-computer")
  '(delete-old-versions t)
  '(display-battery-mode t)
  '(display-time-24hr-format t)
