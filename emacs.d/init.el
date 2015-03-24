@@ -52,6 +52,8 @@
 
 (define-key global-map (kbd "C-; C-d") 'delete-matching-lines)
 
+(define-key global-map (kbd "C-; C-w") 'whitespace-cleanup)
+
 (require 'helm)
 (require 'helm-regexp)
 
