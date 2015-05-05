@@ -13,8 +13,12 @@
 (define-key flyspell-mode-map (kbd "C-;") 'nil)
 
 (require 'ace-jump-mode)
-(define-key global-map (kbd "C-; SPC") 'ace-jump-mode)
 (setq ace-jump-word-mode-use-query-char nil)
+(setq ace-jump-mode-move-keys '(?a ?s ?d ?e ?f ?g ?h ?j ?k ?l))
+(setq aw-keys '(?a ?s ?d ?e ?f ?g ?h ?j ?k ?l))
+(define-key global-map (kbd "C-; SPC") 'ace-jump-mode)
+(define-key global-map (kbd "C-; c") 'ace-jump-char-mode)
+(define-key global-map (kbd "C-; C-;") 'ace-window)
 
 (require 'undo-tree)
 (define-key global-map (kbd "C-; u") 'undo-tree-visualize)
@@ -69,8 +73,6 @@
 
 (require 'python)
 (define-key python-mode-map (kbd "C-c C-d") 'helm-pydoc)
-
-(define-key global-map (kbd "C-; C-;") 'ace-window)
 
 (define-key global-map (kbd "C-; C-e") 'iedit-mode)
 
