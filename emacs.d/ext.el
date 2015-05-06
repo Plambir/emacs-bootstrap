@@ -51,18 +51,14 @@ _)
   ))
 
 ;;;; python
-(add-hook 'python-mode-hook (lambda () (anaconda-mode t)
-                              (highlight-indentation-current-column-mode t)
-                              (highlight-indentation-mode t)))
+(add-hook 'python-mode-hook (lambda () (anaconda-mode t)))
 
 ;;;; java script
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.tern-project\\'" . js2-mode))
 (add-hook 'js2-mode-hook (lambda ()
                            (flycheck-mode t)
-                           (tern-mode t)
-                           (highlight-indentation-current-column-mode t)
-                           (highlight-indentation-mode t)))
+                           (tern-mode t)))
 
 (add-hook 'js2-mode-hook  'skewer-mode)
 (add-hook 'css-mode-hook  'skewer-css-mode)
@@ -154,8 +150,6 @@ _)
 (add-hook 'c++-mode-hook 'c-irony-on)
 (add-hook 'c-mode-hook 'c-irony-on)
 (add-hook 'objc-mode-hook 'c-irony-on)
-(add-hook 'c-mode-common-hook (lambda () (highlight-indentation-current-column-mode t)
-                                (highlight-indentation-mode t)))
 
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 
@@ -172,7 +166,3 @@ _)
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-
-;;;; elisp
-(add-hook 'emacs-lisp-mode-hook (lambda () (highlight-indentation-current-column-mode t)
-                                  (highlight-indentation-mode t)))
