@@ -7,34 +7,34 @@
 (require 'autoinsert)
 (add-hook 'find-file-hooks 'auto-insert)
 (setq auto-insert-alist
-	  '(
-		;; C/C++ Header
-		((".*\\.\\(h\\|hpp\\)$" . "C/C++ Header")
-		 (upcase
-		  (concat
-		   (file-name-nondirectory
-			(file-name-sans-extension buffer-file-name))
-		   "_"
-		   (file-name-extension buffer-file-name)
-		   "__"))
-		 "#ifndef " str "\n#define " str "\n\n" _ "\n\n#endif /* " str " */"
-		)
-		;; shell
-		((sh-mode . "Shell mode")
-		  nil
-		  "#!/bin/sh\n"
-		  _
-		)
-		;; Python
-		((".*\\.py$" . "Python")
-		 nil
-		 "# -*- coding: utf-8 -*-\n\n"
-		 _
-		 )
-    ;; tern_project
-    (("\\.tern-project$" . "js2-mode")
-     nil
-"{
+      '(
+        ;; C/C++ Header
+        ((".*\\.\\(h\\|hpp\\)$" . "C/C++ Header")
+         (upcase
+          (concat
+           (file-name-nondirectory
+            (file-name-sans-extension buffer-file-name))
+           "_"
+           (file-name-extension buffer-file-name)
+           "__"))
+         "#ifndef " str "\n#define " str "\n\n" _ "\n\n#endif /* " str " */"
+         )
+        ;; shell
+        ((sh-mode . "Shell mode")
+         nil
+         "#!/bin/sh\n"
+         _
+         )
+        ;; Python
+        ((".*\\.py$" . "Python")
+         nil
+         "# -*- coding: utf-8 -*-\n\n"
+         _
+         )
+        ;; tern_project
+        (("\\.tern-project$" . "js2-mode")
+         nil
+         "{
   \"libs\": [
     \"browser\"
   ],
@@ -47,12 +47,11 @@
     }
   }
 }"
-_)
-  ))
+         _)
+        ))
 
 ;;;; python
 (add-hook 'python-mode-hook (lambda () (anaconda-mode t)
-                              (highlight-indentation-current-column-mode t)
                               (highlight-indentation-mode t)))
 
 ;;;; java script
@@ -61,7 +60,6 @@ _)
 (add-hook 'js2-mode-hook (lambda ()
                            (flycheck-mode t)
                            (tern-mode t)
-                           (highlight-indentation-current-column-mode t)
                            (highlight-indentation-mode t)))
 
 (add-hook 'js2-mode-hook  'skewer-mode)
@@ -154,8 +152,7 @@ _)
 (add-hook 'c++-mode-hook 'c-irony-on)
 (add-hook 'c-mode-hook 'c-irony-on)
 (add-hook 'objc-mode-hook 'c-irony-on)
-(add-hook 'c-mode-common-hook (lambda () (highlight-indentation-current-column-mode t)
-                                (highlight-indentation-mode t)))
+(add-hook 'c-mode-common-hook (lambda () (highlight-indentation-mode t)))
 
 (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
 
@@ -174,5 +171,4 @@ _)
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 ;;;; elisp
-(add-hook 'emacs-lisp-mode-hook (lambda () (highlight-indentation-current-column-mode t)
-                                  (highlight-indentation-mode t)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (highlight-indentation-mode t)))
