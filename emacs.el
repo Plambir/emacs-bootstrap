@@ -24,6 +24,7 @@
                      helm
                      helm-company
                      helm-pydoc
+                     highlight-indentation
                      popwin
                      graphviz-dot-mode
                      lua-mode
