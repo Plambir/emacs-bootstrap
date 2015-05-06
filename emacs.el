@@ -1,4 +1,4 @@
-(setq-default yas-snippet-dirs nil)
+(setq-default yas-snippet-dirs (quote ("~/.emacs.d/snippets")))
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
