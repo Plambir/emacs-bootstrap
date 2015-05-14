@@ -14,8 +14,8 @@
 
 (require 'ace-jump-mode)
 (setq ace-jump-word-mode-use-query-char nil)
-(setq ace-jump-mode-move-keys '(?a ?s ?d ?e ?f ?g ?h ?j ?k ?l))
-(setq aw-keys '(?a ?s ?d ?e ?f ?g ?h ?j ?k ?l))
+(setq ace-jump-mode-move-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 (define-key global-map (kbd "C-; SPC") 'ace-jump-mode)
 (define-key global-map (kbd "C-; c") 'ace-jump-char-mode)
 (define-key global-map (kbd "C-; C-;") 'ace-window)
