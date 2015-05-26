@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.4.2
+;; Version: 2.5.0
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -33,7 +33,7 @@
 ;;
 ;; The MIT License (MIT)
 ;;
-;; Copyright (c) 2014 Alexander Prusov
+;; Copyright (c) 2014-2015 Alexander Prusov
 ;;
 ;; Permission is hereby granted, free of charge, to any person obtaining a copy
 ;; of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.5.0 - Remove `apm-replace-find-file'. Use `C-u C-x C-f' for `apm-find-file-in-project'.
 ;; 2.4.2 - Improve `apm-find-project'
 ;; 2.4.1 - Improve `apm-find-file-in-project'
 ;; 2.4.0 - Add more features for `apm-find-file-in-project'
@@ -94,12 +95,6 @@
 
 (defvar apm-find-args "-type f -printf '%P\\n'"
   "Find args for `apm-find-file-in-project'.")
-
-(defcustom apm-replace-find-file t
-  "If non-nil apm mode replace binding `C-x C-f' on `apm-find-file-in-project'
-and bind C-u C-x C-f on default `find-file' function."
-  :type 'boolean
-  :group 'apm)
 
 (defcustom apm-default-ignore-files '(".*"
                                       "*~"
@@ -340,14 +335,12 @@ and bind C-u C-x C-f on default `find-file' function."
 
 (defun apm-find-file-in-project (&optional arg)
   (interactive "P")
-  (if (not apm-replace-find-file)
-      (call-interactively 'find-file)
     (let ((project (apm--find-project default-directory)))
       (if (and project (not arg))
           (with-temp-buffer
             (setq default-directory (concat (apm-project-path project) "/"))
             (find-file (completing-read "Find file: " (apm--get-project-files) nil t nil nil (car (apm--get-project-files)))))
-        (call-interactively 'find-file)))))
+        (call-interactively 'find-file))))
 
 (defun apm--apply-global-vars ()
   (let ((project (apm--find-project default-directory)))
@@ -376,7 +369,7 @@ and bind C-u C-x C-f on default `find-file' function."
 (define-key apm-mode-map (kbd "C-c c") 'apm-compile)
 (define-key apm-mode-map (kbd "C-c q") 'apm-compile-close)
 (define-key apm-mode-map (kbd "C-c C-f") 'apm-find-project)
-(define-key apm-mode-map (kbd "C-x C-f") 'apm-find-file-in-project)
+(define-key apm-mode-map (kbd "C-u C-x C-f") 'apm-find-file-in-project)
 
 ;;;###autoload
 (define-globalized-minor-mode global-apm-minor-mode
