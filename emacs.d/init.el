@@ -6,6 +6,12 @@
 ;; cycle through amounts of spacing (http://pragmaticemacs.com/emacs/cycle-spacing/)
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
 
+;; http://emacswiki.org/emacs/InteractivelyDoThings#toc23
+(defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
+  (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+  (define-key ido-completion-map (kbd "C-p") 'ido-prev-match))
+(add-hook 'ido-setup-hook 'ido-define-keys)
+
 (require 'tramp)
 (require 'yasnippet)
 (require 'dropdown-list)
