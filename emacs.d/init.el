@@ -22,12 +22,13 @@
 (define-key flyspell-mode-map (kbd "C-;") 'nil)
 
 (require 'ace-jump-mode)
+(require 'avy)
 (setq local-ace-jump-keys '(?a ?s ?d ?f ?j ?k ?l))
 (setq ace-jump-word-mode-use-query-char nil)
 (setq ace-jump-mode-move-keys local-ace-jump-keys)
 (setq aw-keys local-ace-jump-keys)
-(define-key global-map (kbd "C-; SPC") 'ace-jump-mode)
-(define-key global-map (kbd "C-; c") 'ace-jump-char-mode)
+(define-key global-map (kbd "C-; SPC") 'avy-goto-word-or-subword-1)
+(define-key global-map (kbd "C-; c") 'avy-goto-char)
 (define-key global-map (kbd "C-; C-;") 'ace-window)
 
 (require 'undo-tree)
