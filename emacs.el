@@ -5,7 +5,8 @@
 
 ;; from http://stackoverflow.com/questions/10092322/how-to-automatically-install-emacs-packages-by-specifying-a-list-of-package-name (Nicolas Dudebout)
 ;; {{{
-(setq package-list '(ace-jump-mode
+(setq package-list '(avy
+                     ace-jump-mode
                      ace-window
                      isearch-symbol-at-point
                      2048-game
