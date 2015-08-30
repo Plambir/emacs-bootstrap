@@ -190,6 +190,7 @@
 ;; C-'               - in iedit mode is show all edit lines
 ;; C-c C-o           - open external link in org-mode
 ;; M-^               - join line
+;; C-x C-o           - delete black lines
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 ;; M-x calculator
