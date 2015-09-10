@@ -15,7 +15,6 @@
                      company
                      company-tern
                      company-anaconda
-                     coffee-mode
                      irony
                      company-irony
                      iedit
