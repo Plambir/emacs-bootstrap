@@ -28,7 +28,7 @@
                      popwin
                      graphviz-dot-mode
                      lua-mode
-                     git-commit-mode
+                     git-commit
                      glsl-mode
                      undo-tree
                      expand-region
