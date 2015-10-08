@@ -1,3 +1,5 @@
+(require 'git-commit)
+
 (require 'company)
 (define-key company-mode-map (kbd "M-TAB") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
