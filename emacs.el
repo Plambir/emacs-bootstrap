@@ -25,6 +25,7 @@
                      helm
                      helm-company
                      helm-pydoc
+                     diff-hl
                      popwin
                      graphviz-dot-mode
                      lua-mode
