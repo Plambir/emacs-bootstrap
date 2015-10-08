@@ -74,7 +74,7 @@
  '(custom-file "~/.emacs.d/customize.el")
  '(default-input-method "russian-computer")
  '(delete-old-versions t)
- '(diff-hl-draw-borders nil)
+ '(diff-hl-draw-borders t)
  '(display-battery-mode t)
  '(display-time-24hr-format t)
  '(display-time-mode t)
