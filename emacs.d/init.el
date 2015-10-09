@@ -29,7 +29,8 @@
 (setq ace-jump-word-mode-use-query-char nil)
 (setq ace-jump-mode-move-keys local-ace-jump-keys)
 (setq aw-keys local-ace-jump-keys)
-(define-key global-map (kbd "C-; SPC") 'avy-goto-word-or-subword-1)
+(define-key global-map (kbd "C-; SPC") 'avy-goto-char-timer)
+(define-key global-map (kbd "C-; w") 'avy-goto-word-or-subword-1)
 (define-key global-map (kbd "C-; c") 'avy-goto-char)
 (define-key global-map (kbd "C-; C-;") 'ace-window)
 
