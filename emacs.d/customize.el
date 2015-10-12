@@ -75,6 +75,8 @@
  '(default-input-method "russian-computer")
  '(delete-old-versions t)
  '(diff-hl-draw-borders t)
+ '(diff-hl-flydiff-delay 0.3)
+ '(diff-hl-flydiff-mode t)
  '(display-battery-mode t)
  '(display-time-24hr-format t)
  '(display-time-mode t)
