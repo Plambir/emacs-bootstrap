@@ -8,6 +8,7 @@
 (setq package-list '(avy
                      ace-jump-mode
                      ace-window
+                     corral
                      isearch-symbol-at-point
                      2048-game
                      smooth-scrolling
