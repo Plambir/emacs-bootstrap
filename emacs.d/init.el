@@ -29,7 +29,7 @@
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
 (global-set-key (kbd "C-<return>") 'rectangle-mark-mode)
-(global-set-key (kbd "C-; C-m") 'mc/edit-lines)
+(global-set-key (kbd "C-; C-m") 'mc/rect-rectangle-to-multiple-cursors)
 
 (require 'corral)
 (global-set-key (kbd "M-9") 'corral-parentheses-backward)

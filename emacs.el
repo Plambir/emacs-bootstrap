@@ -10,6 +10,7 @@
                      ace-window
                      corral
                      multiple-cursors
+                     mc-extras
                      2048-game
                      smooth-scrolling
                      js2-mode
