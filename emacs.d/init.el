@@ -24,8 +24,6 @@
 (define-key flyspell-mode-map (kbd "C-;") 'nil)
 
 (require 'swiper)
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "C-r") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
@@ -59,10 +57,6 @@
 (define-key global-map (kbd "C-; C-c") 'goto-last-change)
 
 (define-key global-map (kbd "C-; C-s") 'isearch-symbol-at-point)
-
-;; Swap isearch-forward and isearch-regexp
-(define-key global-map (kbd "C-s") 'isearch-forward-regexp)
-(define-key global-map (kbd "C-M-s") 'isearch-forward)
 
 ;; Swap query-replace and query-replace-regexp
 (define-key global-map (kbd "M-%") 'query-replace-regexp)
