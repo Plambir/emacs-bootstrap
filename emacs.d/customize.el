@@ -195,6 +195,8 @@
 ;; C-c C-o           - open external link in org-mode
 ;; M-^               - join line
 ;; C-x C-o           - delete black lines
+;; C-; C-m           - multiple cursor in each line in the region
+;; C-<return>        - rectangle-mark-mode
 
 ;; In swiper:
 ;;   C-'             - avy jump
