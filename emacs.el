@@ -9,7 +9,7 @@
                      ace-jump-mode
                      ace-window
                      corral
-                     isearch-symbol-at-point
+                     multiple-cursors
                      2048-game
                      smooth-scrolling
                      js2-mode

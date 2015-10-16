@@ -28,6 +28,9 @@
 (global-set-key (kbd "C-r") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
+(global-set-key (kbd "C-<return>") 'rectangle-mark-mode)
+(global-set-key (kbd "C-; C-m") 'mc/edit-lines)
+
 (require 'corral)
 (global-set-key (kbd "M-9") 'corral-parentheses-backward)
 (global-set-key (kbd "M-0") 'corral-parentheses-forward)

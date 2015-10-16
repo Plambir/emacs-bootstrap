@@ -196,6 +196,10 @@
 ;; M-^               - join line
 ;; C-x C-o           - delete black lines
 
+;; In swiper:
+;;   C-'             - avy jump
+;;   C-7             - multiple-cursors
+
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 ;; M-x calculator
 ;; M-x run-skewer
