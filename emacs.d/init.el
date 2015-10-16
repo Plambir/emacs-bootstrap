@@ -59,8 +59,6 @@
 (require 'goto-last-change)
 (define-key global-map (kbd "C-; C-c") 'goto-last-change)
 
-(define-key global-map (kbd "C-; C-s") 'isearch-symbol-at-point)
-
 ;; Swap query-replace and query-replace-regexp
 (define-key global-map (kbd "M-%") 'query-replace-regexp)
 (define-key global-map (kbd "C-M-%") 'query-replace)
