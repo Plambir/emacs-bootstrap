@@ -215,6 +215,7 @@
  '(js2-mode-show-strict-warnings nil)
  '(kept-new-versions 6)
  '(kept-old-versions 2)
+ '(mc/edit-lines-empty-lines (quote ignore))
  '(mode-line-format
    (quote
     ("%n%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position
