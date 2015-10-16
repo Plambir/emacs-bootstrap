@@ -23,6 +23,13 @@
 (require 'flyspell)
 (define-key flyspell-mode-map (kbd "C-;") 'nil)
 
+(require 'swiper)
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-r") 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+
 (require 'corral)
 (global-set-key (kbd "M-9") 'corral-parentheses-backward)
 (global-set-key (kbd "M-0") 'corral-parentheses-forward)
