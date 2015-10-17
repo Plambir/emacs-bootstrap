@@ -296,6 +296,6 @@
  '(mode-line ((t (:background "grey90" :foreground "grey20"))))
  '(mode-line-highlight ((t (:background "gray75"))))
  '(mode-line-inactive ((t (:inherit mode-line :background "grey90" :foreground "grey40" :weight light))))
- '(show-paren-match ((t (:background "khaki"))))
+ '(show-paren-match ((t (:background "gray96"))))
  '(show-paren-mismatch ((t (:background "tomato" :foreground "white"))))
  '(trailing-whitespace ((t (:background "RosyBrown1")))))
