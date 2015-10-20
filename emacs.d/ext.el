@@ -174,3 +174,15 @@ _)
   (recenter)
   )
 (advice-add 'swiper :after #'bjm-swiper-recenter)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; toggle between most recent buffers                                     ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; http://www.emacswiki.org/emacs/SwitchingBuffers#toc5
+(defun switch-to-previous-buffer ()
+  "Switch to most recent buffer. Repeated calls toggle back and forth between the most recent two buffers."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) 1)))
+
+;; set key binding
+(global-set-key (kbd "C-`") 'switch-to-previous-buffer)
