@@ -30,6 +30,7 @@
 
 (global-set-key (kbd "C-<return>") 'rectangle-mark-mode)
 (global-set-key (kbd "C-; C-m") 'mc/rect-rectangle-to-multiple-cursors)
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 (require 'corral)
 (global-set-key (kbd "M-9") 'corral-parentheses-backward)
