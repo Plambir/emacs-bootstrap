@@ -102,7 +102,12 @@
  '(global-subword-mode t)
  '(global-undo-tree-mode t)
  '(global-wizard-minor-mode t)
+ '(helm-always-two-windows t)
+ '(helm-autoresize-mode t)
  '(helm-follow-mode-persistent t)
+ '(helm-full-frame nil)
+ '(helm-move-to-line-cycle-in-source t)
+ '(helm-split-window-in-side-p t)
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
  '(ido-everywhere t)
  '(ido-ignore-buffers (quote ("\\` " ido-custom-filter-function)))
@@ -197,6 +202,9 @@
 ;; C-x C-o           - delete black lines
 ;; C-; C-m           - multiple cursor in each line in the region
 ;; C-<return>        - rectangle-mark-mode
+
+;; In helm:
+;;   C-j             - jump to current line
 
 ;; In swiper:
 ;;   C-'             - avy jump
