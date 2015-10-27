@@ -17,6 +17,8 @@
                      company
                      company-tern
                      company-anaconda
+                     rainbow-mode
+                     hl-line+
                      irony
                      company-irony
                      iedit

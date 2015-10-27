@@ -1,5 +1,10 @@
 (require 'git-commit)
 
+(require 'hl-line+)
+(hl-line-toggle-when-idle 1)
+(hl-line-when-idle-interval 3)
+(global-hl-line-mode 1)
+
 (require 'company)
 (define-key company-mode-map (kbd "M-TAB") 'company-complete)
 (define-key company-active-map (kbd "C-n") 'company-select-next)
