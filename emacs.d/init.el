@@ -21,7 +21,6 @@
 
 (require 'tramp)
 (require 'yasnippet)
-(require 'dropdown-list)
 (require 'popwin)
 (popwin-mode t)
 
