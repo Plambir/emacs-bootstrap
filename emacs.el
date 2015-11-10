@@ -19,6 +19,7 @@
                      company-anaconda
                      rainbow-mode
                      hl-line+
+                     hydra
                      irony
                      company-irony
                      iedit

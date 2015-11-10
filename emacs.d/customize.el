@@ -258,7 +258,7 @@
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(show-paren-style (quote expression))
- '(show-trailing-whitespace t)
+ '(show-trailing-whitespace nil)
  '(size-indication-mode t)
  '(standard-indent 2)
  '(tab-width 2)
