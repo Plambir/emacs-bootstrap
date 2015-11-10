@@ -188,3 +188,11 @@ _)
 
 ;; set key binding
 (global-set-key (kbd "C-`") 'switch-to-previous-buffer)
+
+;;;; On show-trailing-whitespace only for programming mode
+(defun on-show-trailing-whitespace ()
+  "Set show-trailing-whitespace in true"
+  (interactive)
+  (setq show-trailing-whitespace t))
+
+(add-hook 'prog-mode-hook 'on-show-trailing-whitespace)
