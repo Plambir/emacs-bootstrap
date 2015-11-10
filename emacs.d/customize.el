@@ -272,7 +272,7 @@
  '(wrap-region-global-mode t nil (wrap-region))
  '(x-stretch-cursor t)
  '(yas-global-mode t nil (yasnippet))
- '(yas-prompt-functions (quote (yas-dropdown-prompt yas-ido-prompt yas-no-prompt)))
+ '(yas-prompt-functions (quote (yas-ido-prompt yas-no-prompt)))
  '(yas-snippet-dirs (quote ("~/.emacs.d/snippets")) nil (yasnippet)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

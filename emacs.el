@@ -25,7 +25,6 @@
                      iedit
                      skewer-mode
                      auctex
-                     dropdown-list
                      yasnippet
                      helm
                      helm-company
