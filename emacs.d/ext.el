@@ -197,39 +197,6 @@ _)
 
 (add-hook 'prog-mode-hook 'on-show-trailing-whitespace)
 
-;;;; Hydra
-(require 'hydra)
-(define-key global-map (kbd "C-'")
-  (defhydra hydra-wizard ()
-    ">"
-    ("l" forward-char)
-    ("h" backward-char)
-    ("j" next-line)
-    ("k" previous-line)
-
-    ("w" forward-word)
-    ("b" backward-word)
-
-    ("B" ido-switch-buffer "Switch Buffer")
-    ("L" recenter-top-bottom "Recenter")
-
-    ("v" scroll-up-command "Scroll Up")
-    ("V" scroll-down-command "Scroll Down")
-
-    ("i" helm-imenu "IMenu")
-    ("<SPC>" avy-goto-char-timer "Avy Goto Char")
-    ("g" avy-goto-line "Avy Goto Line")
-
-    ("W" ace-window "Switch Window")
-
-    ("a" move-beginning-of-line "Begin")
-    ("e" move-end-of-line "End")
-
-    ("m" (mc/create-fake-cursor-at-point) "Set Fake Cursor")
-    ("M" (mc/maybe-multiple-cursors-mode) "Multiple cursors" :exit t)
-
-    ("q" nil "quit")))
-
 ;;;; GLSL
 (add-to-list 'auto-mode-alist '("\\.fsh\\'" . glsl-mode))
 (add-to-list 'auto-mode-alist '("\\.vsh\\'" . glsl-mode))
