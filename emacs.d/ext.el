@@ -198,7 +198,7 @@ _)
 (add-hook 'prog-mode-hook 'on-show-trailing-whitespace)
 
 ;;;; Hydra
-
+(require 'hydra)
 (define-key global-map (kbd "C-'")
   (defhydra hydra-wizard ()
     ">"
