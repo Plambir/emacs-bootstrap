@@ -131,90 +131,104 @@
  '(inhibit-startup-screen t)
  '(initial-scratch-message
    ";; Bindings:
-;; C-x z[z]          - repeat
-;; M-TAB             - auto complete
-;; C-; SPC           - ace jump (word)
-;; C-; u             - undo tree visualize
-;; C-; C-s           - isearch-symbol-at-point
-;; C-; r             - regexp builder
-;; C-; C-c           - goto last change
-;; C-; C-/           - auto complete for filename
-;; C-; d s           - save session
-;; C-; d r           - read session
-;; C-; d c           - clear session
-;; C-x C-b           - ibuffer
-;; C-; f d           - cycle ispell languages
-;; C-; f m           - flyspell mode
-;; C-; f p           - flyspell prog mode
-;; C-; f w           - ispell word
-;; C-c +/-           - increment/decrement
-;; SHIFT-RET         - smart open line
-;; CONTROL-SHIFT-RET - smart open line above
-;; C-c C-k           - copy line
-;; M-SHIFT-UP        - move line up
-;; M-SHIFT-DOWN      - move line down
-;; M-SPACE           - delete spaces, save only one
-;; M-^               - delete identation
-;; C-x r k           - kill the text of the region-rectangle
-;; C-x r M-w         - save the text of the region-rectangle
-;; C-x r d           - delete the text of the region-rectangle
-;; C-x r y           - yank the last killed rectangle with its upper left corner at point
-;; C-x r o           - insert blank space to fill the space of the region-rectangle
-;; C-x r N           - insert line numbers along the left edge of the region-rectangle
-;; C-x r c           - clear the region-rectangle by replacing all of its contents with spaces
-;; C-x <SPC>         - toggle Rectangle Mark mode
-;; C-x r t           - replace rectangle contents with string on each line
-;; C-x r I           - insert string on each line of the rectengle
-;; C-x (             - start defining the keyboard macro
-;; C-x )             - stop defining the keyboard macro
-;; C-x e             - execute the keyboard macro
-;; C-x C-k ?         - show help for keyboard macro
-;; C-x C-a           - edit auto highlight symbols
-;; C-; C-f           - find related file (.h <-> .cpp)
-;; C-; C-a           - align regexp
-;; C-=               - expand region
-;; C-- C-=           - reverse expand region
-;; C-; C-d           - delete matching lines
-;; C-; C-l           - helm-occur
-;; C-x TAB           - indent region
-;; C-; TAB           - imenu
-;; C-; C-g           - helm do grep
-;; C-u C-; C-g       - helm do grep recursive
-;; C-; C-r           - helm register
-;; C-; b             - helm mini
-;; C-; C-y           - helm show kill ring
-;; C-; C-;           - ace window jump
-;; C-x r <SPC>       - save position
-;; C-x r j           - jump to position
-;; C-x r m           - save bookmark
-;; C-x r b           - jump to bookmark
-;; C-x r l           - list of bookmarks
-;; M-r               - reposition point in window (no scroll)
-;; C-M-a             - beginning of defun
-;; C-M-e             - end of defun
-;; C-:               - helm company
-;; C-c C-d           - helm pydoc
-;; M-\\               - remove all spaces
-;; C-; C-e           - iedit mode
-;; C-'               - in iedit mode is show all edit lines
-;; C-c C-o           - open external link in org-mode
-;; M-^               - join line
-;; C-x C-o           - delete black lines
-;; C-; C-m           - multiple cursor in each line in the region
-;; C-<return>        - rectangle-mark-mode
-;;
-;; +--------------+-------------------------+--------------------+
-;; |     Ido      |          Helm           |       Swiper       |
-;; +---+----------+---+---------------------+---+----------------+
-;; |C-d|open dired|C-j|jump to current line |C-'|avy jump        |
-;; +---+----------+---+---------------------+---+----------------+
-;; |              |                         |C-7|multiple-cursors|
-;; +--------------+-------------------------+---+----------------+
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-x z[z] |repeat         |M-TAB    |auto complete     |C-; SPC |avy goto input |
+;; |         |               |         |                  |        |chars          |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-; u    |undo tree      |C-; r    |regexp builder    |C-; C-c |goto last      |
+;; |         |visualize      |         |                  |        |change         |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-; C-/  |auto complete  |C-; d s  |save session      |C-; d r |read session   |
+;; |         |for file name  |         |                  |        |               |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-; d c  |clear session  |C-x C-b  |ibuffer           |C-; f d |cucle ispell   |
+;; |         |               |         |                  |        |languages      |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-; f m  |flyspell mode  |C-; f p  |flyspell prog mode|C-; f w |ispell word    |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-c +/-  |increment /    |S-RET    |spart open line   |C-S-RET |smart open line|
+;; |         |decrement      |         |                  |        |above          |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-c C-k  |copy line      |M-S-UP   |move text up      |M-S-DOWN|move text down |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |M-SPC    |smart delete   |[C-u] M-^|join line to      |C-x C-o |delete blank   |
+;; |         |space          |         |[down] up         |        |line around    |
+;; |         |               |         |                  |        |cursor         |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-x r k  |kill text in   |C-x r M-w|save text from    |C-x r d |delete text    |
+;; |         |rectangle      |         |rectangle         |        |from rectangle |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-x r y  |yank last      |C-x r o  |insert blank space|C-x r N |insert line    |
+;; |         |killed         |         |to rectangle      |        |numbers in     |
+;; |         |rectangle      |         |                  |        |rectangle      |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-x r c  |clear rectangle|C-x r t  |replace rectangle |C-RET   |rectangle mode |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-; C-m  |multiple cursor|C-x (    |start defining    |C-x )   |stop defining  |
+;; |         |in each line in|         |macro             |        |macro          |
+;; |         |region         |         |                  |        |               |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-x e    |run macro      |C-x C-k ?|help for macro    |M-n     |ahs forward    |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |M-p      |ahs backward   |C-; C-f  |.h <-> .cpp       |C-; C-a |align regexp   |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-=      |expand region  |C-- C-=  |reverse expand    |C-; C-d |delete matching|
+;; |         |               |         |region            |        |lines          |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-; C-l  |helm-occur     |C-x TAB  |indent region     |C-; C-i |helm-imenu     |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |[C-u] C-;|[recursive]    |C-; C-r  |helm bookmarks    |C-; C-y |helm kill ring |
+;; |C-g      |helm grep      |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-; C-;  |ace window jump|M-r      |reposition point  |C-M-a   |begin of defun |
+;; |         |               |         |in window         |        |               |
+;; |         |               |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-M-e    |end of defun   |C-; C-e  |iedit mode        |C-'     |show all iedit |
+;; |         |               |         |                  |        |line           |
+;; +---------+---------------+---------+------------------+--------+---------------+
+;; |C-x v [  |diff hl prev   |C-x v ]  |diff hl next hunk |        |               |
+;; |         |hunk           |         |                  |        |               |
+;; +---------+---------------+---------+------------------+--------+---------------+
 
-;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
-;; M-x calculator
-;; M-x run-skewer
+;; +-------------------+-----------------------------+---------------------------+
+;; |      Company      |           Python            |         Org-mode          |
+;; +---+---------------+-------+---------------------+-------+-------------------+
+;; |C-:|helm company   |C-c C-d|helm pydoc           |C-c C-o|open external link |
+;; |   |               |       |                     |       |                   |
+;; +---+---------------+-------+---------------------+-------+-------------------+
 
+;; +-------------------+-------------------------+---------------------+
+;; |     Ido           |          Helm           |       Swiper        |
+;; +---+---------------+---+---------------------+---+-----------------+
+;; |C-d|open dired     |C-j|jump to current line |C-'|avy jump         |
+;; +---+---------------+---+---------------------+---+-----------------+
+;; |                   |M-e|edit bookmark        |C-7|multiple-cursors |
+;; +-------------------+---+---------------------+---+-----------------+
+;; |                   |C-d|delete bookmark      |   |                 |
+;; +-------------------+---+---------------------+---+-----------------+
+
+;; +-------------------------------------------------------------------+
+;; |                                M-x                                |
+;; +-------------------+-----------------------------------------------+
+;; |calculator         | emacs calculator                              |
+;; +-------------------+-----------------------------------------------+
+;; |run-skewer         | run skewer - plugin for javascrip live coding |
+;; +-------------------+-----------------------------------------------+
+;; |name-last-kbd-macro| name the last-defined keyboard macro          |
+;; +-------------------+-----------------------------------------------+
+;; |find-name-dired    | find in directory by filename                 |
+;; +-------------------+-----------------------------------------------+
 
 ")
  '(ispell-dictionary "en")

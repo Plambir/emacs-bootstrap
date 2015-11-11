@@ -1,5 +1,7 @@
 (require 'git-commit)
 
+(move-text-default-bindings)
+
 (require 'hl-line+)
 (hl-line-toggle-when-idle 1)
 (hl-line-when-idle-interval 3)
@@ -111,8 +113,7 @@
 (define-key global-map (kbd "C-; TAB") 'helm-imenu)
 (define-key global-map (kbd "C-; C-g") 'helm-do-grep)
 (define-key global-map (kbd "C-; C-l") 'helm-occur)
-(define-key global-map (kbd "C-; C-r") 'helm-register)
-(define-key global-map (kbd "C-; b")   'helm-mini)
+(define-key global-map (kbd "C-; C-r") 'helm-bookmarks)
 (define-key global-map (kbd "C-; C-y") 'helm-show-kill-ring)
 
 (define-key company-mode-map   (kbd "C-:") 'helm-company)
@@ -208,6 +209,11 @@ With numeric prefix arg DEC, decrement the integer by DEC amount."
 (define-key global-map (kbd "C-c +") 'increment-integer-at-point)
 (define-key global-map (kbd "C-c -") 'decrement-integer-at-point)
 
+;; change bind for auto-highlight-symbol-mode
+(require 'auto-highlight-symbol)
+(define-key auto-highlight-symbol-mode-map (kbd "M-p") 'ahs-backward)
+(define-key auto-highlight-symbol-mode-map (kbd "M-n") 'ahs-forward)
+
 ;;;; fic-mode
 (add-hook 'prog-mode-hook 'fic-mode)
 
@@ -282,26 +288,6 @@ point reaches the beginning or end of the buffer, stop there."
       (and ido-hide-dired-buffers
            (with-current-buffer name
              (equal major-mode 'dired-mode)))))
-
-;;;; move line
-;;from http://emacsredux.com/blog/2013/04/02/move-current-line-up-or-down/
-(defun move-line-up ()
-  "Move up the current line."
-  (interactive)
-  (transpose-lines 1)
-  (forward-line -2)
-  (indent-according-to-mode))
-
-(defun move-line-down ()
-  "Move down the current line."
-  (interactive)
-  (forward-line 1)
-  (transpose-lines 1)
-  (forward-line -1)
-  (indent-according-to-mode))
-
-(global-set-key [(meta shift up)]  'move-line-up)
-(global-set-key [(meta shift down)]  'move-line-down)
 
 ;;;; load my extension
 (load "~/.emacs.d/ext")
