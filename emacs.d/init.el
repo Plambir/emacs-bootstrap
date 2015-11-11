@@ -36,6 +36,22 @@
 (global-set-key (kbd "C-; C-m") 'mc/rect-rectangle-to-multiple-cursors)
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
+(defun mc-my/create-cursor ()
+  (interactive)
+  (mc/create-fake-cursor-at-point))
+
+(defun mc-my/start-edit ()
+  (interactive)
+  (mc/maybe-multiple-cursors-mode))
+
+(defun mc-my/remove-cursors ()
+  (interactive)
+  (mc/remove-fake-cursors))
+
+(global-set-key (kbd "C-; m m") 'mc-my/create-cursor)
+(global-set-key (kbd "C-; m e") 'mc-my/start-edit)
+(global-set-key (kbd "C-; m r") 'mc-my/remove-cursors)
+
 (require 'corral)
 (global-set-key (kbd "M-9") 'corral-parentheses-backward)
 (global-set-key (kbd "M-0") 'corral-parentheses-forward)
