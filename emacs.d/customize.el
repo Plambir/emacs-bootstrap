@@ -179,6 +179,7 @@
 ;; C-x TAB           - indent region
 ;; C-; TAB           - imenu
 ;; C-; C-g           - helm do grep
+;; C-u C-; C-g       - helm do grep recursive
 ;; C-; C-r           - helm register
 ;; C-; b             - helm mini
 ;; C-; C-y           - helm show kill ring
