@@ -20,7 +20,7 @@
 		 "#ifndef " str "\n#define " str "\n\n" _ "\n\n#endif /* " str " */"
 		)
 		;; shell
-		((sh-mode . "Shell mode")
+		((".*\\.sh" . "Shell mode")
 		  nil
 		  "#!/bin/sh\n"
 		  _
@@ -229,3 +229,10 @@ _)
     ("M" (mc/maybe-multiple-cursors-mode) "Multiple cursors" :exit t)
 
     ("q" nil "quit")))
+
+;;;; GLSL
+(add-to-list 'auto-mode-alist '("\\.fsh\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.vsh\\'" . glsl-mode))
+
+;;;; ZSH
+(add-to-list 'auto-mode-alist '("zsh.*" . sh-mode))
