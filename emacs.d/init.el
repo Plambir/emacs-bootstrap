@@ -78,7 +78,9 @@
 (require 'undo-tree)
 (define-key global-map (kbd "C-; u") 'undo-tree-visualize)
 
-(define-key global-map (kbd "C-; r") 'regexp-builder)
+(require 'visual-regexp)
+(require 'visual-regexp-steroids)
+(define-key global-map (kbd "C-; r") 'vr/replace)
 
 (require 'goto-last-change)
 (define-key global-map (kbd "C-; C-c") 'goto-last-change)
