@@ -22,6 +22,8 @@
                      hl-line+
                      irony
                      company-irony
+                     visual-regexp
+                     visual-regexp-steroids
                      iedit
                      skewer-mode
                      auctex
