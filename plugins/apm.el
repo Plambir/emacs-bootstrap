@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.5.0
+;; Version: 2.5.1
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -54,6 +54,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.5.1 - Change prefix for `apm-find-file-in-project'.
 ;; 2.5.0 - Remove `apm-replace-find-file'. Use `C-u C-x C-f' for `apm-find-file-in-project'.
 ;; 2.4.2 - Improve `apm-find-project'
 ;; 2.4.1 - Improve `apm-find-file-in-project'
@@ -369,7 +370,7 @@
 (define-key apm-mode-map (kbd "C-c c") 'apm-compile)
 (define-key apm-mode-map (kbd "C-c q") 'apm-compile-close)
 (define-key apm-mode-map (kbd "C-c C-f") 'apm-find-project)
-(define-key apm-mode-map (kbd "C-u C-x C-f") 'apm-find-file-in-project)
+(define-key apm-mode-map (kbd "C-c C-x C-f") 'apm-find-file-in-project)
 
 ;;;###autoload
 (define-globalized-minor-mode global-apm-minor-mode

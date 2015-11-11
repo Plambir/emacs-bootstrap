@@ -201,13 +201,18 @@
 ;; C-x C-o           - delete black lines
 ;; C-; C-m           - multiple cursor in each line in the region
 ;; C-<return>        - rectangle-mark-mode
-
-;; In helm:
-;;   C-j             - jump to current line
-
-;; In swiper:
-;;   C-'             - avy jump
-;;   C-7             - multiple-cursors
+;;
+;; +----------------+-------------------------+----------------------+
+;; |Ido             |Helm                     |Swiper                |
+;; +----------------+-------------------------+----------------------+
+;; |C-d open dired  |C-j jump to current line |C-' avy jump          |
+;; |                |                         |                      |
+;; |                |                         |                      |
+;; |                |                         |                      |
+;; +----------------+-------------------------+----------------------+
+;; |                |                         |C-7 multiple-cursors  |
+;; |                |                         |                      |
+;; +----------------+-------------------------+----------------------+
 
 ;; M-x name-last-kbd-macro - name the last-defined keyboard macro.
 ;; M-x calculator
