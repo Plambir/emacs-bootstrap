@@ -247,6 +247,7 @@
      "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)))
  '(mouse-yank-at-point t)
  '(org-agenda-files "~/.agenda_files")
+ '(org-ellipsis "…")
  '(org-log-done t)
  '(org-src-fontify-natively t)
  '(popwin:popup-window-height 25)
