@@ -84,7 +84,7 @@
 
 (require 'visual-regexp)
 (require 'visual-regexp-steroids)
-(define-key global-map (kbd "C-; r") 'vr/replace)
+(define-key global-map (kbd "C-; r") 'vr/query-replace)
 
 (require 'goto-last-change)
 (define-key global-map (kbd "C-; C-c") 'goto-last-change)
