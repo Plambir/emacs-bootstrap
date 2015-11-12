@@ -22,6 +22,7 @@
                      hl-line+
                      irony
                      company-irony
+                     shell-pop
                      visual-regexp
                      visual-regexp-steroids
                      iedit

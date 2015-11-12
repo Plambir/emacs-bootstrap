@@ -12,6 +12,10 @@
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
 
+;; popup window manager
+(require 'popwin)
+(global-set-key (kbd "C-z") popwin:keymap)
+
 ;; cycle through amounts of spacing (http://pragmaticemacs.com/emacs/cycle-spacing/)
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
 
