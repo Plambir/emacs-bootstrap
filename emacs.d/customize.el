@@ -100,7 +100,6 @@
  '(global-linum-mode t)
  '(global-subword-mode t)
  '(global-undo-tree-mode t)
- '(global-wizard-minor-mode t)
  '(helm-always-two-windows t)
  '(helm-autoresize-mode t)
  '(helm-follow-mode-persistent t)

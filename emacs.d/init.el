@@ -45,6 +45,9 @@
 (global-set-key (kbd "C-; o t") 'org-todo-list)
 (global-set-key (kbd "C-; o a") 'org-agenda-list)
 
+(require 'org)
+(define-key org-mode-map (kbd "C-c t") 'org-timeline)
+
 (defun mc-my/create-cursor ()
   (interactive)
   (mc/create-fake-cursor-at-point))

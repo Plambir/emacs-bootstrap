@@ -2,7 +2,7 @@
 (byte-recompile-directory "~/.emacs.d")
 
 (package-install-file "plugins/apm.el")
-(package-install-file "plugins/wizard.el")
+;; (package-install-file "plugins/wizard.el")
 
 (defun byte-compile-file-if-need (file)
   (when (file-exists-p file)
