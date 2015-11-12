@@ -42,6 +42,9 @@
 (global-set-key (kbd "C-; C-m") 'mc/rect-rectangle-to-multiple-cursors)
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
+(global-set-key (kbd "C-; o t") 'org-todo-list)
+(global-set-key (kbd "C-; o a") 'org-agenda-list)
+
 (defun mc-my/create-cursor ()
   (interactive)
   (mc/create-fake-cursor-at-point))
