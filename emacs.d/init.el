@@ -46,7 +46,9 @@
 (global-set-key (kbd "C-; o a") 'org-agenda-list)
 
 (require 'org)
-(define-key org-mode-map (kbd "C-c t") 'org-timeline)
+(define-key org-mode-map (kbd "C-c a l") 'org-timeline)
+(define-key org-mode-map (kbd "C-c a t") 'org-show-todo-tree)
+(define-key org-mode-map (kbd "C-c a d") 'org-check-deadlines)
 
 (defun mc-my/create-cursor ()
   (interactive)
