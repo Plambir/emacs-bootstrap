@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name : switch (...) { case : ... default: ...}
+# key: sw
+# --
+switch (${1:expr})
+{
+  case ${2:CONSTEXPR}:
+  ${3: \{}
+    $0
+    break;
+${3:$(if (string-match "\{" yas-text) "\}\n" "")}  default:
+    break;
+}
