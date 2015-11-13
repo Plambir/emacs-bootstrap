@@ -143,11 +143,16 @@ _)
 
 (add-hook 'c++-mode-hook 'fix-enum-class)
 
+(eval-after-load 'flycheck
+  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
 (defun c-irony-on ()
   (if (member major-mode '(c++-mode c-mode objc-mode))
       (progn
         (irony-mode t)
-        (irony-cdb-autosetup-compile-options))))
+        (irony-cdb-autosetup-compile-options)
+        (if (irony-cdb--autodetect-compile-options)
+            (flycheck-mode)))))
 
 (add-hook 'c++-mode-hook 'c-irony-on)
 (add-hook 'c-mode-hook 'c-irony-on)
