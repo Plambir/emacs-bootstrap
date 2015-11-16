@@ -38,6 +38,7 @@
 (global-set-key (kbd "C-r") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
+(require 'multiple-cursors)
 (global-set-key (kbd "C-<return>") 'rectangle-mark-mode)
 (global-set-key (kbd "C-; C-m") 'mc/rect-rectangle-to-multiple-cursors)
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
