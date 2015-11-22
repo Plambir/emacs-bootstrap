@@ -109,6 +109,12 @@
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
  '(ido-everywhere t)
  '(ido-ignore-buffers (quote ("\\` " ido-custom-filter-function)))
+ '(ido-ignore-directories
+   (quote
+    ("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/")))
+ '(ido-ignore-files
+   (quote
+    ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/")))
  '(ido-mode (quote both) nil (ido))
  '(ido-ubiquitous-command-overrides
    (quote
