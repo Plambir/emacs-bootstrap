@@ -298,6 +298,7 @@
  '(version-control t)
  '(visible-bell t)
  '(vr/match-separator-use-custom-face t)
+ '(which-function-mode t)
  '(wrap-region-global-mode t nil (wrap-region))
  '(x-stretch-cursor t)
  '(yas-global-mode t nil (yasnippet))
