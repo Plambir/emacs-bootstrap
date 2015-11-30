@@ -50,8 +50,6 @@
                              (powerline-fill face2 (powerline-width rhs))
                              (powerline-render rhs)))))))
 
-(my-powerline-default-theme)
-
 (require 'git-commit)
 
 (move-text-default-bindings)
@@ -362,6 +360,7 @@ point reaches the beginning or end of the buffer, stop there."
 (load "~/.emacs.d/ext")
 
 (load "~/.emacs.d/customize")
+(my-powerline-default-theme)
 
 (defun fix-mac-os ()
   (if (string= system-type "darwin")   ; Mac OS X
