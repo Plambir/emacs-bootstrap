@@ -1,3 +1,6 @@
+(require 'powerline)
+(powerline-center-theme)
+
 (require 'git-commit)
 
 (move-text-default-bindings)
