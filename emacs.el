@@ -15,6 +15,7 @@
                      2048-game
                      smooth-scrolling
                      js2-mode
+                     powerline
                      company
                      company-tern
                      company-anaconda

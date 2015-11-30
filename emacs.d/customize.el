@@ -248,11 +248,6 @@
  '(kept-new-versions 6)
  '(kept-old-versions 2)
  '(mc/edit-lines-empty-lines (quote ignore))
- '(mode-line-format
-   (quote
-    ("%n%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position
-     (vc-mode vc-mode)
-     "  " mode-line-modes mode-line-misc-info mode-line-end-spaces)))
  '(mouse-yank-at-point t)
  '(org-agenda-files "~/.agenda_files")
  '(org-ellipsis "…")
@@ -282,6 +277,10 @@
      (slime-repl-mode)
      (slime-connection-list-mode)
      ("^\\*helm.*\\*$" :regexp t :height 0.3))))
+ '(powerline-default-separator nil)
+ '(powerline-display-hud t)
+ '(powerline-display-mule-info t)
+ '(powerline-height nil)
  '(reb-re-syntax (quote string))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
@@ -334,6 +333,10 @@
  '(mode-line ((t (:background "grey90" :foreground "grey20"))))
  '(mode-line-highlight ((t (:background "gray75"))))
  '(mode-line-inactive ((t (:inherit mode-line :background "grey90" :foreground "grey40" :weight light))))
+ '(powerline-active1 ((t (:inherit mode-line :background "gray88"))))
+ '(powerline-active2 ((t (:inherit mode-line :background "gray80"))))
+ '(powerline-inactive1 ((t (:inherit mode-line-inactive :background "gray88"))))
+ '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "gray88"))))
  '(show-paren-match ((t (:background "gray96"))))
  '(show-paren-mismatch ((t (:background "tomato" :foreground "white"))))
  '(trailing-whitespace ((t (:background "RosyBrown1"))))
