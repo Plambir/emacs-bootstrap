@@ -1,5 +1,5 @@
 (require 'powerline)
-(powerline-center-theme)
+(powerline-default-theme)
 
 (require 'git-commit)
 
