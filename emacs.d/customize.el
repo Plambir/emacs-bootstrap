@@ -211,6 +211,9 @@
 ;; Org-Mode: | C-c C-s | scheduled task  | C-c C-d | set deadline   |
 ;;           | C-c a l | org timeline    | C-c a t | show todo tree |
 ;;           | C-c a d | check deadlines |
+;;----------------------------------------------------------------------------------
+;; Multiple Cursor : | C-; m m | create cursor | C-; m r | remove all cursors |
+;;                   | C-; m e | start edit    |
 ;; +-------------------+-----------------------------+---------------------------+
 ;; |      Company      |           Python            |         Org-mode          |
 ;; +---+---------------+-------+---------------------+-------+-------------------+
