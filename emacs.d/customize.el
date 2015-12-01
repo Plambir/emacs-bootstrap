@@ -277,7 +277,7 @@
      (slime-repl-mode)
      (slime-connection-list-mode)
      ("^\\*helm.*\\*$" :regexp t :height 0.3))))
- '(powerline-default-separator (quote slant))
+ '(powerline-default-separator nil)
  '(powerline-display-hud t)
  '(powerline-display-mule-info t)
  '(powerline-height nil)
