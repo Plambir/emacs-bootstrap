@@ -109,7 +109,9 @@
 
 (defun mc-my/start-edit ()
   (interactive)
-  (mc/maybe-multiple-cursors-mode))
+  (if (>= (mc/num-cursors) 1)
+      (multiple-cursors-mode 1)
+    (multiple-cursors-mode 0)))
 
 (defun mc-my/remove-cursors ()
   (interactive)
