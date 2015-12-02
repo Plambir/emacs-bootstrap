@@ -209,3 +209,7 @@ _)
 
 ;;;; ZSH
 (add-to-list 'auto-mode-alist '("zsh.*" . sh-mode))
+
+;;;; qmake
+(add-to-list 'auto-mode-alist '("\\.pro\\'" . makefile-mode))
+
