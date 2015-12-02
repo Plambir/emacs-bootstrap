@@ -347,4 +347,5 @@
  '(vr/group-1 ((t (:background "orange"))))
  '(vr/group-2 ((t (:background "dark orange"))))
  '(vr/match-0 ((t (:background "green yellow"))))
- '(vr/match-1 ((t (:background "yellow green")))))
+ '(vr/match-1 ((t (:background "yellow green"))))
+ '(warning ((t (:foreground "dark violet" :weight bold)))))
