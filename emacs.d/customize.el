@@ -192,8 +192,8 @@
 ;; |C-; C-l  |helm-occur     |C-x TAB  |indent region     |C-; C-i |helm-imenu     |
 ;; |         |               |         |                  |        |               |
 ;; +---------+---------------+---------+------------------+--------+---------------+
-;; |[C-u] C-;|[recursive]    |C-; C-r  |helm bookmarks    |C-; C-y |helm kill ring |
-;; |C-g      |helm grep      |         |                  |        |               |
+;; |C-; C-g  |helm find file |C-; C-r  |helm bookmarks    |C-; C-y |helm kill ring |
+;; |         |[C-u] C-s grep |         |                  |        |               |
 ;; +---------+---------------+---------+------------------+--------+---------------+
 ;; |C-; C-;  |ace window jump|M-r      |reposition point  |C-M-a   |begin of defun |
 ;; |         |               |         |in window         |        |               |

@@ -212,4 +212,3 @@ _)
 
 ;;;; qmake
 (add-to-list 'auto-mode-alist '("\\.pro\\'" . makefile-mode))
-
