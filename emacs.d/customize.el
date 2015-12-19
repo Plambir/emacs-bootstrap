@@ -104,6 +104,7 @@
  '(helm-autoresize-mode t)
  '(helm-follow-mode-persistent t)
  '(helm-full-frame nil)
+ '(helm-imenu-fuzzy-match t)
  '(helm-move-to-line-cycle-in-source t)
  '(helm-split-window-in-side-p t)
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
