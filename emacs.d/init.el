@@ -179,7 +179,13 @@
 (require 'helm)
 (require 'helm-regexp)
 
-(define-key global-map (kbd "C-; TAB") 'helm-imenu)
+(defun chose-helm-imenu-or-helm-imenu-in-all-buffers (arg)
+  (interactive "P")
+  (if arg
+      (helm-imenu-in-all-buffers)
+    (helm-imenu)))
+
+(define-key global-map (kbd "C-; TAB") 'chose-helm-imenu-or-helm-imenu-in-all-buffers)
 (define-key global-map (kbd "C-; C-g") 'helm-find-files)
 (define-key global-map (kbd "C-; C-l") 'helm-occur)
 (define-key global-map (kbd "C-; C-r") 'helm-bookmarks)
