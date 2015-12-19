@@ -38,8 +38,6 @@
                                        (powerline-raw (list (nyan-create)) face2 'l))))
                           (rhs (list (powerline-raw global-mode-string face2 'r)
                                      (funcall separator-right face2 face1)
-                                     (unless window-system
-                                       (powerline-raw (char-to-string #xe0a1) face1 'l))
                                      (powerline-raw "%4l" face1 'l)
                                      (powerline-raw ":" face1 'l)
                                      (powerline-raw "%3c" face1 'r)

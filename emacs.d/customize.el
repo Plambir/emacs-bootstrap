@@ -285,6 +285,8 @@
  '(powerline-display-hud t)
  '(powerline-display-mule-info t)
  '(powerline-height nil)
+ '(powerline-utf-8-separator-left 32)
+ '(powerline-utf-8-separator-right 32)
  '(reb-re-syntax (quote string))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
