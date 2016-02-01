@@ -11,7 +11,6 @@
                      corral
                      move-text
                      multiple-cursors
-                     mc-extras
                      2048-game
                      smooth-scrolling
                      js2-mode
