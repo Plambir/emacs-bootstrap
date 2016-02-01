@@ -91,6 +91,47 @@
 (global-set-key (kbd "C-r") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
+(defun mc-my/start-edit ()
+  (interactive)
+  (if (>= (mc/num-cursors) 1)
+      (multiple-cursors-mode 1)
+    (multiple-cursors-mode 0)))
+
+;;;; https://github.com/knu/mc-extras.el/blob/master/mc-rect.el
+(defun mc/rect-rectangle-to-multiple-cursors (start end)
+  "Turn rectangle-mark-mode into multiple-cursors mode, keeping selections."
+  (interactive "*r")
+  (let* ((current-line (line-beginning-position))
+         (reversed (= (current-column)
+                      (min
+                       (save-excursion
+                         (goto-char end)
+                         (current-column))
+                       (save-excursion
+                         (goto-char start)
+                         (current-column)))))
+         (mark-row `(lambda (startcol endcol)
+                     (let ((markcol  ,(if reversed 'endcol 'startcol))
+                           (pointcol ,(if reversed 'startcol 'endcol)))
+                       (move-to-column markcol)
+                       (push-mark (point))
+                       (move-to-column pointcol)
+                       (setq transient-mark-mode (cons 'only transient-mark-mode))
+                       (activate-mark)
+                       (setq deactivate-mark nil)))))
+    (apply-on-rectangle
+     '(lambda (startcol endcol)
+        (if (= (point) current-line)
+            (funcall mark-row startcol endcol)
+          (mc/save-excursion
+           (funcall mark-row startcol endcol)
+           (mc/create-fake-cursor-at-point))))
+     start end))
+  (deactivate-mark)
+  (mc-my/start-edit))
+
+(add-to-list 'mc--default-cmds-to-run-once 'mc/rect-rectangle-to-multiple-cursors)
+
 (require 'multiple-cursors)
 (global-set-key (kbd "C-<return>") 'rectangle-mark-mode)
 (global-set-key (kbd "C-; C-m") 'mc/rect-rectangle-to-multiple-cursors)
@@ -107,12 +148,6 @@
 (defun mc-my/create-cursor ()
   (interactive)
   (mc/create-fake-cursor-at-point))
-
-(defun mc-my/start-edit ()
-  (interactive)
-  (if (>= (mc/num-cursors) 1)
-      (multiple-cursors-mode 1)
-    (multiple-cursors-mode 0)))
 
 (defun mc-my/remove-cursors ()
   (interactive)
