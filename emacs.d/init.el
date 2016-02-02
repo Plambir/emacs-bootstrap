@@ -91,6 +91,8 @@
 (global-set-key (kbd "C-r") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
+(require 'multiple-cursors)
+
 (defun mc-my/start-edit ()
   (interactive)
   (if (>= (mc/num-cursors) 1)
@@ -132,7 +134,6 @@
 
 (add-to-list 'mc--default-cmds-to-run-once 'mc/rect-rectangle-to-multiple-cursors)
 
-(require 'multiple-cursors)
 (global-set-key (kbd "C-<return>") 'rectangle-mark-mode)
 (global-set-key (kbd "C-; C-m") 'mc/rect-rectangle-to-multiple-cursors)
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
