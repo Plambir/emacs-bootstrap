@@ -32,7 +32,6 @@
                      helm-company
                      helm-pydoc
                      diff-hl
-                     swiper
                      popwin
                      graphviz-dot-mode
                      lua-mode

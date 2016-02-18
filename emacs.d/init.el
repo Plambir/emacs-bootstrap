@@ -86,11 +86,6 @@
 (require 'flyspell)
 (define-key flyspell-mode-map (kbd "C-;") 'nil)
 
-(require 'swiper)
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "C-r") 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-
 (require 'multiple-cursors)
 
 (defun mc-my/start-edit ()
@@ -178,6 +173,8 @@
 (define-key global-map (kbd "C-; c") 'avy-goto-char)
 (define-key global-map (kbd "C-; C-<SPC>") 'avy-goto-line)
 (define-key global-map (kbd "C-; C-;") 'ace-window)
+
+(define-key isearch-mode-map (kbd "C-j") 'avy-isearch)
 
 (require 'undo-tree)
 (define-key global-map (kbd "C-; u") 'undo-tree-visualize)
