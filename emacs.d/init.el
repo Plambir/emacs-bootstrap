@@ -175,6 +175,8 @@
 (define-key global-map (kbd "C-; C-;") 'ace-window)
 
 (define-key isearch-mode-map (kbd "C-j") 'avy-isearch)
+(define-key isearch-mode-map (kbd "C-l") 'recenter-top-bottom)
+(define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
 (require 'undo-tree)
 (define-key global-map (kbd "C-; u") 'undo-tree-visualize)
