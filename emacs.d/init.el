@@ -122,7 +122,8 @@
             (funcall mark-row startcol endcol)
           (mc/save-excursion
            (funcall mark-row startcol endcol)
-           (mc/create-fake-cursor-at-point))))
+           (if (string-match "[^ ]" (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+               (mc/create-fake-cursor-at-point)))))
      start end))
   (deactivate-mark)
   (mc-my/start-edit))
