@@ -10,6 +10,7 @@
                      ace-window
                      corral
                      move-text
+                     smartrep
                      multiple-cursors
                      2048-game
                      smooth-scrolling
