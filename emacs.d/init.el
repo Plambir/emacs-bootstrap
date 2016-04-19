@@ -88,6 +88,13 @@
 
 (require 'multiple-cursors)
 
+(require 'smartrep)
+
+(smartrep-define-key
+    global-map "C-; m"
+  '(("n" . mc/mark-next-like-this)
+    ("p" . mc/mark-previous-like-this)))
+
 (defun mc-my/start-edit ()
   (interactive)
   (if (>= (mc/num-cursors) 1)
