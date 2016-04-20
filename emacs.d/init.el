@@ -93,7 +93,9 @@
 (smartrep-define-key
     global-map "C-; m"
   '(("n" . mc/mark-next-like-this)
-    ("p" . mc/mark-previous-like-this)))
+    ("p" . mc/mark-previous-like-this)
+    ("u" . mc/unmark-next-like-this)
+    ("U" . mc/unmark-previous-like-this)))
 
 (defun mc-my/start-edit ()
   (interactive)
@@ -380,8 +382,11 @@ With numeric prefix arg DEC, decrement the integer by DEC amount."
   (interactive "p")
   (increment-integer-at-point (- (or dec 1))))
 
-(define-key global-map (kbd "C-c +") 'increment-integer-at-point)
-(define-key global-map (kbd "C-c -") 'decrement-integer-at-point)
+(smartrep-define-key
+    global-map "C-c"
+  '(("+" . increment-integer-at-point)
+    ("=" . increment-integer-at-point)
+    ("-" . decrement-integer-at-point)))
 
 ;; change bind for auto-highlight-symbol-mode
 (require 'auto-highlight-symbol)
