@@ -94,6 +94,8 @@
     global-map "C-; m"
   '(("n" . mc/mark-next-like-this)
     ("p" . mc/mark-previous-like-this)
+    ("N" . mc/skip-to-next-like-this)
+    ("P" . mc/skip-to-previous-like-this)
     ("u" . mc/unmark-next-like-this)
     ("U" . mc/unmark-previous-like-this)))
 
