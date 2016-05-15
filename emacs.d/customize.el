@@ -73,6 +73,7 @@
  '(custom-file "~/.emacs.d/customize.el")
  '(default-input-method "russian-computer")
  '(delete-old-versions t)
+ '(delete-selection-mode t)
  '(diff-hl-draw-borders t)
  '(diff-hl-flydiff-delay 0.3)
  '(diff-hl-flydiff-mode t)
