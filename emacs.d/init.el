@@ -216,7 +216,9 @@
 
 (define-key global-map (kbd "C-; C-f") (lambda () (interactive)(ff-find-related-file nil t)))
 
-(define-key global-map (kbd "C-; C-a") 'align-regexp)
+(define-key global-map (kbd "C-; C-a") (lambda () (interactive)
+                                         (let ((current-prefix-arg '(4)))
+                                           (call-interactively #'align-regexp))))
 
 (define-key global-map (kbd "C-=") 'er/expand-region)
 
