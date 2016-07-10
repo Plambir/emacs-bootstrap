@@ -67,7 +67,7 @@
 
 ;; popup window manager
 (require 'popwin)
-(global-set-key (kbd "C-; C-p") popwin:keymap)
+(global-set-key (kbd "C-; p w") popwin:keymap)
 
 ;; cycle through amounts of spacing (http://pragmaticemacs.com/emacs/cycle-spacing/)
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
