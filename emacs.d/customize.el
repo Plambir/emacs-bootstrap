@@ -246,8 +246,6 @@
 
 ")
  '(ispell-dictionary "en")
- '(jit-lock-contextually t)
- '(jit-lock-stealth-time 16)
  '(js2-include-jslint-globals nil)
  '(js2-indent-switch-body t)
  '(js2-mode-show-parse-errors nil)
