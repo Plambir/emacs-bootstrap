@@ -222,3 +222,12 @@ _)
                             (setq c-basic-offset 4
                                   tab-width 4
                                   indent-tabs-mode t)))
+
+;;;; Turn off nlinum-mode for big buffers
+;; http://blog.binchen.org/posts/turn-off-linum-mode-when-file-is-too-big.html
+(add-hook 'prog-mode-hook
+          (lambda ()
+            ;; turn off `nlinum-mode' for big buffers
+            (if (> (buffer-size)
+                        (* 5000 80))
+                     (nlinum-mode -1))))
