@@ -14,6 +14,7 @@
                      multiple-cursors
                      2048-game
                      smooth-scrolling
+                     groovy-mode
                      js2-mode
                      powerline
                      nlinum
