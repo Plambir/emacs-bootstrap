@@ -483,7 +483,7 @@ point reaches the beginning or end of the buffer, stop there."
                         :foundry "unknown"
                         :slant normal
                         :weight normal
-                        :height 130
+                        :height 120
                         :width normal))))))))
 
 (fix-mac-os)
