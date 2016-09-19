@@ -226,6 +226,12 @@
 
 (define-key global-map (kbd "C-; C-w") 'whitespace-cleanup)
 
+(defun init--insert-quick-calc ()
+  (interactive)
+  (quick-calc 4))
+
+(define-key global-map (kbd "C-; =") 'init--insert-quick-calc)
+
 (require 'helm)
 (require 'helm-regexp)
 (require 'helm-imenu)
