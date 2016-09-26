@@ -350,7 +350,7 @@
  '(powerline-active2 ((t (:inherit mode-line :background "tan3"))))
  '(powerline-inactive1 ((t (:inherit mode-line-inactive :background "gray88"))))
  '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "gray"))))
- '(show-paren-match ((t (:background "gray96"))))
+ '(show-paren-match ((t (:background "azure3"))))
  '(show-paren-mismatch ((t (:background "tomato" :foreground "white"))))
  '(trailing-whitespace ((t (:background "RosyBrown1"))))
  '(vr/group-0 ((t (:background "gold"))))
