@@ -493,3 +493,12 @@ point reaches the beginning or end of the buffer, stop there."
                         :width normal))))))))
 
 (fix-mac-os)
+
+;;;; Set font
+;;https://www.reddit.com/r/emacs/comments/1xe7vr/check_if_font_is_available_before_setting/
+(defun try-set-font (use-font-name)
+  (when (member use-font-name (font-family-list))
+    (set-face-attribute 'default nil :font use-font-name)))
+
+(try-set-font "Liberation Mono")
+(try-set-font "Source Code Pro")
