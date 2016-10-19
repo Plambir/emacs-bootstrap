@@ -17,7 +17,6 @@
                      groovy-mode
                      js2-mode
                      powerline
-                     nlinum
                      company
                      company-tern
                      company-anaconda

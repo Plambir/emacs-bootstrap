@@ -98,7 +98,7 @@
  '(global-company-mode t)
  '(global-diff-hl-mode t)
  '(global-hl-line-mode nil)
- '(global-nlinum-mode t)
+ '(global-linum-mode t)
  '(global-subword-mode t)
  '(global-undo-tree-mode t)
  '(helm-always-two-windows t)
@@ -260,7 +260,7 @@
  '(org-src-fontify-natively t)
  '(package-selected-packages
    (quote
-    (yasnippet wrap-region visual-regexp-steroids undo-tree smooth-scrolling smex smartrep skewer-mode rainbow-mode powerline popwin php-mode nlinum multiple-cursors move-text markdown-mode lua-mode iedit ido-vertical-mode ido-ubiquitous hl-line+ helm-pydoc helm-company haskell-mode groovy-mode graphviz-dot-mode goto-last-change glsl-mode git-commit fuzzy flycheck-irony fic-mode expand-region diff-hl corral company-tern company-irony company-anaconda cmake-mode auto-highlight-symbol auctex apm ace-window ace-jump-mode 2048-game)))
+    (yasnippet wrap-region visual-regexp-steroids undo-tree smooth-scrolling smex smartrep skewer-mode rainbow-mode powerline popwin php-mode multiple-cursors move-text markdown-mode lua-mode iedit ido-vertical-mode ido-ubiquitous hl-line+ helm-pydoc helm-company haskell-mode groovy-mode graphviz-dot-mode goto-last-change glsl-mode git-commit fuzzy flycheck-irony fic-mode expand-region diff-hl corral company-tern company-irony company-anaconda cmake-mode auto-highlight-symbol auctex apm ace-window ace-jump-mode 2048-game)))
  '(popwin:popup-window-height 25)
  '(popwin:special-display-config
    (quote
