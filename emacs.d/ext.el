@@ -223,11 +223,11 @@ _)
                                   tab-width 4
                                   indent-tabs-mode t)))
 
-;;;; Turn off nlinum-mode for big buffers
+;;;; Turn off linum-mode for big buffers
 ;; http://blog.binchen.org/posts/turn-off-linum-mode-when-file-is-too-big.html
 (add-hook 'prog-mode-hook
           (lambda ()
-            ;; turn off `nlinum-mode' for big buffers
+            ;; turn off `linum-mode' for big buffers
             (if (> (buffer-size)
                         (* 5000 80))
-                     (nlinum-mode -1))))
+                     (linum-mode -1))))
