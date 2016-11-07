@@ -478,19 +478,9 @@ point reaches the beginning or end of the buffer, stop there."
            (with-current-buffer name
              (equal major-mode 'dired-mode)))))
 
-;;;; load my extension
-(load "~/.emacs.d/ext")
-
 (defun fix-mac-os ()
   (if (string= system-type "darwin")   ; Mac OS X
-      (progn
-        (custom-set-faces
-         '(default ((t (:family "Liberation Mono"
-                        :foundry "unknown"
-                        :slant normal
-                        :weight normal
-                        :height 120
-                        :width normal))))))))
+      (set-face-attribute 'default nil :height 140)))
 
 (fix-mac-os)
 
@@ -502,3 +492,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 (try-set-font "Liberation Mono")
 (try-set-font "Source Code Pro")
+
+;;;; load my extension
+(load "~/.emacs.d/ext")
