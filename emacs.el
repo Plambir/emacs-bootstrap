@@ -55,6 +55,7 @@
                      fuzzy
                      goto-last-change
                      markdown-mode
+                     json-mode
                      flycheck
                      flycheck-irony))
 
@@ -74,7 +75,8 @@
 (global-set-key (kbd "C-x C-z") nil)
 (global-set-key (kbd "C-z") nil)
 
-(add-hook 'after-init-hook (lambda () (load "~/.emacs.d/init")))
+(add-hook 'after-init-hook (lambda ()
+                             (load "~/.emacs.d/init")))
 
 ;; auto puts
 (put 'set-goal-column 'disabled nil)

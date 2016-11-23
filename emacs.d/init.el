@@ -478,6 +478,7 @@ point reaches the beginning or end of the buffer, stop there."
            (with-current-buffer name
              (equal major-mode 'dired-mode)))))
 
+;;;; Fix mac os font size
 (defun fix-mac-os ()
   (if (string= system-type "darwin")   ; Mac OS X
       (set-face-attribute 'default nil :height 140)))
@@ -495,3 +496,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;;; load my extension
 (load "~/.emacs.d/ext")
+
+(with-eval-after-load "apm"
+  (apm-scratch-buttons))

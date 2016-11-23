@@ -1,9 +1,9 @@
 ;;; apm.el --- Another project manager for emacs
 
-;; Copyright (C) 2014 Alexander Prusov
+;; Copyright (C) 2014-2016 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.5.1
+;; Version: 2.6.0
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -33,7 +33,7 @@
 ;;
 ;; The MIT License (MIT)
 ;;
-;; Copyright (c) 2014-2015 Alexander Prusov
+;; Copyright (c) 2014-2016 Alexander Prusov
 ;;
 ;; Permission is hereby granted, free of charge, to any person obtaining a copy
 ;; of this software and associated documentation files (the "Software"), to deal
@@ -54,6 +54,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.6.0 - Add `apm-scratch-buttons' for create project list in *scratch* buffer
 ;; 2.5.1 - Change prefix for `apm-find-file-in-project'.
 ;; 2.5.0 - Remove `apm-replace-find-file'. Use `C-u C-x C-f' for `apm-find-file-in-project'.
 ;; 2.4.2 - Improve `apm-find-project'
@@ -239,20 +240,38 @@
       (setq projects (cdr projects)))
     (nreverse path)))
 
+(defun apm-scratch-buttons ()
+  (interactive)
+  (with-temp-buffer
+    (require 'button)
+    (insert initial-scratch-message)
+    (insert ";;Projects")
+    (dolist (project (apm--get-projects-path))
+      (insert "\n  ")
+      (insert-text-button project 'action (lambda (x) (apm--open-project (button-get x 'project))) 'project project)
+      )
+    (append-to-buffer "*scratch*" (point-min) (point-max))))
+
+(defun apm--open-project (project-path)
+  (with-temp-buffer
+    (setq default-directory project-path)
+    (let ((project (apm--find-project default-directory)))
+      (when project
+        (apm--apply-global-vars)
+        (let ((open-action (apm-project-open-action project)))
+          (if open-action
+              (if (listp open-action)
+                  (eval open-action)
+                (call-interactively open-action))
+            (call-interactively 'find-file)))))))
+
 (defun apm-find-project ()
   (interactive)
   (let ((projects-list (apm--get-projects-path)))
     (with-temp-buffer
       (setq default-directory (completing-read "Project: " projects-list nil t nil nil (car projects-list)))
-      (let ((project (apm--find-project default-directory)))
-        (when project
-          (apm--apply-global-vars)
-          (let ((open-action (apm-project-open-action project)))
-            (if open-action
-                (if (listp open-action)
-                    (eval open-action)
-                  (call-interactively open-action))
-              (call-interactively 'find-file))))))))
+      (apm--open-project default-directory)
+    )))
 
 (defun apm--change-safe-local-variable-values (local-vars action)
   (let ((vars local-vars))

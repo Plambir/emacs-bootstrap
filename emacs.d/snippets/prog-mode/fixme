@@ -2,4 +2,4 @@
 # name: fixme
 # key: fm
 # --
-`(yas-with-comment " FIXME: ")`$0
+`(yas-with-comment " FIXME: ")`
