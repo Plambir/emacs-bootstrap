@@ -105,6 +105,8 @@
  '(helm-autoresize-mode t)
  '(helm-follow-mode-persistent t)
  '(helm-full-frame nil)
+ '(helm-grep-file-path-style (quote relative))
+ '(helm-grep-save-buffer-name-no-confirm t)
  '(helm-imenu-fuzzy-match t)
  '(helm-move-to-line-cycle-in-source t)
  '(helm-split-window-in-side-p t)
