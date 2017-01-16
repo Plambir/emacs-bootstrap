@@ -264,7 +264,7 @@
  '(package-selected-packages
    (quote
     (json-mode yasnippet wrap-region visual-regexp-steroids undo-tree smooth-scrolling smex smartrep skewer-mode rainbow-mode powerline popwin php-mode multiple-cursors move-text markdown-mode lua-mode iedit ido-vertical-mode ido-ubiquitous hl-line+ helm-pydoc helm-company haskell-mode groovy-mode graphviz-dot-mode goto-last-change glsl-mode git-commit fuzzy flycheck-irony fic-mode expand-region diff-hl corral company-tern company-irony company-anaconda cmake-mode auto-highlight-symbol auctex apm ace-window ace-jump-mode 2048-game)))
- '(popwin:popup-window-height 25)
+ '(popwin:popup-window-height 18)
  '(popwin:special-display-config
    (quote
     (("*Miniedit Help*" :noselect t)
