@@ -8,6 +8,12 @@
 (add-hook 'find-file-hooks 'auto-insert)
 (setq auto-insert-alist
 	  '(
+    ;; ELisp
+    ((".*\\.el$" . "Emacs Lisp")
+     nil
+     ";;; -*- lexical-binding: t; -*-\n"
+     _
+     )
 		;; C/C++ Header
 		((".*\\.\\(h\\|hpp\\)$" . "C/C++ Header")
 		 (upcase
