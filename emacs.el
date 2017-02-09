@@ -14,12 +14,13 @@
                      smartrep
                      multiple-cursors
                      2048-game
+                     typescript-mode
+                     coffee-mode
                      smooth-scrolling
                      groovy-mode
                      js2-mode
                      powerline
                      company
-                     company-tern
                      company-anaconda
                      rainbow-mode
                      hl-line+
@@ -56,6 +57,7 @@
                      goto-last-change
                      markdown-mode
                      json-mode
+                     wgrep-helm
                      flycheck
                      flycheck-irony))
 
