@@ -210,6 +210,9 @@
 (define-key global-map (kbd "C-; d r") 'desktop-read)
 (define-key global-map (kbd "C-; d c") 'desktop-clear)
 
+(define-key global-map (kbd "C-c C-g") 'dumb-jump-go)
+(define-key global-map (kbd "C-c C-p") 'dumb-jump-back)
+
 (define-key global-map (kbd "C-x C-b") 'ibuffer)
 
 (define-key global-map (kbd "C-x r I") 'string-insert-rectangle)

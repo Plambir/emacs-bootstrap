@@ -63,9 +63,10 @@
  '(column-number-mode t)
  '(company-backends
    (quote
-    (company-irony company-anaconda company-bbdb company-nxml company-css company-eclim company-xcode company-ropemacs company-cmake company-capf
-                   (company-dabbrev-code company-gtags company-etags company-keywords)
-                   company-oddmuse company-files company-dabbrev)))
+    ((company-irony-c-headers company-irony)
+     company-anaconda company-bbdb company-nxml company-css company-eclim company-xcode company-ropemacs company-cmake company-capf
+     (company-dabbrev-code company-gtags company-etags company-keywords)
+     company-oddmuse company-files company-dabbrev)))
  '(company-idle-delay 0.2)
  '(compilation-scroll-output (quote first-error))
  '(create-lockfiles nil)
@@ -80,6 +81,7 @@
  '(display-battery-mode t)
  '(display-time-24hr-format t)
  '(display-time-mode t)
+ '(dumb-jump-max-find-time 5)
  '(echo-keystrokes 0.1)
  '(electric-layout-mode nil)
  '(electric-pair-mode t)
