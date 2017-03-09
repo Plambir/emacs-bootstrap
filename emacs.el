@@ -11,6 +11,8 @@
                      aggressive-indent
                      corral
                      move-text
+                     dumb-jump
+                     company-irony-c-headers
                      smartrep
                      multiple-cursors
                      2048-game
