@@ -8,6 +8,7 @@
 (setq package-list '(avy
                      ace-jump-mode
                      ace-window
+                     ace-mc
                      aggressive-indent
                      corral
                      move-text

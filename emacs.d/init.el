@@ -96,6 +96,8 @@
     ("p" . mc/mark-previous-like-this)
     ("N" . mc/skip-to-next-like-this)
     ("P" . mc/skip-to-previous-like-this)
+    ("c" . ace-mc-add-multiple-cursors)
+    ("C" . ace-mc-add-single-cursor)
     ("u" . mc/unmark-next-like-this)
     ("U" . mc/unmark-previous-like-this)))
 
@@ -211,6 +213,7 @@
 (define-key global-map (kbd "C-; d c") 'desktop-clear)
 
 (define-key global-map (kbd "C-c C-g") 'dumb-jump-go)
+(define-key global-map (kbd "C-c C-o") 'dumb-jump-go-other-window)
 (define-key global-map (kbd "C-c C-p") 'dumb-jump-back)
 
 (define-key global-map (kbd "C-x C-b") 'ibuffer)
