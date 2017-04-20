@@ -314,12 +314,13 @@
  '(version-control t)
  '(visible-bell t)
  '(vr/match-separator-use-custom-face t)
+ '(wgrep-auto-save-buffer t)
  '(which-function-mode t)
  '(wrap-region-global-mode t nil (wrap-region))
  '(x-stretch-cursor t)
- '(yas-global-mode t nil (yasnippet))
+ '(yas-global-mode t)
  '(yas-prompt-functions (quote (yas-ido-prompt yas-no-prompt)))
- '(yas-snippet-dirs (quote ("~/.emacs.d/snippets")) nil (yasnippet)))
+ '(yas-snippet-dirs (quote ("~/.emacs.d/snippets"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
