@@ -99,7 +99,9 @@
     ("c" . ace-mc-add-multiple-cursors)
     ("C" . ace-mc-add-single-cursor)
     ("u" . mc/unmark-next-like-this)
-    ("U" . mc/unmark-previous-like-this)))
+    ("U" . mc/unmark-previous-like-this)
+    ("v" . mc/cycle-forward)
+    ("V" . mc/cycle-backward)))
 
 (defun mc-my/start-edit ()
   (interactive)
