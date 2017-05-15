@@ -12,6 +12,7 @@
  '(auto-insert-query nil)
  '(auto-revert-verbose nil)
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/backup/" t))))
+ '(aw-dispatch-always t)
  '(backup-by-copying t)
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backup/"))))
  '(browse-url-browser-function (quote browse-url-chromium))
@@ -248,6 +249,15 @@
 ;; +-------------------+--+--------------------------------------------+
 ;; |clone-indirect-buffer | clone buffer                               |
 ;; +-------------------+--+--------------------------------------------+
+;; Ace Window:
+;; x - delete window
+;; m - swap (move) window
+;; c - split window fairly, either vertically or horizontally
+;; v - split window vertically
+;; b - split window horizontally
+;; n - select the previous window
+;; i - maximize window (select which window)
+;; o - maximize current window
 
 ")
  '(ispell-dictionary "en")
