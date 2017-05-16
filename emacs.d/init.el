@@ -192,7 +192,6 @@
 
 (define-key isearch-mode-map (kbd "C-j") 'avy-isearch)
 (define-key isearch-mode-map (kbd "C-l") 'recenter-top-bottom)
-(define-key isearch-mode-map (kbd "C-o") 'helm-occur-from-isearch)
 
 (require 'undo-tree)
 (define-key global-map (kbd "C-; u") 'undo-tree-visualize)
@@ -240,81 +239,11 @@
 
 (define-key global-map (kbd "C-; =") 'init--insert-quick-calc)
 
-(require 'helm)
-(require 'helm-regexp)
-(require 'helm-imenu)
-
-(defun local-helm-imenu-transformer (candidates)
-  (cl-loop for (k . v) in candidates
-           for types = (or (helm-imenu--get-prop k)
-                           (list "Function" k))
-           for bufname = (buffer-name (marker-buffer v))
-           for disp1 = (mapconcat
-                        (lambda (x)
-                          (propertize
-                           x 'face (cond ((string= x "Class")
-                                          'font-lock-keyword-face)
-                                         ((string= x "Variables")
-                                          'font-lock-variable-name-face)
-                                         ((string= x "Function")
-                                          'font-lock-function-name-face)
-                                         ((string= x "Types")
-                                          'font-lock-type-face))))
-                        types helm-imenu-delimiter)
-           for disp = (propertize disp1 'help-echo bufname)
-           collect
-           (cons disp (cons k v))))
-
-(defun global-helm-imenu-transformer (candidates)
-  (cl-loop for (k . v) in candidates
-           for types = (cons (buffer-name (marker-buffer v))
-                             (or (helm-imenu--get-prop k)
-                                 (list "Function" k)))
-           for bufname = (buffer-name (marker-buffer v))
-           for disp1 = (mapconcat
-                        (lambda (x)
-                          (propertize
-                           x 'face (cond ((string= x "Class")
-                                          'font-lock-keyword-face)
-                                         ((string= x "Variables")
-                                          'font-lock-variable-name-face)
-                                         ((string= x "Function")
-                                          'font-lock-function-name-face)
-                                         ((string= x "Types")
-                                          'font-lock-type-face))))
-                        types helm-imenu-delimiter)
-           for disp = (propertize disp1 'help-echo bufname)
-           collect
-           (cons disp (cons k v))))
-
-(setq helm-source-imenu
-      (helm-make-source "[:Imenu:]" 'helm-imenu-source
-        :fuzzy-match helm-imenu-fuzzy-match
-        :candidate-transformer 'local-helm-imenu-transformer))
-
-(setq helm-source-imenu-all
-      (helm-make-source "[:Imenu in all buffers:]" 'helm-imenu-source
-        :candidates 'helm-imenu-candidates-in-all-buffers
-        :fuzzy-match helm-imenu-fuzzy-match
-        :candidate-transformer 'global-helm-imenu-transformer))
-
-(defun chose-helm-imenu-or-helm-imenu-in-all-buffers (arg)
-  (interactive "P")
-  (if arg
-      (helm-imenu-in-all-buffers)
-    (helm-imenu)))
-
-(define-key global-map (kbd "C-; TAB") 'chose-helm-imenu-or-helm-imenu-in-all-buffers)
+;;for recursive grep
 (define-key global-map (kbd "C-; C-g") 'helm-find-files)
-(define-key global-map (kbd "C-; C-l") 'helm-occur)
-(define-key global-map (kbd "C-; C-r") 'helm-bookmarks)
-(define-key global-map (kbd "C-; C-y") 'helm-show-kill-ring)
-
-(define-key company-mode-map   (kbd "C-:") 'helm-company)
-(define-key company-active-map (kbd "C-:") 'helm-company)
 
 (require 'python)
-(define-key python-mode-map (kbd "C-c C-d") 'helm-pydoc)
+(define-key python-mode-map (kbd "C-c C-d") 'pydoc)
 
 (define-key global-map (kbd "C-; C-e") 'iedit-mode)
 
@@ -501,6 +430,20 @@ point reaches the beginning or end of the buffer, stop there."
 
 (try-set-font "Liberation Mono")
 (try-set-font "Source Code Pro")
+
+;;;; ivy
+
+(require 'ivy)
+(define-key ivy-minibuffer-map (kbd "C-M-m") 'ivy-done)
+(define-key ivy-minibuffer-map (kbd "C-j") 'ivy-call)
+(define-key ivy-minibuffer-map (kbd "C-m") 'ivy-alt-done)
+
+(defun swiper-at-point ()
+  (interactive)
+  (swiper (thing-at-point 'symbol)))
+(define-key global-map (kbd "C-; C-l") 'swiper-at-point)
+(define-key global-map (kbd "C-; C-i") 'counsel-imenu)
+(ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
 
 ;;;; load my extension
 (load "~/.emacs.d/ext")
