@@ -35,9 +35,12 @@
                      skewer-mode
                      auctex
                      yasnippet
+                     pydoc
+                     pydoc-info
+                     ivy
+                     ivy-rich
+                     counsel
                      helm
-                     helm-company
-                     helm-pydoc
                      diff-hl
                      popwin
                      graphviz-dot-mode
@@ -53,8 +56,6 @@
                      wrap-region
                      auto-highlight-symbol
                      org
-                     ido-ubiquitous
-                     ido-vertical-mode
                      smex
                      fuzzy
                      goto-last-change

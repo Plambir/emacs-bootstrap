@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014-2016 Alexander Prusov
 
 ;; Author: Alexander Prusov <alexprusov@gmail.com>
-;; Version: 2.6.0
+;; Version: 2.6.1
 ;; Created: 7.11.2014
 ;; Keywords: project
 ;; Homepage: https://github.com/Plambir/emacs-bootstrap
@@ -24,7 +24,7 @@
 ;;                                        :project-files '("*.cpp" "*.h" "Makefile" "README.md")
 ;;                                        :ignore-dirs '("*build*" "*bin*" "*assets*")
 ;;                                        )))
-;; By default open-action is `ido-find-file'
+;; By default open-action is `find-file'
 ;; See how to setup local-vars in documentation for `dir-locals-set-class-variables'
 
 ;;; License:
@@ -54,6 +54,7 @@
 ;; SOFTWARE.
 
 ;;; Change Log:
+;; 2.6.1 - Remove require `ido'
 ;; 2.6.0 - Add `apm-scratch-buttons' for create project list in *scratch* buffer
 ;; 2.5.1 - Change prefix for `apm-find-file-in-project'.
 ;; 2.5.0 - Remove `apm-replace-find-file'. Use `C-u C-x C-f' for `apm-find-file-in-project'.
@@ -83,9 +84,12 @@
 ;; 1.0.1 - Add example of settings
 ;; 1.0.0 - Initial version
 
+;;; TODO
+;; - Support config file in project folder (for add to vcs)
+;; - Support ivy for find file in project
+
 ;;; Code:
 (require 'cl-lib)
-(require 'ido)
 
 (defvar apm-mode-map (make-sparse-keymap)
   "APM mode map.")
