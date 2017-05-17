@@ -445,6 +445,17 @@ point reaches the beginning or end of the buffer, stop there."
 (define-key global-map (kbd "C-; C-i") 'counsel-imenu)
 (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
 
+(defun counsel-open-dired ()
+  (interactive)
+  (ivy-exit-with-action (lambda (x)
+                          (let ((dir-file-name
+                                 (directory-file-name (expand-file-name ivy--directory))))
+                            (message dir-file-name)
+                            (dired dir-file-name)))))
+
+(define-key counsel-find-file-map (kbd "C-d") 'counsel-open-dired)
+(define-key global-map (kbd "C-; C-b") 'counsel-bookmark)
+
 ;;;; load my extension
 (load "~/.emacs.d/ext")
 
