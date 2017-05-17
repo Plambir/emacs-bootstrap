@@ -241,6 +241,7 @@
 
 ")
  '(ispell-dictionary "en")
+ '(ivy-extra-directories nil)
  '(ivy-ignore-buffers (quote ("\\` " ido-custom-filter-function)))
  '(ivy-mode t)
  '(ivy-on-del-error-function (quote ignore))
