@@ -240,9 +240,14 @@
 
 (define-key global-map (kbd "C-; =") 'init--insert-quick-calc)
 
+(require 'helm-config)
 (require 'helm)
 (require 'helm-regexp)
 (require 'helm-imenu)
+
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
 
 (defun local-helm-imenu-transformer (candidates)
   (cl-loop for (k . v) in candidates

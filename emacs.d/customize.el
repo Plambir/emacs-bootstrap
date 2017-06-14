@@ -112,10 +112,11 @@
  '(helm-grep-file-path-style (quote relative))
  '(helm-grep-save-buffer-name-no-confirm t)
  '(helm-imenu-fuzzy-match t)
+ '(helm-mode t)
  '(helm-move-to-line-cycle-in-source t)
  '(helm-split-window-in-side-p t)
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
- '(ido-everywhere t)
+ '(ido-everywhere nil)
  '(ido-ignore-buffers (quote ("\\` " ido-custom-filter-function)))
  '(ido-ignore-directories
    (quote
@@ -123,7 +124,6 @@
  '(ido-ignore-files
    (quote
     ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/")))
- '(ido-mode (quote both) nil (ido))
  '(ido-ubiquitous-command-overrides
    (quote
     ((enable exact "execute-extended-command")
@@ -135,9 +135,7 @@
      (disable prefix "magit-")
      (disable prefix "tmm-")
      (enable regexp "\\`\\(load\\|enable\\|disable\\|describe\\|custom-theme-visit\\)-theme\\'"))))
- '(ido-ubiquitous-mode t)
  '(ido-use-faces nil)
- '(ido-vertical-mode t)
  '(iedit-toggle-key-default (kbd "C-; C-e"))
  '(indent-tabs-mode nil)
  '(indicate-empty-lines t)
