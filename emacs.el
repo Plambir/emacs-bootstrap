@@ -53,8 +53,6 @@
                      wrap-region
                      auto-highlight-symbol
                      org
-                     ido-ubiquitous
-                     ido-vertical-mode
                      smex
                      fuzzy
                      goto-last-change
