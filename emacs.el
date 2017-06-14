@@ -37,9 +37,6 @@
                      yasnippet
                      pydoc
                      pydoc-info
-                     ivy
-                     ivy-rich
-                     counsel
                      helm
                      diff-hl
                      popwin
@@ -56,6 +53,8 @@
                      wrap-region
                      auto-highlight-symbol
                      org
+                     ido-ubiquitous
+                     ido-vertical-mode
                      smex
                      fuzzy
                      goto-last-change

@@ -71,9 +71,6 @@
      company-oddmuse company-files company-dabbrev)))
  '(company-idle-delay 0.2)
  '(compilation-scroll-output (quote first-error))
- '(counsel-find-file-ignore-regexp
-   "\\(?:\\`[#.]\\)\\|\\(?:[#~]\\'\\)\\|\\(__pycache__\\/\\)\\|\\(.elc\\'\\)\\|\\(.pyc\\'\\)\\|\\(.a\\'\\)\\|\\(.o\\'\\)")
- '(counsel-mode t)
  '(create-lockfiles nil)
  '(current-language-environment "UTF-8")
  '(custom-file "~/.emacs.d/customize.el")
@@ -118,6 +115,29 @@
  '(helm-move-to-line-cycle-in-source t)
  '(helm-split-window-in-side-p t)
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
+ '(ido-everywhere t)
+ '(ido-ignore-buffers (quote ("\\` " ido-custom-filter-function)))
+ '(ido-ignore-directories
+   (quote
+    ("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/")))
+ '(ido-ignore-files
+   (quote
+    ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/")))
+ '(ido-mode (quote both) nil (ido))
+ '(ido-ubiquitous-command-overrides
+   (quote
+    ((enable exact "execute-extended-command")
+     (enable prefix "wl-")
+     (enable-old prefix "Info-")
+     (enable exact "webjump")
+     (enable regexp "\\`\\(find\\|load\\|locate\\)-library\\'")
+     (disable prefix "org-")
+     (disable prefix "magit-")
+     (disable prefix "tmm-")
+     (enable regexp "\\`\\(load\\|enable\\|disable\\|describe\\|custom-theme-visit\\)-theme\\'"))))
+ '(ido-ubiquitous-mode t)
+ '(ido-use-faces nil)
+ '(ido-vertical-mode t)
  '(iedit-toggle-key-default (kbd "C-; C-e"))
  '(indent-tabs-mode nil)
  '(indicate-empty-lines t)
@@ -207,15 +227,15 @@
 ;; +---+---------------+-------+---------------------+-------+-------------------+
 ;; |C-:|helm company   |C-c C-d|helm pydoc           |C-c C-o|open external link |
 ;; +---+---------------+-------+---------------------+-------+-------------------+
-;; +-------------------------+
-;; |          isearch        |
-;; +---+---------------------+
-;; |C-j|avy jump             |
-;; +---+---------------------+
-;; |M-c|case [in]sensitive   |
-;; +---+---------------------+
-;; |   |                     |
-;; +---+---------------------+
+;; +-------------------+-------------------------+-------------------------+
+;; |     Ido           |          Helm           |          isearch        |
+;; +---+---------------+---+---------------------+---+---------------------+
+;; |C-d|open dired     |C-j|jump to current line |C-j|avy jump             |
+;; +---+---------------+---+---------------------+---+---------------------+
+;; |                   |M-e|edit bookmark        |M-c|case [in]sensitive   |
+;; +-------------------+---+---------------------+---+---------------------+
+;; |                   |C-d|delete bookmark      |   |                     |
+;; +-------------------+---+---------------------+---+---------------------+
 ;; +-------------------------------------------------------------------+
 ;; |                                M-x                                |
 ;; +-------------------+-----------------------------------------------+
@@ -241,10 +261,6 @@
 
 ")
  '(ispell-dictionary "en")
- '(ivy-extra-directories nil)
- '(ivy-ignore-buffers (quote ("\\` " ido-custom-filter-function)))
- '(ivy-mode t)
- '(ivy-on-del-error-function (quote ignore))
  '(js-indent-level 2)
  '(js2-include-jslint-globals nil)
  '(js2-indent-switch-body t)
@@ -261,7 +277,7 @@
  '(org-src-fontify-natively t)
  '(package-selected-packages
    (quote
-    (pydoc pydoc-info async-await typescript-mode json-mode yasnippet wrap-region visual-regexp-steroids undo-tree smooth-scrolling smex smartrep skewer-mode rainbow-mode powerline popwin php-mode multiple-cursors move-text markdown-mode lua-mode iedit ido-vertical-mode ido-ubiquitous hl-line+ haskell-mode groovy-mode graphviz-dot-mode goto-last-change glsl-mode git-commit fuzzy flycheck-irony fic-mode expand-region diff-hl corral company-tern company-irony company-anaconda cmake-mode auto-highlight-symbol auctex apm ace-window ace-jump-mode 2048-game)))
+    (typescript-mode json-mode yasnippet wrap-region visual-regexp-steroids undo-tree smooth-scrolling smex smartrep skewer-mode rainbow-mode powerline popwin php-mode multiple-cursors move-text markdown-mode lua-mode iedit ido-vertical-mode ido-ubiquitous hl-line+ helm-pydoc helm-company haskell-mode groovy-mode graphviz-dot-mode goto-last-change glsl-mode git-commit fuzzy flycheck-irony fic-mode expand-region diff-hl corral company-tern company-irony company-anaconda cmake-mode auto-highlight-symbol auctex apm ace-window ace-jump-mode 2048-game)))
  '(popwin:popup-window-height 18)
  '(popwin:special-display-config
    (quote
@@ -314,6 +330,7 @@
  '(wrap-region-global-mode t nil (wrap-region))
  '(x-stretch-cursor t)
  '(yas-global-mode t)
+ '(yas-prompt-functions (quote (yas-ido-prompt yas-no-prompt)))
  '(yas-snippet-dirs (quote ("~/.emacs.d/snippets"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

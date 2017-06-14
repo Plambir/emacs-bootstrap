@@ -229,6 +229,15 @@ _)
                                   tab-width 4
                                   indent-tabs-mode t)))
 
+;;;; Turn off linum-mode for big buffers
+;; http://blog.binchen.org/posts/turn-off-linum-mode-when-file-is-too-big.html
+(add-hook 'prog-mode-hook
+          (lambda ()
+            ;; turn off `linum-mode' for big buffers
+            (if (> (buffer-size)
+                        (* 5000 80))
+                (linum-mode -1))))
+
 ;;;; https://emacswiki.org/emacs/ModeCompile
 ;; Helper for compilation. Close the compilation window if
 ;; there was no error at all.
@@ -243,65 +252,3 @@ _)
   (cons msg code))
 ;; Specify my function (maybe I should have done a lambda function)
 (setq compilation-exit-message-function 'compilation-exit-autoclose)
-
-
-;;;; Improve counsel-imenu
-;; see https://github.com/abo-abo/swiper/pull/775
-(require 'counsel)
-
-(defun counsel-imenu-categorize-functions (items)
-  "Categorize all the functions of imenu."
-  (let* ((others (remove-if-not (lambda (x) (listp (cdr x))) items))
-         (functions (remove-if (lambda (x) (listp (cdr x))) items)))
-    (if functions
-        (append others `(("Function" ,@functions)))
-      items)))
-
-(defun counsel-imenu-get-candidates-from (alist &optional prefix)
-  "Create a list of (key . value) from ALIST.
-PREFIX is used to create the key."
-  (cl-mapcan (lambda (elm)
-               (if (imenu--subalist-p elm)
-                   (counsel-imenu-get-candidates-from
-                    (cl-loop for (e . v) in (cdr elm) collect
-                         (cons e (if (integerp v) (copy-marker v) v)))
-                    ;; pass the prefix to next recursive call
-                    (concat prefix (if prefix ".") (car elm)))
-                 (let ((key (concat
-                             (when prefix
-                               (concat
-                                (propertize prefix 'face 'compilation-info)
-                                ": "))
-                             (car elm))))
-                   (list (cons key
-                               ;; create a imenu candidate here
-                               (cons key (if (overlayp (cdr elm))
-                                             (overlay-start (cdr elm))
-                                           (cdr elm))))))))
-             alist))
-
-(defun counsel-imenu ()
-  "Jump to a buffer position indexed by imenu."
-  (interactive)
-  (unless (featurep 'imenu)
-    (require 'imenu nil t))
-  (let* ((imenu-auto-rescan t)
-         (imenu-auto-rescan-maxout (if current-prefix-arg
-                                       (buffer-size)
-                                     imenu-auto-rescan-maxout))
-         (items (imenu--make-index-alist t))
-         (items (delete (assoc "*Rescan*" items) items))
-         (items (counsel-imenu-categorize-functions items))
-         (position (point)))
-    (ivy-read "imenu items:" (counsel-imenu-get-candidates-from items)
-              :preselect (thing-at-point 'symbol)
-              :unwind (lambda () (goto-char position))
-              :require-match t
-              :action (lambda (candidate)
-                        (with-ivy-window
-                          ;; In org-mode, (imenu candidate) will expand child node
-                          ;; after jump to the candidate position
-                          (imenu (cdr candidate))
-                          (pulse-momentary-highlight-one-line (point) hl-line-face)
-                          ))
-              :caller 'counsel-imenu)))
