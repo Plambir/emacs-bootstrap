@@ -218,7 +218,7 @@
 (define-key global-map (kbd "C-c C-o") 'dumb-jump-go-other-window)
 (define-key global-map (kbd "C-c C-p") 'dumb-jump-back)
 
-(define-key global-map (kbd "C-x C-b") 'ibuffer)
+(define-key global-map (kbd "C-; C-b") 'ibuffer)
 
 (define-key global-map (kbd "C-x r I") 'string-insert-rectangle)
 
@@ -245,9 +245,17 @@
 (require 'helm-regexp)
 (require 'helm-imenu)
 
+(defun toggle-hide ()
+  (interactive)
+  (setq helm-ff-skip-boring-files (not helm-ff-skip-boring-files))
+  (helm-refresh))
+
 (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
 (global-set-key (kbd "C-x C-f") #'helm-find-files)
+(global-set-key (kbd "C-x b") #'helm-mini)
+(global-set-key (kbd "C-x C-b") #'helm-mini)
+(define-key helm-find-files-map (kbd "C-c a") 'toggle-hide)
 
 (defun local-helm-imenu-transformer (candidates)
   (cl-loop for (k . v) in candidates
