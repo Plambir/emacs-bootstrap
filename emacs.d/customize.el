@@ -113,6 +113,7 @@
  '(helm-boring-file-regexp-list
    (quote
     ("\\.hi$" "\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/" "\\.hg/" "\\.git/" "\\.bzr/" "CVS/" "_darcs/" "_MTN/" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "\\.cs\\.meta$")))
+ '(helm-buffer-max-length 50)
  '(helm-ff-skip-boring-files t)
  '(helm-follow-mode-persistent t)
  '(helm-full-frame nil)
@@ -123,6 +124,7 @@
  '(helm-move-to-line-cycle-in-source t)
  '(helm-split-window-in-side-p t)
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
+ '(ido-auto-merge-work-directories-length -1)
  '(ido-everywhere nil)
  '(ido-ignore-buffers (quote ("\\` " ido-custom-filter-function)))
  '(ido-ignore-directories
