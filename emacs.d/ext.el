@@ -95,37 +95,9 @@ _)
 
 ;;;; C/C++
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
-;; http://stackoverflow.com/questions/8549351/c11-mode-or-settings-for-emacs
 (add-hook
  'c++-mode-hook
- '(lambda()
-    ;; We could place some regexes into `c-mode-common-hook', but note that their evaluation order
-    ;; matters.
-    (font-lock-add-keywords
-     nil '(;;  new C++11 keywords
-           ("\\<\\(alignof\\|alignas\\|constexpr\\|decltype\\|noexcept\\|nullptr\\|static_assert\\|thread_local\\|override\\|final\\)\\>" . font-lock-keyword-face)
-           ("\\<\\(char16_t\\|char32_t\\)\\>" . font-lock-keyword-face)
-           ;; c++11 string literals
-           ;;       L"wide string"
-           ;;       L"wide string with UNICODE codepoint: \u2018"
-           ;;       u8"UTF-8 string", u"UTF-16 string", U"UTF-32 string"
-           ("\\<\\([LuU8]+\\)\"[[:ascii:][:nonascii:]]*?\"" 1 font-lock-keyword-face)
-           ;;       R"(user-defined literal)"
-           ;;       R"( a "quot'd" string )"
-           ;;       R"delimiter(The String Data" )delimiter"
-           ;;       R"delimiter((a-z))delimiter" is equivalent to "(a-z)"
-           ("\\(\\<[uU8]*R\"[^\\s-\\\\()]\\{0,16\\}(\\)" 1 font-lock-keyword-face t) ; start delimiter
-           (   "\\<[uU8]*R\"[^\\s-\\\\()]\\{0,16\\}(\\([[:ascii:][:nonascii:]]*?\\))[^\\s-\\\\()]\\{0,16\\}\"" 1 font-lock-string-face t)  ; actual string
-           (   "\\<[uU8]*R\"[^\\s-\\\\()]\\{0,16\\}([[:ascii:][:nonascii:]]*?\\()[^\\s-\\\\()]\\{0,16\\}\"\\)" 1 font-lock-keyword-face t) ; end delimiter
-           ;; user-defined types (rather project-specific)
-           ;;("\\<[A-Za-z_]+[A-Za-z_0-9]*_\\(type\\|ptr\\)\\>" . font-lock-type-face)
-           ;;("\\<\\(xstring\\|xchar\\)\\>" . font-lock-type-face)
-           ))
-    ) t)
-
-;; This hack fixes indentation for C++11's "enum class" in Emacs.
-;; http://stackoverflow.com/questions/6497374/emacs-cc-mode-indentation-problem-with-c0x-enum-class/6550361#6550361
+ 'modern-c++-font-lock-mode)
 
 (defun inside-class-enum-p (pos)
   "Checks if POS is within the braces of a C++ \"enum class\"."

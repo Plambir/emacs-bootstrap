@@ -22,6 +22,7 @@
                      smooth-scrolling
                      groovy-mode
                      js2-mode
+                     modern-cpp-font-lock
                      powerline
                      company
                      company-anaconda
