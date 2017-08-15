@@ -20,12 +20,14 @@
                      typescript-mode
                      coffee-mode
                      smooth-scrolling
+                     go-mode
                      groovy-mode
                      js2-mode
                      modern-cpp-font-lock
                      powerline
                      company
                      company-anaconda
+                     company-go
                      rainbow-mode
                      hl-line+
                      irony

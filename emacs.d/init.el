@@ -504,6 +504,10 @@ point reaches the beginning or end of the buffer, stop there."
 
 (fix-mac-os)
 
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "GOPATH"))
+
 ;;;; Set font
 ;;https://www.reddit.com/r/emacs/comments/1xe7vr/check_if_font_is_available_before_setting/
 (defun try-set-font (use-font-name)

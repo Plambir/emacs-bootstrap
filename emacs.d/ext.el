@@ -80,6 +80,15 @@ _)
 (setq company-tern-property-marker "")
 (setq company-tern-meta-as-single-line t)
 
+;;;; Go
+(require 'go-mode)
+(add-hook 'before-save-hook 'gofmt-before-save)
+(define-key go-mode-map (kbd "C-c g") 'godef-jump)
+(add-hook 'go-mode-hook (lambda ()
+                          (set (make-local-variable 'company-backends) '(company-go))
+                          (company-mode t)))
+
+
 ;;;; php
 (add-hook 'php-mode-hook (lambda ()
                            (setq c-basic-offset 2)))
