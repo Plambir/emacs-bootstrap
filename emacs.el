@@ -62,6 +62,7 @@
                      markdown-mode
                      json-mode
                      wgrep-helm
+                     exec-path-from-shell
                      flycheck
                      flycheck-irony))
 
