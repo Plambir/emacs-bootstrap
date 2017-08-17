@@ -106,6 +106,7 @@
  '(global-subword-mode t)
  '(global-undo-tree-mode t)
  '(gofmt-command "goimports")
+ '(helm-M-x-fuzzy-match t)
  '(helm-always-two-windows t)
  '(helm-autoresize-mode t)
  '(helm-boring-buffer-regexp-list
@@ -122,6 +123,7 @@
  '(helm-grep-save-buffer-name-no-confirm t)
  '(helm-imenu-fuzzy-match t)
  '(helm-mode t)
+ '(helm-mode-fuzzy-match t)
  '(helm-move-to-line-cycle-in-source t)
  '(helm-split-window-in-side-p t)
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
