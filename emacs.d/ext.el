@@ -86,6 +86,7 @@ _)
 (define-key go-mode-map (kbd "C-c g") 'godef-jump)
 (add-hook 'go-mode-hook (lambda ()
                           (set (make-local-variable 'company-backends) '(company-go))
+                          (flycheck-mode t)
                           (company-mode t)))
 
 
