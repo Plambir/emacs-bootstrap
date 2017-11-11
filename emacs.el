@@ -38,6 +38,8 @@
                      skewer-mode
                      auctex
                      yasnippet
+                     yaml-mode
+                     dockerfile-mode
                      pydoc
                      pydoc-info
                      helm
