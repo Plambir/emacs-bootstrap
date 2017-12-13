@@ -65,7 +65,8 @@
  '(column-number-mode t)
  '(company-backends
    (quote
-    ((company-irony-c-headers company-irony)
+    (company-tern
+     (company-irony-c-headers company-irony)
      company-anaconda company-bbdb company-nxml company-css company-eclim company-xcode company-cmake company-capf
      (company-dabbrev-code company-gtags company-etags company-keywords)
      company-oddmuse company-files company-dabbrev)))
@@ -125,7 +126,7 @@
  '(helm-mode t)
  '(helm-mode-fuzzy-match t)
  '(helm-move-to-line-cycle-in-source t)
- '(helm-split-window-in-side-p t)
+ '(helm-split-window-inside-p t)
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
  '(ido-auto-merge-work-directories-length -1)
  '(ido-everywhere nil)
