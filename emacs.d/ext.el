@@ -234,3 +234,86 @@ _)
   (cons msg code))
 ;; Specify my function (maybe I should have done a lambda function)
 (setq compilation-exit-message-function 'compilation-exit-autoclose)
+
+
+;;;; FZF in helm
+(defun helm-fzf-shell-command-fn ()
+  (let* ((cmd (concat "fzf" " " "-f" " " (shell-quote-argument helm-pattern)))
+         (proc (start-file-process-shell-command "ff" helm-buffer cmd)))
+    (helm-log "fd command:\n%s" cmd)
+    (prog1 proc
+      (set-process-sentinel
+       proc
+       (lambda (process event)
+         (helm-process-deferred-sentinel-hook
+          process event (helm-default-directory))
+         (if (string= event "finished\n")
+             (with-helm-window
+               (setq mode-line-format
+                     '(" " mode-line-buffer-identification " "
+                       (:eval (format "L%s" (helm-candidate-number-at-point))) " "
+                       (:eval (propertize
+                               (format "[fd process finished - (%s results)]"
+                                       (max (1- (count-lines
+                                                 (point-min) (point-max)))
+                                            0))
+                               'face 'helm-locate-finish))))
+               (force-mode-line-update))
+           (helm-log "Error: fd %s"
+                     (replace-regexp-in-string "\n" "" event))))))))
+
+(require 'helm)
+
+(defvar helm-source-fzf
+  (helm-build-async-source "fd"
+    :header-name (lambda (name)
+                   (concat name " in [" (helm-default-directory) "]"))
+    :candidates-process #'helm-fzf-shell-command-fn
+    :filtered-candidate-transformer 'helm-findutils-transformer
+    :action-transformer 'helm-transform-file-load-el
+    :action (helm-actions-from-type-file)
+    :candidate-number-limit 9999
+    :requires-pattern 2))
+
+(defun helm-fzf-1 (dir)
+  (let ((default-directory (file-name-as-directory dir)))
+    (helm :sources 'helm-source-fzf
+          :buffer "*helm fd*"
+          :ff-transformer-show-only-basename nil
+          :case-fold-search helm-file-name-case-fold-search)))
+
+(defun helm-apm-fzf (arg)
+  (interactive "P")
+  (with-temp-buffer
+    (let ((directory (concat (apm--get-project-dir default-directory) "/")))
+      (helm-fzf-1 directory))))
+
+(define-key global-map (kbd "C-; C-x C-f") 'helm-apm-fzf)
+
+;;;; Dired
+(defun mydired-sort ()
+  "Sort dired listings with directories first."
+  (save-excursion
+    (let (buffer-read-only)
+      (forward-line 2) ;; beyond dir. header
+      (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
+    (set-buffer-modified-p nil)))
+
+(defadvice dired-readin
+    (after dired-after-updating-hook first () activate)
+  "Sort dired listings with directories first before adding marks."
+  (mydired-sort))
+
+
+;;;; TypeScript
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  (company-mode +1))
+
+(add-hook 'before-save-hook 'tide-format-before-save)
+(add-hook 'typescript-mode-hook #'setup-tide-mode)

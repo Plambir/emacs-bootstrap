@@ -71,6 +71,7 @@
      (company-dabbrev-code company-gtags company-etags company-keywords)
      company-oddmuse company-files company-dabbrev)))
  '(company-idle-delay 0.2)
+ '(company-tooltip-align-annotations t)
  '(compilation-scroll-output (quote first-error))
  '(create-lockfiles nil)
  '(current-language-environment "UTF-8")
@@ -82,6 +83,7 @@
  '(diff-hl-flydiff-delay 2.0)
  '(diff-hl-flydiff-mode t)
  '(display-battery-mode t)
+ '(display-line-numbers-widen t)
  '(display-time-24hr-format t)
  '(display-time-mode t)
  '(dumb-jump-max-find-time 5)
@@ -102,8 +104,9 @@
  '(global-auto-revert-mode t)
  '(global-company-mode t)
  '(global-diff-hl-mode t)
+ '(global-display-line-numbers-mode t)
  '(global-hl-line-mode nil)
- '(global-linum-mode t)
+ '(global-linum-mode nil)
  '(global-subword-mode t)
  '(global-undo-tree-mode t)
  '(gofmt-command "goimports")
@@ -288,7 +291,7 @@
  '(org-src-fontify-natively t)
  '(package-selected-packages
    (quote
-    (company-go go-mode modern-cpp-font-lock typescript-mode json-mode yasnippet wrap-region visual-regexp-steroids undo-tree smooth-scrolling smex smartrep skewer-mode rainbow-mode powerline popwin php-mode multiple-cursors move-text markdown-mode lua-mode iedit ido-vertical-mode ido-ubiquitous hl-line+ helm-pydoc helm-company haskell-mode groovy-mode graphviz-dot-mode goto-last-change glsl-mode git-commit fuzzy flycheck-irony fic-mode expand-region diff-hl corral company-tern company-irony company-anaconda cmake-mode auto-highlight-symbol auctex apm ace-window ace-jump-mode 2048-game)))
+    (tide company-go go-mode modern-cpp-font-lock typescript-mode json-mode yasnippet wrap-region visual-regexp-steroids undo-tree smooth-scrolling smex smartrep skewer-mode rainbow-mode powerline popwin php-mode multiple-cursors move-text markdown-mode lua-mode iedit ido-vertical-mode ido-ubiquitous hl-line+ helm-pydoc helm-company haskell-mode groovy-mode graphviz-dot-mode goto-last-change glsl-mode git-commit fuzzy flycheck-irony fic-mode expand-region diff-hl corral company-tern company-irony company-anaconda cmake-mode auto-highlight-symbol auctex apm ace-window ace-jump-mode 2048-game)))
  '(popwin:popup-window-height 18)
  '(popwin:special-display-config
    (quote
@@ -329,6 +332,7 @@
  '(standard-indent 2)
  '(tab-width 2)
  '(tool-bar-mode nil)
+ '(typescript-indent-level 2)
  '(undo-tree-auto-save-history nil)
  '(undo-tree-history-directory-alist (quote ((".*" . "~/.emacs.d/undo_tree/"))))
  '(undo-tree-visualizer-diff t)
@@ -373,6 +377,8 @@
  '(highlight ((t (:background "thistle"))))
  '(hl-line ((t (:background "gold"))))
  '(isearch ((t (:background "peach puff"))))
+ '(line-number ((t (:inherit (shadow default) :background "gainsboro"))))
+ '(line-number-current-line ((t (:inherit line-number :weight extra-bold))))
  '(linum ((t (:inherit (shadow default) :background "gainsboro"))))
  '(mode-line ((t (:background "tan1" :foreground "gray10"))))
  '(mode-line-highlight ((t (:underline t))))

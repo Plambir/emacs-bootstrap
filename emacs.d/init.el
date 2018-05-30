@@ -1,90 +1,97 @@
+(require 'bind-key)
+
 (load "~/.emacs.d/customize")
 
-(require 'powerline)
-(defun my-powerline-default-theme ()
-  (interactive)
-  (setq-default mode-line-format
-                '("%e"
-                  (:eval
-                   (let* ((active (powerline-selected-window-active))
-                          (mode-line (if active 'mode-line 'mode-line-inactive))
-                          (face1 (if active 'powerline-active1 'powerline-inactive1))
-                          (face2 (if active 'powerline-active2 'powerline-inactive2))
-                          (separator-left (intern (format "powerline-%s-%s"
-                                                          (powerline-current-separator)
-                                                          (car powerline-default-separator-dir))))
-                          (separator-right (intern (format "powerline-%s-%s"
-                                                           (powerline-current-separator)
-                                                           (cdr powerline-default-separator-dir))))
-                          (lhs (list (powerline-raw "%*" nil 'l)
-                                     (when powerline-display-buffer-size
-                                       (powerline-buffer-size nil 'l))
-                                     (when powerline-display-mule-info
-                                       (powerline-raw mode-line-mule-info nil 'l))
-                                     (powerline-buffer-id nil 'l)
-                                     (when (and (boundp 'which-func-mode) which-func-mode)
-                                       (powerline-raw which-func-format nil 'l))
-                                     (powerline-raw " ")
-                                     (funcall separator-left mode-line face1)
-                                     (when (and (boundp 'erc-track-minor-mode) erc-track-minor-mode)
-                                       (powerline-raw erc-modified-channels-object face1 'l))
-                                     (powerline-major-mode face1 'l)
-                                     (powerline-process face1)
-                                     (powerline-narrow face1 'l)
-                                     (powerline-raw " " face1)
-                                     (funcall separator-left face1 face2)
-                                     (powerline-vc face2 'r)
-                                     (when (bound-and-true-p nyan-mode)
-                                       (powerline-raw (list (nyan-create)) face2 'l))))
-                          (rhs (list (powerline-raw global-mode-string face2 'r)
-                                     (funcall separator-right face2 face1)
-                                     (powerline-raw "%4l" face1 'l)
-                                     (powerline-raw ":" face1 'l)
-                                     (powerline-raw "%3c" face1 'r)
-                                     (funcall separator-right face1 mode-line)
-                                     (powerline-raw " ")
-                                     (powerline-raw "%6p" nil 'r)
-                                     (when powerline-display-hud
-                                       (powerline-hud face2 face1)))))
-                     (concat (powerline-render lhs)
-                             (powerline-fill face2 (powerline-width rhs))
-                             (powerline-render rhs)))))))
-(my-powerline-default-theme)
+;; This is only needed once, near the top of the file
+(eval-when-compile
+  (require 'use-package))
 
-(require 'git-commit)
+(use-package powerline
+  :init
+  (defun my-powerline-default-theme ()
+    (interactive)
+    (setq-default mode-line-format
+                  '("%e"
+                    (:eval
+                     (let* ((active (powerline-selected-window-active))
+                            (mode-line (if active 'mode-line 'mode-line-inactive))
+                            (face1 (if active 'powerline-active1 'powerline-inactive1))
+                            (face2 (if active 'powerline-active2 'powerline-inactive2))
+                            (separator-left (intern (format "powerline-%s-%s"
+                                                            (powerline-current-separator)
+                                                            (car powerline-default-separator-dir))))
+                            (separator-right (intern (format "powerline-%s-%s"
+                                                             (powerline-current-separator)
+                                                             (cdr powerline-default-separator-dir))))
+                            (lhs (list (powerline-raw "%*" nil 'l)
+                                       (when powerline-display-buffer-size
+                                         (powerline-buffer-size nil 'l))
+                                       (when powerline-display-mule-info
+                                         (powerline-raw mode-line-mule-info nil 'l))
+                                       (powerline-buffer-id nil 'l)
+                                       (when (and (boundp 'which-func-mode) which-func-mode)
+                                         (powerline-raw which-func-format nil 'l))
+                                       (powerline-raw " ")
+                                       (funcall separator-left mode-line face1)
+                                       (when (and (boundp 'erc-track-minor-mode) erc-track-minor-mode)
+                                         (powerline-raw erc-modified-channels-object face1 'l))
+                                       (powerline-major-mode face1 'l)
+                                       (powerline-process face1)
+                                       (powerline-narrow face1 'l)
+                                       (powerline-raw " " face1)
+                                       (funcall separator-left face1 face2)
+                                       (powerline-vc face2 'r)
+                                       (when (bound-and-true-p nyan-mode)
+                                         (powerline-raw (list (nyan-create)) face2 'l))))
+                            (rhs (list (powerline-raw global-mode-string face2 'r)
+                                       (funcall separator-right face2 face1)
+                                       (powerline-raw "%4l" face1 'l)
+                                       (powerline-raw ":" face1 'l)
+                                       (powerline-raw "%3c" face1 'r)
+                                       (funcall separator-right face1 mode-line)
+                                       (powerline-raw " ")
+                                       (powerline-raw "%6p" nil 'r)
+                                       (when powerline-display-hud
+                                         (powerline-hud face2 face1)))))
+                       (concat (powerline-render lhs)
+                               (powerline-fill face2 (powerline-width rhs))
+                               (powerline-render rhs)))))))
+  (my-powerline-default-theme))
 
-(move-text-default-bindings)
+(use-package move-text
+  :init
+  (move-text-default-bindings))
 
-(require 'hl-line+)
-(hl-line-toggle-when-idle 1)
-(hl-line-when-idle-interval 3)
-(global-hl-line-mode 0)
+(use-package hl-line+
+  :init
+  (hl-line-toggle-when-idle 1)
+  (hl-line-when-idle-interval 3)
+  (global-hl-line-mode 0))
 
-(require 'company)
-(define-key company-mode-map (kbd "M-TAB") 'company-complete)
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(use-package company
+  :bind (:map company-mode-map
+         ("C-; C-/" . company-files)
+         ("M-TAB" . company-complete)
+         :map company-active-map
+         ("C-n" . company-select-next)
+         ("C-p" . company-select-previous)))
 
 ;; popup window manager
-(require 'popwin)
-(global-set-key (kbd "C-; p w") popwin:keymap)
+(use-package popwin
+  :config
+  (global-set-key (kbd "C-; p w") popwin:keymap)
+  (popwin-mode t))
 
 ;; cycle through amounts of spacing (http://pragmaticemacs.com/emacs/cycle-spacing/)
-(global-set-key (kbd "M-SPC") 'cycle-spacing)
-
-;; http://emacswiki.org/emacs/InteractivelyDoThings#toc23
-(defun ido-define-keys () ;; C-n/p is more intuitive in vertical layout
-  (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-  (define-key ido-completion-map (kbd "C-p") 'ido-prev-match))
-(add-hook 'ido-setup-hook 'ido-define-keys)
+(use-package simple
+  :bind (("M-SPC" . cycle-spacing)))
 
 (require 'tramp)
 (require 'yasnippet)
-(require 'popwin)
-(popwin-mode t)
 
-(require 'flyspell)
-(define-key flyspell-mode-map (kbd "C-;") 'nil)
+(use-package flyspell
+  :bind (:map flyspell-mode-map
+        ("C-;" . nil)))
 
 (require 'multiple-cursors)
 
@@ -207,8 +214,6 @@
 ;; Swap query-replace and query-replace-regexp
 (define-key global-map (kbd "M-%") 'query-replace-regexp)
 (define-key global-map (kbd "C-M-%") 'query-replace)
-
-(define-key global-map (kbd "C-; C-/") 'company-files)
 
 (define-key global-map (kbd "C-; d s") (lambda () (interactive)(desktop-save "~/")))
 (define-key global-map (kbd "C-; d r") 'desktop-read)
@@ -520,5 +525,6 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; load my extension
 (load "~/.emacs.d/ext")
 
-(with-eval-after-load "apm"
+(use-package apm
+  :init
   (apm-scratch-buttons))
