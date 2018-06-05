@@ -237,6 +237,9 @@ _)
 
 
 ;;;; FZF in helm
+(require 'helm)
+(require 'helm-find)
+
 (defun helm-fzf-shell-command-fn ()
   (let* ((cmd (concat "fzf" " " "-f" " " (shell-quote-argument helm-pattern)))
          (proc (start-file-process-shell-command "ff" helm-buffer cmd)))
@@ -261,8 +264,6 @@ _)
                (force-mode-line-update))
            (helm-log "Error: fd %s"
                      (replace-regexp-in-string "\n" "" event))))))))
-
-(require 'helm)
 
 (defvar helm-source-fzf
   (helm-build-async-source "fd"
