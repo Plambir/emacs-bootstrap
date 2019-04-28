@@ -25,8 +25,8 @@
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 3)
   (setq dashboard-show-shortcuts t)
-  (setq dashboard-items '((recents  . 5)
-                          (projects . 5))))
+  (setq dashboard-items '((recents  . 10)
+                          (projects . 10))))
 
 ;;;; avy
 (use-package avy
