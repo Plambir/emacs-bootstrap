@@ -215,6 +215,11 @@
 
 (use-package wgrep-helm
   :ensure t)
+
+(use-package helm-projectile
+  :ensure t
+  :config
+  (helm-projectile-on))
 
 ;;;; global keybinds
 (use-package bindings
@@ -528,7 +533,7 @@ point reaches the beginning or end of the buffer, stop there."
   ;; Please refer to https://github.com/bbatsov/projectile/issues/657.
   (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
   ;; Whether display icons in mode-line or not.
-  (setq doom-modeline-icon t)
+  (setq doom-modeline-icon nil)
   ;; Whether display the icon for major mode. It respects `doom-modeline-icon'.
   (setq doom-modeline-major-mode-icon t)
   ;; Whether display color icons for `major-mode'. It respects
@@ -572,9 +577,9 @@ point reaches the beginning or end of the buffer, stop there."
   (setq doom-modeline-env-elixir-executable "iex")
   (setq doom-modeline-env-rust-executable "rustc")
   ;; Whether display mu4e notifications or not. Requires `mu4e-alert' package.
-  (setq doom-modeline-mu4e t)
+  (setq doom-modeline-mu4e nil)
   ;; Whether display irc notifications or not. Requires `circe' package.
-  (setq doom-modeline-irc t)
+  (setq doom-modeline-irc nil)
   ;; Function to stylize the irc buffer names.
   (setq doom-modeline-irc-stylize 'identity))
 
