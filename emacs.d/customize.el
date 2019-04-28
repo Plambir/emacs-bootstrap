@@ -99,7 +99,6 @@
  '(flycheck-standard-error-navigation nil)
  '(gdb-many-windows t)
  '(global-apm-minor-mode t)
- '(global-auto-complete-mode t)
  '(global-auto-highlight-symbol-mode t)
  '(global-auto-revert-mode t)
  '(global-company-mode t)
@@ -107,6 +106,7 @@
  '(global-display-line-numbers-mode t)
  '(global-hl-line-mode nil)
  '(global-linum-mode nil)
+ '(global-page-break-lines-mode t nil (page-break-lines))
  '(global-subword-mode t)
  '(global-undo-tree-mode t)
  '(gofmt-command "goimports")
@@ -118,7 +118,7 @@
     ("\\` " "\\`\\*helm" "\\`\\*Echo Area" "\\`\\*Minibuf" "\\`\\*Compile" "\\`\\*Ibuffer" "\\`\\*helm" "\\`\\*Messages" "\\`\\*Customize")))
  '(helm-boring-file-regexp-list
    (quote
-    ("\\.hi$" "\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/" "\\.hg/" "\\.git/" "\\.bzr/" "CVS/" "_darcs/" "_MTN/" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "\\.cs\\.meta$" "\\.git$")))
+    ("^\\..*" "\\.hi$" "\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/" "\\.hg/" "\\.git/" "\\.bzr/" "CVS/" "_darcs/" "_MTN/" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "\\.cs\\.meta$" "\\^.git$")))
  '(helm-buffer-max-length 50)
  '(helm-ff-skip-boring-files t)
  '(helm-follow-mode-persistent t)
@@ -131,149 +131,9 @@
  '(helm-move-to-line-cycle-in-source t)
  '(helm-split-window-inside-p t)
  '(ibuffer-never-show-predicates (quote ("^\\*[^s]")) nil (ibuf-ext))
- '(ido-auto-merge-work-directories-length -1)
- '(ido-everywhere nil)
- '(ido-ignore-buffers (quote ("\\` " ido-custom-filter-function)))
- '(ido-ignore-directories
-   (quote
-    ("\\`CVS/" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/")))
- '(ido-ignore-files
-   (quote
-    ("\\`CVS/" "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./" "\\`__pycache__/")))
- '(ido-ubiquitous-command-overrides
-   (quote
-    ((enable exact "execute-extended-command")
-     (enable prefix "wl-")
-     (enable-old prefix "Info-")
-     (enable exact "webjump")
-     (enable regexp "\\`\\(find\\|load\\|locate\\)-library\\'")
-     (disable prefix "org-")
-     (disable prefix "magit-")
-     (disable prefix "tmm-")
-     (enable regexp "\\`\\(load\\|enable\\|disable\\|describe\\|custom-theme-visit\\)-theme\\'"))))
- '(ido-use-faces nil)
- '(iedit-toggle-key-default (kbd "C-; C-e"))
  '(indent-tabs-mode nil)
  '(indicate-empty-lines t)
  '(inhibit-startup-screen t)
- '(initial-scratch-message
-   ";; Bindings:
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-x z[z] |repeat         |M-TAB    |auto complete     |C-; SPC |avy goto input |
-;; |         |               |         |                  |        |chars          |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-; u    |undo tree      |C-; r    |visual regexp     |C-; C-c |goto last      |
-;; |         |visualize      |         |replace           |        |change         |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-; C-/  |auto complete  |C-; d s  |save session      |C-; d r |read session   |
-;; |         |for file name  |         |                  |        |               |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-; d c  |clear session  |C-x C-b  |ibuffer           |C-; f d |cucle ispell   |
-;; |         |               |         |                  |        |languages      |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-; f m  |flyspell mode  |C-; f p  |flyspell prog mode|C-; f w |ispell word    |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-c +/-  |increment /    |S-RET    |spart open line   |C-S-RET |smart open line|
-;; |         |decrement      |         |                  |        |above          |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-c C-k  |copy line      |M-S-UP   |move text up      |M-S-DOWN|move text down |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |M-SPC    |smart delete   |[C-u] M-^|join line to      |C-x C-o |delete blank   |
-;; |         |space          |         |[down] up         |        |line around    |
-;; |         |               |         |                  |        |cursor         |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-x r k  |kill text in   |C-x r M-w|save text from    |C-x r d |delete text    |
-;; |         |rectangle      |         |rectangle         |        |from rectangle |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-x r y  |yank last      |C-x r o  |insert blank space|C-x r N |insert line    |
-;; |         |killed         |         |to rectangle      |        |numbers in     |
-;; |         |rectangle      |         |                  |        |rectangle      |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-x r c  |clear rectangle|C-x r t  |replace rectangle |C-RET   |rectangle mode |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-; C-m  |multiple cursor|C-x (    |start defining    |C-x )   |stop defining  |
-;; |         |in each line in|         |macro             |        |macro          |
-;; |         |region         |         |                  |        |               |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-x e    |run macro      |C-x C-k ?|help for macro    |M-n     |ahs forward    |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |M-p      |ahs backward   |C-; C-f  |.h <-> .cpp       |C-; C-a |align regexp   |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-=      |expand region  |C-- C-=  |reverse expand    |C-; C-d |delete matching|
-;; |         |               |         |region            |        |lines          |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-; C-l  |helm-occur     |C-x TAB  |indent region     |C-; C-i |helm-imenu     |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-; C-g  |helm find file |C-; C-r  |helm bookmarks    |C-; C-y |helm kill ring |
-;; |         |[C-u] C-s grep |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-; C-;  |ace window jump|M-r      |reposition point  |C-M-a   |begin of defun |
-;; |         |               |         |in window         |        |               |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-M-e    |end of defun   |C-; C-e  |iedit mode        |C-'     |show all iedit |
-;; |         |               |         |                  |        |line           |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-x v [  |diff hl prev   |C-x v ]  |diff hl next hunk |C-z ?   |help for popwin|
-;; |         |hunk           |         |                  |        |bindings       |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; |C-; o t  |org todo list  |C-; o a  |org agenda list   |        |               |
-;; |         |               |         |                  |        |               |
-;; +---------+---------------+---------+------------------+--------+---------------+
-;; Org-Mode: | C-c C-s | scheduled task  | C-c C-d | set deadline   |
-;;           | C-c a l | org timeline    | C-c a t | show todo tree |
-;;           | C-c a d | check deadlines |
-;;----------------------------------------------------------------------------------
-;; Multiple Cursor : | C-; m m | create cursor | C-; m r | remove all cursors |
-;;                   | C-; m e | start edit    |
-;; +-------------------+-----------------------------+---------------------------+
-;; |      Company      |           Python            |         Org-mode          |
-;; +---+---------------+-------+---------------------+-------+-------------------+
-;; |C-:|helm company   |C-c C-d|helm pydoc           |C-c C-o|open external link |
-;; +---+---------------+-------+---------------------+-------+-------------------+
-;; +-------------------+-------------------------+-------------------------+
-;; |     Ido           |          Helm           |          isearch        |
-;; +---+---------------+---+---------------------+---+---------------------+
-;; |C-d|open dired     |C-j|jump to current line |C-j|avy jump             |
-;; +---+---------------+---+---------------------+---+---------------------+
-;; |                   |M-e|edit bookmark        |M-c|case [in]sensitive   |
-;; +-------------------+---+---------------------+---+---------------------+
-;; |                   |C-d|delete bookmark      |   |                     |
-;; +-------------------+---+---------------------+---+---------------------+
-;; +-------------------------------------------------------------------+
-;; |                                M-x                                |
-;; +-------------------+-----------------------------------------------+
-;; |calculator         | emacs calculator                              |
-;; +-------------------+-----------------------------------------------+
-;; |run-skewer         | run skewer - plugin for javascrip live coding |
-;; +-------------------+-----------------------------------------------+
-;; |name-last-kbd-macro| name the last-defined keyboard macro          |
-;; +-------------------+-----------------------------------------------+
-;; |find-name-dired    | find in directory by filename                 |
-;; +-------------------+--+--------------------------------------------+
-;; |clone-indirect-buffer | clone buffer                               |
-;; +-------------------+--+--------------------------------------------+
-;; Ace Window:
-;; x - delete window
-;; m - swap (move) window
-;; c - split window fairly, either vertically or horizontally
-;; v - split window vertically
-;; b - split window horizontally
-;; n - select the previous window
-;; i - maximize window (select which window)
-;; o - maximize current window
-
-")
  '(ispell-dictionary "en")
  '(js-indent-level 2)
  '(js2-include-jslint-globals nil)
@@ -291,7 +151,7 @@
  '(org-src-fontify-natively t)
  '(package-selected-packages
    (quote
-    (tide company-go go-mode modern-cpp-font-lock typescript-mode json-mode yasnippet wrap-region visual-regexp-steroids undo-tree smooth-scrolling smex smartrep skewer-mode rainbow-mode powerline popwin php-mode multiple-cursors move-text markdown-mode lua-mode iedit ido-vertical-mode ido-ubiquitous hl-line+ helm-pydoc helm-company haskell-mode groovy-mode graphviz-dot-mode goto-last-change glsl-mode git-commit fuzzy flycheck-irony fic-mode expand-region diff-hl corral company-tern company-irony company-anaconda cmake-mode auto-highlight-symbol auctex apm ace-window ace-jump-mode 2048-game)))
+    (doom-modeline symbol-overlay undo-tree iedit fic-mode goto-last-change company-irony-c-headers company-irony flycheck-irony irony company-go company-anaconda projectile helm company-tern expand-region dumb-jump dump-jump visual-regexp-steroids mc mc-extras mc-rect popwin company move-text ace-mc ace-window avy ace-jump-mode dashboard use-package "use-package" "use-package" "use-package" "use-package")))
  '(popwin:popup-window-height 18)
  '(popwin:special-display-config
    (quote
@@ -331,9 +191,8 @@
  '(size-indication-mode t)
  '(standard-indent 2)
  '(tab-width 2)
- '(tool-bar-mode nil)
  '(typescript-indent-level 2)
- '(undo-tree-auto-save-history nil)
+ '(undo-tree-auto-save-history t)
  '(undo-tree-history-directory-alist (quote ((".*" . "~/.emacs.d/undo_tree/"))))
  '(undo-tree-visualizer-diff t)
  '(vc-make-backup-files t)
@@ -342,7 +201,6 @@
  '(vr/match-separator-use-custom-face t)
  '(wgrep-auto-save-buffer t)
  '(which-function-mode t)
- '(wrap-region-global-mode t nil (wrap-region))
  '(x-stretch-cursor t)
  '(yas-global-mode t)
  '(yas-prompt-functions (quote (yas-ido-prompt yas-no-prompt)))
@@ -374,7 +232,7 @@
  '(helm-selection ((t (:inherit highlight))))
  '(helm-selection-line ((t (:inherit helm-selection))))
  '(helm-source-header ((t (:background "white smoke" :foreground "black" :weight bold :height 1.3 :family "Sans Serif"))))
- '(highlight ((t (:background "thistle"))))
+ '(highlight ((t (:background "light goldenrod"))))
  '(hl-line ((t (:background "gold"))))
  '(isearch ((t (:background "peach puff"))))
  '(line-number ((t (:inherit (shadow default) :background "gainsboro"))))
@@ -383,10 +241,12 @@
  '(mode-line ((t (:background "tan1" :foreground "gray10"))))
  '(mode-line-highlight ((t (:underline t))))
  '(mode-line-inactive ((t (:inherit mode-line :background "grey90" :foreground "grey40" :weight light))))
+ '(page-break-lines ((t (:foreground "light gray" :slant normal :weight normal :height 98))))
  '(powerline-active1 ((t (:inherit mode-line :background "PeachPuff1"))))
  '(powerline-active2 ((t (:inherit mode-line :background "tan3"))))
  '(powerline-inactive1 ((t (:inherit mode-line-inactive :background "gray88"))))
  '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "gray"))))
+ '(region ((t (:background "light goldenrod" :distant-foreground "gtk_selection_fg_color"))))
  '(show-paren-match ((t (:background "ivory2"))))
  '(show-paren-mismatch ((t (:background "tomato" :foreground "white"))))
  '(trailing-whitespace ((t (:background "RosyBrown1"))))
