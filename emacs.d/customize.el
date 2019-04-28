@@ -151,7 +151,7 @@
  '(org-src-fontify-natively t)
  '(package-selected-packages
    (quote
-    (doom-modeline symbol-overlay undo-tree iedit fic-mode goto-last-change company-irony-c-headers company-irony flycheck-irony irony company-go company-anaconda projectile helm company-tern expand-region dumb-jump dump-jump visual-regexp-steroids mc mc-extras mc-rect popwin company move-text ace-mc ace-window avy ace-jump-mode dashboard use-package "use-package" "use-package" "use-package" "use-package")))
+    (helm-projectile doom-modeline symbol-overlay undo-tree iedit fic-mode goto-last-change company-irony-c-headers company-irony flycheck-irony irony company-go company-anaconda projectile helm company-tern expand-region dumb-jump dump-jump visual-regexp-steroids mc mc-extras mc-rect popwin company move-text ace-mc ace-window avy ace-jump-mode dashboard use-package "use-package" "use-package" "use-package" "use-package")))
  '(popwin:popup-window-height 18)
  '(popwin:special-display-config
    (quote
@@ -232,13 +232,13 @@
  '(helm-selection ((t (:inherit highlight))))
  '(helm-selection-line ((t (:inherit helm-selection))))
  '(helm-source-header ((t (:background "white smoke" :foreground "black" :weight bold :height 1.3 :family "Sans Serif"))))
- '(highlight ((t (:background "light goldenrod"))))
+ '(highlight ((t (:background "SkyBlue2"))))
  '(hl-line ((t (:background "gold"))))
  '(isearch ((t (:background "peach puff"))))
  '(line-number ((t (:inherit (shadow default) :background "gainsboro"))))
  '(line-number-current-line ((t (:inherit line-number :weight extra-bold))))
  '(linum ((t (:inherit (shadow default) :background "gainsboro"))))
- '(mode-line ((t (:background "tan1" :foreground "gray10"))))
+ '(mode-line ((t (:background "SkyBlue2" :foreground "gray10"))))
  '(mode-line-highlight ((t (:underline t))))
  '(mode-line-inactive ((t (:inherit mode-line :background "grey90" :foreground "grey40" :weight light))))
  '(page-break-lines ((t (:foreground "light gray" :slant normal :weight normal :height 98))))
@@ -246,7 +246,7 @@
  '(powerline-active2 ((t (:inherit mode-line :background "tan3"))))
  '(powerline-inactive1 ((t (:inherit mode-line-inactive :background "gray88"))))
  '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "gray"))))
- '(region ((t (:background "light goldenrod" :distant-foreground "gtk_selection_fg_color"))))
+ '(region ((t (:background "SkyBlue2" :distant-foreground "gtk_selection_fg_color"))))
  '(show-paren-match ((t (:background "ivory2"))))
  '(show-paren-mismatch ((t (:background "tomato" :foreground "white"))))
  '(trailing-whitespace ((t (:background "RosyBrown1"))))
