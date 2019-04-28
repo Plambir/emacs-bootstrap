@@ -18,6 +18,8 @@ install: all
 	cp -R emacs.d/snippets ~/.emacs.d/
 	touch ~/.emacs.d/local.el
 	emacs -l install.el
+	cp emacs.d/init.el ~/.emacs.d/
+	rm ~/.emacs.d/init.el~
 
 force_install:
 	make rm_old_packages
