@@ -583,4 +583,5 @@ point reaches the beginning or end of the buffer, stop there."
 (fix-mac-os)
 (try-set-font "Liberation Mono")
 (try-set-font "Source Code Pro")
-(try-set-font "Source Code Variable")
+(if (string= system-type "darwin")
+    (try-set-font "Source Code Variable"))
