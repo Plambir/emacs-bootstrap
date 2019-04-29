@@ -13,6 +13,7 @@
  '(auto-revert-verbose nil)
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/backup/" t))))
  '(aw-dispatch-always t)
+ '(aw-ignore-current t)
  '(backup-by-copying t)
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backup/"))))
  '(browse-url-browser-function (quote browse-url-chromium))
@@ -67,7 +68,7 @@
    (quote
     (company-tern
      (company-irony-c-headers company-irony)
-     company-anaconda company-bbdb company-nxml company-css company-eclim company-xcode company-cmake company-capf
+     company-anaconda company-bbdb company-nxml company-css company-eclim company-xcode company-cmake company-capf company-omnisharp
      (company-dabbrev-code company-gtags company-etags company-keywords)
      company-oddmuse company-files company-dabbrev)))
  '(company-idle-delay 0.2)
@@ -151,7 +152,7 @@
  '(org-src-fontify-natively t)
  '(package-selected-packages
    (quote
-    (helm-projectile doom-modeline symbol-overlay undo-tree iedit fic-mode goto-last-change company-irony-c-headers company-irony flycheck-irony irony company-go company-anaconda projectile helm company-tern expand-region dumb-jump dump-jump visual-regexp-steroids mc mc-extras mc-rect popwin company move-text ace-mc ace-window avy ace-jump-mode dashboard use-package "use-package" "use-package" "use-package" "use-package")))
+    (wrap-region surround winum helm-projectile doom-modeline symbol-overlay undo-tree iedit fic-mode goto-last-change company-irony-c-headers company-irony flycheck-irony irony company-go company-anaconda projectile helm company-tern expand-region dumb-jump dump-jump visual-regexp-steroids mc mc-extras mc-rect popwin company move-text ace-mc ace-window avy ace-jump-mode dashboard use-package "use-package" "use-package" "use-package" "use-package")))
  '(popwin:popup-window-height 18)
  '(popwin:special-display-config
    (quote
@@ -172,6 +173,7 @@
      ("*slime-description*")
      ("*slime-compilation*" :noselect t)
      ("*slime-xref*")
+     ("*Flycheck errors*")
      (sldb-mode :stick t)
      (slime-repl-mode)
      (slime-connection-list-mode)
@@ -191,6 +193,7 @@
  '(size-indication-mode t)
  '(standard-indent 2)
  '(tab-width 2)
+ '(tool-bar-mode nil)
  '(typescript-indent-level 2)
  '(undo-tree-auto-save-history t)
  '(undo-tree-history-directory-alist (quote ((".*" . "~/.emacs.d/undo_tree/"))))

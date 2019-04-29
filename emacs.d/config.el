@@ -15,7 +15,8 @@
   :config
   (projectile-mode +1)
   (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-; p") 'projectile-command-map))
+  (define-key projectile-mode-map (kbd "C-; p") 'projectile-command-map)
+  (setq projectile-enable-caching t))
 
 ;;;; dashboard
 (use-package dashboard
@@ -39,20 +40,56 @@
    :map isearch-mode-map
    ("C-j" . avy-isearch)))
 
-;;;; ace-window
-(use-package ace-window
-  :ensure t
-  :config
-  (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l))
-  :bind
-  (("C-; C-;" . ace-window)))
-
-;;;; ace-mc
+;;;; multiple cursor
+;; https://github.com/knu/mc-extras.el/blob/master/mc-rect.el
+;; this version ignore empty line and deactivate rectangle mark
+(defun my-config--mc/rect-rectangle-to-multiple-cursors (start end)
+  "Turn rectangle-mark-mode into multiple-cursors mode, keeping selections."
+  (interactive "*r")
+  (let* ((current-line (line-beginning-position))
+         (reversed (= (current-column)
+                      (min
+                       (save-excursion
+                         (goto-char end)
+                         (current-column))
+                       (save-excursion
+                         (goto-char start)
+                         (current-column)))))
+         (mark-row `(lambda (startcol endcol)
+                      (let ((markcol  ,(if reversed 'endcol 'startcol))
+                            (pointcol ,(if reversed 'startcol 'endcol)))
+                        (move-to-column markcol)
+                        (push-mark (point))
+                        (move-to-column pointcol)
+                        (setq transient-mark-mode (cons 'only transient-mark-mode))
+                        (activate-mark)
+                        (setq deactivate-mark nil)))))
+    (apply-on-rectangle
+     '(lambda (startcol endcol)
+        (if (= (point) current-line)
+            (funcall mark-row startcol endcol)
+          (mc/save-excursion
+           (funcall mark-row startcol endcol)
+           (if (string-match "[^ ]" (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+               (mc/create-fake-cursor-at-point)))))
+     start end))
+  (deactivate-mark)
+  (mc/maybe-multiple-cursors-mode))
+
 (use-package ace-mc
   :ensure t
+  :commands apply-on-rectangle
   :bind
   (("C-; m" . ace-mc-add-multiple-cursors)
-   ("C-; M"   . ace-mc-add-single-cursor)))
+   ("C-; M"   . ace-mc-add-single-cursor)
+   :map rectangle-mark-mode-map
+   ("C-; C-m" . my-config--mc/rect-rectangle-to-multiple-cursors)))
+
+(use-package winum
+  :ensure t
+  :config
+  (winum-mode t)
+  (winum-set-keymap-prefix (kbd "C-;")))
 
 ;;;; move-text
 (use-package move-text
@@ -95,7 +132,7 @@
   :ensure t
   :commands popwin-mode
   :config
-  (global-set-key (kbd "C-; w") popwin:keymap)
+  (global-set-key (kbd "C-; W") popwin:keymap)
   (popwin-mode t))
 
 ;;;; prog mode
@@ -124,51 +161,6 @@
     (after dired-after-updating-hook first () activate)
   "Sort dired listings with directories first before adding marks."
   (my-config--dired-sort))
-
-;;;; multiple cursor
-;; https://github.com/knu/mc-extras.el/blob/master/mc-rect.el
-;; this version ignore empty line and deactivate rectangle mark
-(defun my-config--mc/rect-rectangle-to-multiple-cursors (start end)
-  "Turn rectangle-mark-mode into multiple-cursors mode, keeping selections."
-  (interactive "*r")
-  (let* ((current-line (line-beginning-position))
-         (reversed (= (current-column)
-                      (min
-                       (save-excursion
-                         (goto-char end)
-                         (current-column))
-                       (save-excursion
-                         (goto-char start)
-                         (current-column)))))
-         (mark-row `(lambda (startcol endcol)
-                     (let ((markcol  ,(if reversed 'endcol 'startcol))
-                           (pointcol ,(if reversed 'startcol 'endcol)))
-                       (move-to-column markcol)
-                       (push-mark (point))
-                       (move-to-column pointcol)
-                       (setq transient-mark-mode (cons 'only transient-mark-mode))
-                       (activate-mark)
-                       (setq deactivate-mark nil)))))
-    (apply-on-rectangle
-     '(lambda (startcol endcol)
-        (if (= (point) current-line)
-            (funcall mark-row startcol endcol)
-          (mc/save-excursion
-           (funcall mark-row startcol endcol)
-           (if (string-match "[^ ]" (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
-               (mc/create-fake-cursor-at-point)))))
-     start end))
-  (deactivate-mark)
-  (mc/maybe-multiple-cursors-mode))
-
-(use-package multiple-cursors
-  :ensure t
-  :commands apply-on-rectangle
-  :bind
-  (("C->" . mc/mark-next-like-this)
-   ("C-<" . mc/mark-previous-like-this)
-   :map rectangle-mark-mode-map
-   ("C-; C-m" . my-config--mc/rect-rectangle-to-multiple-cursors)))
 
 ;;;; org
 (use-package org
@@ -291,12 +283,6 @@ point reaches the beginning or end of the buffer, stop there."
   (if (string= system-type "darwin")   ; Mac OS X
       (set-face-attribute 'default nil :height 140)))
 
-(fix-mac-os)
-
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "GOPATH"))
-
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
 
@@ -305,17 +291,16 @@ point reaches the beginning or end of the buffer, stop there."
 (defun try-set-font (use-font-name)
   (when (member use-font-name (font-family-list))
     (set-face-attribute 'default nil :font use-font-name)))
-
-(try-set-font "Liberation Mono")
-(try-set-font "Source Code Pro")
 
 ;;;; omnisharp and C#
 (use-package omnisharp
   :ensure t
+  :hook (csharp-mode . omnisharp-mode)
   :config
-  (setq omnisharp-imenu-support t)
-  (add-hook 'csharp-mode-hook 'omnisharp-mode)
-  (add-to-list 'company-backends 'company-omnisharp))
+  (setq omnisharp-imenu-support t))
+
+(eval-after-load "omnisharp"
+  '(defun omnisharp--project-root () ()))
 
 (defun my-config--csharp-mode-hook ()
   (define-key csharp-mode-map (kbd "C-c g") 'omnisharp-go-to-definition)
@@ -432,6 +417,10 @@ point reaches the beginning or end of the buffer, stop there."
 (add-hook 'objc-mode-hook 'c-irony-on)
 
 ;;;; other mods
+(use-package wrap-region
+  :ensure t
+  :config
+  (wrap-region-global-mode))
 (use-package yasnippet
   :ensure t)
 (use-package yaml-mode
@@ -456,8 +445,10 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package exec-path-from-shell
   :ensure t
   :config
+  (setq exec-path-from-shell-check-startup-files nil)
   (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+    (exec-path-from-shell-initialize)
+    (exec-path-from-shell-copy-env "GOPATH")))
 
 (add-to-list 'auto-mode-alist '("zsh.*" . sh-mode))
 
@@ -511,9 +502,9 @@ point reaches the beginning or end of the buffer, stop there."
   (doom-modeline-mode t)
   :config
   ;; How tall the mode-line should be (only respected in GUI Emacs).
-  (setq doom-modeline-height 25)
+  (setq doom-modeline-height 20)
   ;; How wide the mode-line bar should be (only respected in GUI Emacs).
-  (setq doom-modeline-bar-width 3)
+  (setq doom-modeline-bar-width 12)
   ;; Determines the style used by `doom-modeline-buffer-file-name'.
   ;;
   ;; Given ~/Projects/FOSS/emacs/lisp/comint.el
@@ -587,3 +578,9 @@ point reaches the beginning or end of the buffer, stop there."
 (load "~/.emacs.d/customize")
 
 (unwind-protect (load "~/.emacs.d/local") nil)
+
+;;;; for mac os x
+(fix-mac-os)
+(try-set-font "Liberation Mono")
+(try-set-font "Source Code Pro")
+(try-set-font "Source Code Variable")
