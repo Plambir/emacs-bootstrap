@@ -84,9 +84,11 @@
   :commands apply-on-rectangle
   :bind
   (("C-; m" . ace-mc-add-multiple-cursors)
-   ("C-; M"   . ace-mc-add-single-cursor)
-   :map rectangle-mark-mode-map
-   ("C-; C-m" . my-config--mc/rect-rectangle-to-multiple-cursors)))
+   ("C-; M" . ace-mc-add-single-cursor)))
+
+(with-eval-after-load 'rect
+  (require 'multiple-cursors)
+  (define-key rectangle-mark-mode-map (kbd "C-; C-m") #'my-config--mc/rect-rectangle-to-multiple-cursors))
 
 (use-package winum
   :ensure t
