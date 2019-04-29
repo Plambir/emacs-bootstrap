@@ -1,3 +1,5 @@
+(load "~/.emacs.d/customize")
+
 (eval-when-compile
     (require 'use-package))
 
@@ -23,6 +25,7 @@
   :ensure t
   :functions dashboard-setup-startup-hook
   :config
+  (global-page-break-lines-mode t)
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 3)
   (setq dashboard-show-shortcuts t)
@@ -575,7 +578,6 @@ point reaches the beginning or end of the buffer, stop there."
   (setq doom-modeline-irc-stylize 'identity))
 
 (load "~/.emacs.d/bitgames")
-(load "~/.emacs.d/customize")
 
 (unwind-protect (load "~/.emacs.d/local") nil)
 
