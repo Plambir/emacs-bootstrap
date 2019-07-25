@@ -421,6 +421,18 @@ point reaches the beginning or end of the buffer, stop there."
 (add-hook 'c-mode-hook 'c-irony-on)
 (add-hook 'objc-mode-hook 'c-irony-on)
 
+;;;; PHP
+(use-package php-mode
+  :ensure t)
+
+(defun my-config--php-mode-hook ()
+  (setq c-basic-offset 2
+        tab-width 2
+        indent-tabs-mode nil))
+
+(add-hook 'php-mode-hook 'my-config--php-mode-hook)
+
+
 ;;;; other mods
 (use-package wrap-region
   :ensure t
@@ -507,7 +519,9 @@ point reaches the beginning or end of the buffer, stop there."
   (doom-modeline-mode t)
   :config
   ;; How tall the mode-line should be (only respected in GUI Emacs).
-  (setq doom-modeline-height 20)
+  (setq doom-modeline-height 1)
+  (set-face-attribute 'mode-line nil :height 100)
+  (set-face-attribute 'mode-line-inactive nil :height 100)
   ;; How wide the mode-line bar should be (only respected in GUI Emacs).
   (setq doom-modeline-bar-width 12)
   ;; Determines the style used by `doom-modeline-buffer-file-name'.
@@ -550,6 +564,8 @@ point reaches the beginning or end of the buffer, stop there."
   (setq doom-modeline-vcs-max-length 12)
   ;; Whether display perspective name or not. Non-nil to display in mode-line.
   (setq doom-modeline-persp-name t)
+  ;; Whether display icon for persp name. Nil to display a # sign. It respects `doom-modeline-icon'
+  (setq doom-modeline-persp-name-icon nil)
   ;; Whether display `lsp' state or not. Non-nil to display in mode-line.
   (setq doom-modeline-lsp t)
   ;; Whether display github notifications or not. Requires `ghub` package.
@@ -577,7 +593,12 @@ point reaches the beginning or end of the buffer, stop there."
   ;; Whether display irc notifications or not. Requires `circe' package.
   (setq doom-modeline-irc nil)
   ;; Function to stylize the irc buffer names.
-  (setq doom-modeline-irc-stylize 'identity))
+  (setq doom-modeline-irc-stylize 'identity)
+  (setq doom-modeline-env-load-string "...")
+  ;; Hooks that run before/after the modeline version string is updated
+  (setq doom-modeline-before-update-env-hook nil)
+  (setq doom-modeline-after-update-env-hook nil))
+
 
 (load "~/.emacs.d/bitgames")
 

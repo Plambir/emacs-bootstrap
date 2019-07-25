@@ -151,7 +151,7 @@
  '(org-src-fontify-natively t)
  '(package-selected-packages
    (quote
-    (wrap-region surround winum helm-projectile doom-modeline symbol-overlay undo-tree iedit fic-mode goto-last-change company-irony-c-headers company-irony flycheck-irony irony company-go company-anaconda projectile helm company-tern expand-region dumb-jump dump-jump visual-regexp-steroids mc mc-extras mc-rect popwin company move-text ace-mc ace-window avy ace-jump-mode dashboard use-package "use-package" "use-package" "use-package" "use-package")))
+    (php-mode wrap-region surround winum helm-projectile doom-modeline symbol-overlay undo-tree iedit fic-mode goto-last-change company-irony-c-headers company-irony flycheck-irony irony company-go company-anaconda projectile helm company-tern expand-region dumb-jump dump-jump visual-regexp-steroids mc mc-extras mc-rect popwin company move-text ace-mc ace-window avy ace-jump-mode dashboard use-package "use-package" "use-package" "use-package" "use-package")))
  '(popwin:popup-window-height 18)
  '(popwin:special-display-config
    (quote
