@@ -135,10 +135,9 @@
 ;;;; popwin
 (use-package popwin
   :ensure t
-  :commands popwin-mode
   :config
   (global-set-key (kbd "C-; W") popwin:keymap)
-  (popwin-mode t))
+  (popwin-mode 1))
 
 ;;;; prog mode
 (defun my-config--on-show-trailing-whitespace-prog-mode-hook ()
@@ -432,7 +431,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 (add-hook 'php-mode-hook 'my-config--php-mode-hook)
 
-
 ;;;; other mods
 (use-package wrap-region
   :ensure t
@@ -466,6 +464,13 @@ point reaches the beginning or end of the buffer, stop there."
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)
     (exec-path-from-shell-copy-env "GOPATH")))
+
+;;;; shell
+(defun my-config--sh-mode-hook ()
+  (setq sh-basic-offset 2
+        indent-tabs-mode nil))
+
+(add-hook 'sh-mode-hook 'my-config--sh-mode-hook)
 
 (add-to-list 'auto-mode-alist '("zsh.*" . sh-mode))
 
