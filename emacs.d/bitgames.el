@@ -2,7 +2,9 @@
 (setq myKeywords
       '(("^struct\\>\\|^end\\>\\|\\<extends\\>\\|^enum\\>\\|^func\\>" . font-lock-keyword-face)
         ("\\<.?int\\(8\\|16\\|32\\|64\\)\\>\\|\\<string\\>\\|\\<float\\>\\|\\<double\\>|\\<bool\\>" . font-lock-type-face)
-        ("@.*" . font-lock-function-name-face)
+        ("@cs_\\w*:*" . font-lock-function-name-face)
+        ("@flt_\\w*:*" . font-lock-function-name-face)
+        ("@\\w*:*" . font-lock-function-name-face)
         ("#include" . font-lock-preprocessor-face)
         ("#.*" . font-lock-comment-face)
         )
