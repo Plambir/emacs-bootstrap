@@ -1,6 +1,3 @@
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -21,9 +18,8 @@ There are two things you can do about this warning:
 
 (package-initialize)
 
-(unless package-archive-contents
-  (package-refresh-contents))
 (unless (package-installed-p 'use-package)
+  (package-refresh-contents)
   (package-install 'use-package))
 
 ;; Off suspend
