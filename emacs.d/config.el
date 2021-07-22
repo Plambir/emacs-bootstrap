@@ -632,6 +632,11 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :init (load-theme 'spacemacs-light t))
 
+;;;; csv-mode
+(use-package csv-mode
+  :ensure t)
+
+
 (load "~/.emacs.d/bitgames")
 
 (unwind-protect (load "~/.emacs.d/local") nil)
