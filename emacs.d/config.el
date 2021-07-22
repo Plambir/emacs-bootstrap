@@ -348,6 +348,10 @@ point reaches the beginning or end of the buffer, stop there."
   (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
   (add-hook 'json-mode-hook 'my-config--json-mode-hook))
 
+;;;; vue
+(use-package vue-mode
+  :ensure t)
+
 ;;;; golang
 (defun my-config--go-mode-hook ()
   (set (make-local-variable 'company-backends) '(company-go))
