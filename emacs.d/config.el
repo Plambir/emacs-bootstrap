@@ -21,11 +21,15 @@
   (setq projectile-enable-caching t))
 
 ;;;; dashboard
+(use-package page-break-lines
+  :ensure t
+  :config
+  (global-page-break-lines-mode t))
+
 (use-package dashboard
   :ensure t
   :functions dashboard-setup-startup-hook
   :config
-  (global-page-break-lines-mode t)
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 3)
   (setq dashboard-show-shortcuts t)
@@ -131,9 +135,6 @@
   :ensure t)
 
 (use-package company-go
-  :ensure t)
-
-(use-package company-tern
   :ensure t)
 
 ;;;; flycheck
