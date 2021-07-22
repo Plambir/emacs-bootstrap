@@ -302,6 +302,16 @@ point reaches the beginning or end of the buffer, stop there."
     (set-face-attribute 'default nil :font use-font-name)))
 
 ;;;; omnisharp and C#
+(use-package tree-sitter
+  :ensure t)
+(use-package tree-sitter-langs
+  :ensure t)
+
+(use-package csharp-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-tree-sitter-mode)))
+
 (use-package omnisharp
   :ensure t
   :hook (csharp-mode . omnisharp-mode)
