@@ -532,6 +532,9 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; symbol-overlay
 (use-package symbol-overlay
   :ensure t
+  :config
+  (custom-set-faces
+   '(symbol-overlay-default-face ((t (:background "light goldenrod")))))
   :hook (prog-mode . symbol-overlay-mode)
   :bind (("M-i" . symbol-overlay-put)
          ("M-p" . symbol-overlay-jump-prev)
