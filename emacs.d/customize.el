@@ -58,8 +58,7 @@
       (".cxx"))))
  '(column-number-mode t)
  '(company-backends
-   '(company-tern
-     (company-irony-c-headers company-irony)
+   '((company-irony-c-headers company-irony)
      company-anaconda company-bbdb company-nxml company-css company-cmake company-capf company-omnisharp
      (company-dabbrev-code company-gtags company-etags company-keywords)
      company-oddmuse company-files company-dabbrev))
@@ -139,6 +138,8 @@
  '(org-ellipsis "…")
  '(org-log-done t)
  '(org-src-fontify-natively t)
+ '(package-selected-packages
+   '(page-break-lines company-tern yasnippet yaml-mode wrap-region winum wgrep-helm vue-mode visual-regexp-steroids use-package undo-tree symbol-overlay spacemacs-theme popwin php-mode omnisharp move-text modern-cpp-font-lock markdown-mode lua-mode json-mode iflipb iedit helm-projectile goto-last-change glsl-mode git-commit flycheck-irony fic-mode expand-region exec-path-from-shell dumb-jump doom-modeline dockerfile-mode diff-hl dashboard csv-mode company-irony-c-headers company-irony company-go company-anaconda cmake-mode avy auctex ace-mc))
  '(popwin:popup-window-height 18)
  '(popwin:special-display-config
    '(("*Miniedit Help*" :noselect t)
