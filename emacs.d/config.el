@@ -32,6 +32,15 @@
   (setq dashboard-items '((recents  . 10)
                           (projects . 10))))
 
+;;;; iflipb
+(use-package iflipb
+  :ensure t
+  :config
+  (setq iflipb-wrap-around t)
+  :bind
+  (("C-`" . iflipb-next-buffer)
+   ("C-~" . iflipb-previous-buffer)))
+
 ;;;; avy
 (use-package avy
   :ensure t
@@ -218,10 +227,6 @@
   (helm-projectile-on))
 
 ;;;; global keybinds
-(use-package bindings
-  :bind (("C-`" . mode-line-other-buffer)
-         ("C-§" . mode-line-other-buffer)))
-
 (use-package simple
   :bind (("M-SPC" . cycle-spacing)))
 
