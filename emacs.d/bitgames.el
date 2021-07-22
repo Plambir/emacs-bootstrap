@@ -1,10 +1,8 @@
 ;;;; meta
-(setq myKeywords
+(setq bit_meta_keyworlds
       '(("^struct\\>\\|^end\\>\\|\\<extends\\>\\|^enum\\>\\|^func\\>" . font-lock-keyword-face)
-        ("\\<.?int\\(8\\|16\\|32\\|64\\)\\>\\|\\<string\\>\\|\\<float\\>\\|\\<double\\>|\\<bool\\>" . font-lock-type-face)
-        ("@cs_\\w*:*" . font-lock-function-name-face)
-        ("@flt_\\w*:*" . font-lock-function-name-face)
-        ("@\\w*:*" . font-lock-function-name-face)
+        ("\\<.?int\\(8\\|16\\|32\\|64\\)\\>\\|\\<string\\>\\|\\<float\\>\\|\\<double\\>\\|\\<bool\\>" . font-lock-type-face)
+        ("@[a-zA-Z0-9_]*:*" . font-lock-function-name-face)
         ("#include" . font-lock-preprocessor-face)
         ("#.*" . font-lock-comment-face)
         )
@@ -15,11 +13,10 @@
     ("enum"      "^enum *\\(.*\\)"   1)
     ("func"      "^func *\\(.*\\)"   1)))
 
-(define-derived-mode bit-meta-mode prog-mode
-  (setq font-lock-defaults '(myKeywords))
+(define-derived-mode bit-meta-mode go-mode
+  (setq font-lock-defaults '(bit_meta_keyworlds))
   (setq mode-name "bit meta")
-  (set (make-local-variable 'imenu-generic-expression) bit-meta-imenu-expression)
-  (setq tab-width 2))
+  (set (make-local-variable 'imenu-generic-expression) bit-meta-imenu-expression))
 
 (add-to-list 'auto-mode-alist '("\\.meta\\'" . bit-meta-mode))
 
