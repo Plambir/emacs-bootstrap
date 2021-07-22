@@ -627,6 +627,11 @@ point reaches the beginning or end of the buffer, stop there."
   (setq doom-modeline-after-update-env-hook nil))
 
 
+(use-package spacemacs-theme
+  :defer t
+  :ensure t
+  :init (load-theme 'spacemacs-light t))
+
 (load "~/.emacs.d/bitgames")
 
 (unwind-protect (load "~/.emacs.d/local") nil)
