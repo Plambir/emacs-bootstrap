@@ -116,10 +116,6 @@
   :config
   (move-text-default-bindings))
 
-(use-package anaconda-mode
-  :ensure t
-  :hook python-mode)
-
 ;;;; company
 (use-package company
   :ensure t
@@ -130,9 +126,6 @@
    :map company-active-map
    ("C-n" . company-select-next)
    ("C-p" . company-select-previous)))
-
-(use-package company-anaconda
-  :ensure t)
 
 (use-package company-go
   :ensure t)
@@ -185,12 +178,6 @@
          ("C-c a t" . org-show-todo-tree)
          ("C-c a d" . org-check-deadlines)))
 
-;;;; dump-jump
-(use-package dumb-jump
-  :ensure t
-  :bind (("C-c g" . dumb-jump-go)
-         ("C-c p" . dumb-jump-back)))
-
 ;;;; helm
 (defun my-config--helm-toggle-show-hide-files ()
   (interactive)
@@ -229,7 +216,8 @@
 
 ;;;; global keybinds
 (use-package simple
-  :bind (("M-SPC" . cycle-spacing)))
+  :bind (("M-SPC" . cycle-spacing)
+         ("C-x K" . kill-this-buffer)))
 
 (use-package flyspell
   :bind (:map flyspell-mode-map ("C-;" . nil)))
@@ -303,38 +291,19 @@ point reaches the beginning or end of the buffer, stop there."
     (set-face-attribute 'default nil :font use-font-name)))
 
 ;;;; omnisharp and C#
-(use-package tree-sitter
-  :ensure t)
-(use-package tree-sitter-langs
-  :ensure t)
-
 (use-package csharp-mode
   :ensure t
   :config
+  (setq csharp-mode-indent t)
+  (setq csharp-tree-sitter-indent-offset 2)
   (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-tree-sitter-mode)))
 
-(use-package omnisharp
-  :ensure t
-  :hook (csharp-mode . omnisharp-mode)
-  :config
-  (setq omnisharp-imenu-support t))
-
-(eval-after-load "omnisharp"
-  '(defun omnisharp--project-root () ()))
-
 (defun my-config--csharp-mode-hook ()
-  (define-key csharp-mode-map (kbd "C-c g") 'omnisharp-go-to-definition)
-  (define-key csharp-mode-map (kbd "C-c C-g") 'omnisharp-find-usages-with-ido)
-  (define-key csharp-mode-map (kbd "C-c p") 'pop-tag-mark)
-  (local-set-key (kbd "C-c r r") 'omnisharp-run-code-action-refactoring)
   (flycheck-mode)
   (setq indent-tabs-mode nil)
-  (setq c-syntactic-indentation t)
-  (c-set-style "ellemtel")
   (setq truncate-lines t)
-  (setq tab-width 2)
-  (setq default-tab-width 2)
-  (setq c-basic-offset 2)
+  (electric-pair-local-mode 1)
+  (electric-indent-mode 1)
   (electric-pair-mode 1))
 
 (add-hook 'csharp-mode-hook 'my-config--csharp-mode-hook)
@@ -378,21 +347,7 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (add-hook 'LaTeX-mode-hook 'my-config--LaTeX-mode-hook))
 
-;;;; C/C++ and irony
-(use-package irony
-  :ensure t
-  :hook (irony-mode . irony-cdb-autosetup-compile-options))
-
-(use-package flycheck-irony
-  :ensure t)
-
-(use-package company-irony
-  :ensure t
-  :hook (irony-mode . company-irony-setup-begin-commands))
-
-(use-package company-irony-c-headers
-  :ensure t)
-
+;;;; C/C++
 (use-package modern-cpp-font-lock
   :ensure t
   :hook (c++-mode . modern-c++-font-lock-mode))
@@ -424,21 +379,6 @@ point reaches the beginning or end of the buffer, stop there."
   (add-to-list 'c-offsets-alist '(statement-cont . align-enum-class-closing-brace)))
 
 (add-hook 'c++-mode-hook 'fix-enum-class)
-
-(eval-after-load 'flycheck
-  '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-
-(defun c-irony-on ()
-  (if (member major-mode '(c++-mode c-mode objc-mode))
-      (progn
-        (irony-mode t)
-        (irony-cdb-autosetup-compile-options)
-        (if (irony-cdb--autodetect-compile-options)
-            (flycheck-mode)))))
-
-(add-hook 'c++-mode-hook 'c-irony-on)
-(add-hook 'c-mode-hook 'c-irony-on)
-(add-hook 'objc-mode-hook 'c-irony-on)
 
 ;;;; PHP
 (use-package php-mode
@@ -651,3 +591,42 @@ point reaches the beginning or end of the buffer, stop there."
 (try-set-font "Source Code Pro")
 (if (string= system-type "darwin")
     (try-set-font "Source Code Variable"))
+
+;;;; lsp
+(use-package lsp-mode
+  :ensure t
+  :init
+  (setq lsp-keymap-prefix "C-; l")
+  :hook ((python-mode . lsp)
+         (csharp-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :bind
+  (("C-c g" . xref-find-definitions)
+   ("C-c p" . xref-pop-marker-stack)
+   ("C-C C-G" . xref-find-references))
+  :commands lsp)
+
+(use-package lsp-ui
+  :ensure t
+  :bind
+  (([remap xref-find-definitions] . #'lsp-ui-peek-find-definitions)
+   ([remap xref-find-references] . #'lsp-ui-peek-find-references))
+  :commands lsp-ui-mode)
+
+(use-package helm-lsp
+  :ensure t
+  :commands helm-lsp-workspace-symbol)
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
+;;;; lsp-python
+(use-package lsp-jedi
+  :ensure t
+  :config
+  (with-eval-after-load "lsp-mode"
+    (add-to-list 'lsp-disabled-clients 'pyls)
+    (add-to-list 'lsp-enabled-clients 'jedi)))
+
