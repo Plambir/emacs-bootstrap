@@ -296,12 +296,18 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (setq csharp-mode-indent t)
   (setq csharp-tree-sitter-indent-offset 2)
-  (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-tree-sitter-mode)))
+  (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-mode)))
 
 (defun my-config--csharp-mode-hook ()
   (flycheck-mode)
   (setq indent-tabs-mode nil)
   (setq truncate-lines t)
+  (c-set-style "ellemtel")
+  (setq c-syntactic-indentation t)
+  (setq tab-width 2)
+  (setq default-tab-width 2)
+  (setq c-basic-offset 2)
+  (setq tab-width 2)
   (electric-pair-local-mode 1)
   (electric-indent-mode 1)
   (electric-pair-mode 1))
@@ -579,12 +585,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; csv-mode
 (use-package csv-mode
   :ensure t)
-
 
-(load "~/.emacs.d/bitgames")
-
-(unwind-protect (load "~/.emacs.d/local") nil)
-
 ;;;; for mac os x
 (fix-mac-os)
 (try-set-font "Liberation Mono")
@@ -598,7 +599,9 @@ point reaches the beginning or end of the buffer, stop there."
   :init
   (setq lsp-keymap-prefix "C-; l")
   :hook ((python-mode . lsp)
-         (csharp-mode . lsp)
+         (csharp-mode . lsp) ;https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
+         (c++-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+         (c-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
          (lsp-mode . lsp-enable-which-key-integration))
   :bind
   (("C-c g" . xref-find-definitions)
@@ -624,9 +627,19 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;;; lsp-python
 (use-package lsp-jedi
+  :ensure t)
+
+;;;; Arduino
+(defun my-config--arduino-mode-hook ()
+  (set (make-local-variable 'company-backends) '(company-arduino))
+  (flycheck-mode t)
+  (company-mode t))
+
+(use-package arduino-mode
   :ensure t
   :config
-  (with-eval-after-load "lsp-mode"
-    (add-to-list 'lsp-disabled-clients 'pyls)
-    (add-to-list 'lsp-enabled-clients 'jedi)))
+  (add-hook 'arduino-mode-hook 'my-config--arduino-mode-hook))
+
+(load "~/.emacs.d/bitgames")
 
+(unwind-protect (load "~/.emacs.d/local") nil)
