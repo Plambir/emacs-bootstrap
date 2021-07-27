@@ -599,6 +599,7 @@ point reaches the beginning or end of the buffer, stop there."
   :init
   (setq lsp-keymap-prefix "C-; l")
   :hook ((python-mode . lsp)
+         (gdscript-mode . lsp)
          (csharp-mode . lsp) ;https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
          (c++-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
          (c-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
@@ -628,6 +629,13 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; lsp-python
 (use-package lsp-jedi
   :ensure t)
+
+;;;; GDScript
+(use-package gdscript-mode
+  :ensure t
+  :config
+  (setq gdscript-gdformat-save-and-format t)
+  (setq gdscript-godot-executable "/bin/godot"))
 
 ;;;; Arduino
 (defun my-config--arduino-mode-hook ()
