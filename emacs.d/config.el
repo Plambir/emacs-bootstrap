@@ -406,6 +406,11 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :config
   (yas-global-mode 1))
+
+(use-package yatemplate
+  :ensure t
+  :config
+  (auto-insert-mode t))
 
 ;;;; other mods
 (use-package wrap-region
