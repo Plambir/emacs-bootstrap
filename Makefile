@@ -8,6 +8,7 @@ update:
 	cp ~/.emacs.d/customize.el emacs.d/customize.el
 	cp ~/.emacs.d/bitgames.el emacs.d/bitgames.el
 	cp -R ~/.emacs.d/snippets emacs.d/
+	cp -R ~/.emacs.d/templates emacs.d
 
 install: all
 	mkdir -p ~/.emacs.d
@@ -16,6 +17,7 @@ install: all
 	cp emacs.d/bitgames.el ~/.emacs.d/
 	cp emacs.d/customize.el ~/.emacs.d/
 	cp -R emacs.d/snippets ~/.emacs.d/
+	cp -R emacs.d/templates ~/.emacs.d/
 	touch ~/.emacs.d/local.el
 	emacs -l install.el
 	cp emacs.d/init.el ~/.emacs.d/
