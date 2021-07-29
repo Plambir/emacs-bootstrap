@@ -42,8 +42,12 @@
   :config
   (setq iflipb-wrap-around t)
   :bind
-  (("C-`" . iflipb-next-buffer)
-   ("C-~" . iflipb-previous-buffer)))
+  ([C-tab] . iflipb-next-buffer)
+  ([C-iso-lefttab] . iflipb-previous-buffer))
+
+(use-package bindings
+  :bind
+  ("C-`" . mode-line-other-buffer))
 
 ;;;; avy
 (use-package avy
@@ -397,13 +401,17 @@ point reaches the beginning or end of the buffer, stop there."
 
 (add-hook 'php-mode-hook 'my-config--php-mode-hook)
 
+;;;; yasnippet
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1))
+
 ;;;; other mods
 (use-package wrap-region
   :ensure t
   :config
   (wrap-region-global-mode))
-(use-package yasnippet
-  :ensure t)
 (use-package yaml-mode
   :ensure t)
 (use-package dockerfile-mode
