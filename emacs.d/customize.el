@@ -196,8 +196,7 @@
  '(which-function-mode t)
  '(x-stretch-cursor t)
  '(yas-global-mode t)
- '(yas-prompt-functions '(yas-ido-prompt yas-no-prompt))
- '(yas-snippet-dirs '("~/.emacs.d/snippets")))
+ '(yas-prompt-functions '(yas-ido-prompt yas-no-prompt)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
