@@ -19,6 +19,7 @@ install: all
 	cp -R emacs.d/snippets ~/.emacs.d/
 	cp -R emacs.d/templates ~/.emacs.d/
 	touch ~/.emacs.d/local.el
+	mkdir -p ~/.emacs.d/local_snippets
 	emacs -l install.el
 	cp emacs.d/init.el ~/.emacs.d/
 	cp emacs.d/customize.el ~/.emacs.d/

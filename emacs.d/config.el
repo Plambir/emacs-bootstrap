@@ -405,6 +405,9 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package yasnippet
   :ensure t
   :config
+  (setq yas-snippet-dirs
+        '("~/.emacs.d/snippets"
+          "~/.emacs.d/local_snippets"))
   (yas-global-mode 1))
 
 (use-package yatemplate
