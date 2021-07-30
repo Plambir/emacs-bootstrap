@@ -1,7 +1,77 @@
-(load "~/.emacs.d/customize")
-
 (eval-when-compile
     (require 'use-package))
+
+;;; Base
+(use-package emacs
+  :custom
+  (custom-file null-device)
+  (backup-by-copying t)
+  (backup-directory-alist '((".*" . "~/.emacs.d/backup/")))
+  (browse-url-browser-function 'browse-url-chromium)
+  (c-basic-offset 2)
+  (c-default-style '((java-mode . "java") (awk-mode . "awk") (other . "user")))
+  (c-offsets-alist
+   '((inline-open . 0)
+     (statement-case-open . 0)
+     (substatement-open . 0)
+     (case-label . +)
+     (arglist-close . 0)
+     (innamespace . -)))
+  (create-lockfiles nil)
+  (current-language-environment "UTF-8")
+  (default-input-method "russian-computer")
+  (delete-old-versions t)
+  (delete-selection-mode t)
+  (display-battery-mode t)
+  (display-line-numbers-widen t)
+  (display-time-24hr-format t)
+  (display-time-mode t)
+  (gdb-many-windows t)
+  (echo-keystrokes 0.1)
+  (electric-layout-mode nil)
+  (electric-pair-mode t)
+  (fill-column 80)
+  (global-display-line-numbers-mode t)
+  (global-subword-mode t)
+  (global-hl-line-mode nil)
+  (global-linum-mode nil)
+  (indent-tabs-mode nil)
+  (indicate-empty-lines t)
+  (inhibit-startup-screen t)
+  (ispell-dictionary "en")
+  (kept-new-versions 6)
+  (kept-old-versions 2)
+  (max-specpdl-size 500000)
+  (menu-bar-mode nil)
+  (mouse-yank-at-point t)
+  (reb-re-syntax 'string)
+  (scroll-bar-mode nil)
+  (show-paren-mode t)
+  (show-paren-style 'expression)
+  (show-trailing-whitespace nil)
+  (size-indication-mode t)
+  (standard-indent 2)
+  (tab-width 2)
+  (tool-bar-mode nil)
+  (typescript-indent-level 2)
+  (vc-make-backup-files t)
+  (version-control t)
+  (visible-bell t)
+  (vr/match-separator-use-custom-face t)
+  (wgrep-auto-save-buffer t)
+  (which-function-mode t)
+  (x-stretch-cursor t)
+  (column-number-mode t)
+  (compilation-scroll-output 'first-error)
+  (auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/" t)))
+  (auto-revert-verbose nil)
+  (global-auto-revert-mode t)
+  (auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/" t)))
+  :custom-face
+  (default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :height 98 :width normal))))
+  (aw-leading-char-face ((t (:foreground "red" :weight extra-bold :height 2.0))))
+  (mode-line-highlight ((t (:underline t))))
+  (symbol-overlay-default-face ((t (:background "light goldenrod")))))
 
 ;;;; iedit
 (use-package iedit
@@ -96,6 +166,11 @@
   (deactivate-mark)
   (mc/maybe-multiple-cursors-mode))
 
+(use-package multiple-cursors
+  :ensure t
+  :custom
+  (mc/edit-lines-empty-lines 'ignore))
+
 (use-package ace-mc
   :ensure t
   :commands apply-on-rectangle
@@ -123,6 +198,10 @@
 ;;;; company
 (use-package company
   :ensure t
+  :custom
+  (company-idle-delay 0.2)
+  (company-tooltip-align-annotations t)
+  (global-company-mode t)
   :bind
   (("C-; C-/" . company-files)
    :map company-mode-map
@@ -136,12 +215,40 @@
 
 ;;;; flycheck
 (use-package flycheck
+  :ensure t
   :hook ((python-mode . flycheck-mode))
-  :ensure t)
+  :custom
+  (flycheck-standard-error-navigation nil))
 
 ;;;; popwin
 (use-package popwin
   :ensure t
+  :custom
+  (popwin:popup-window-height 18)
+  (popwin:special-display-config
+   '(("*Miniedit Help*" :noselect t)
+     (help-mode)
+     (completion-list-mode :noselect t)
+     (compilation-mode :noselect t :dedicated t :stick t)
+     (grep-mode :noselect t)
+     (occur-mode :noselect t)
+     ("*Pp Macroexpand Output*" :noselect t)
+     ("*Shell Command Output*")
+     ("*vc-diff*")
+     ("*vc-change-log*")
+     (" *undo-tree*" :width 60 :position right)
+     ("^\\*anything.*\\*$" :regexp t)
+     ("*slime-apropos*")
+     ("*slime-macroexpansion*")
+     ("*slime-description*")
+     ("*slime-compilation*" :noselect t)
+     ("*slime-xref*")
+     ("*Flycheck errors*")
+     (sldb-mode :stick t)
+     (slime-repl-mode)
+     (slime-connection-list-mode)
+     ("^\\*helm.*\\*$" :regexp t :height 0.3)
+     ("*compilation*" :noselect nil :dedicated t :stick t)))
   :config
   (global-set-key (kbd "C-; W") popwin:keymap)
   (popwin-mode 1))
@@ -156,6 +263,9 @@
 
 (use-package fic-mode
   :ensure t
+  :custom
+  (fic-background-color nil)
+  (fic-highlighted-words '("FIXME" "TODO" "BUG" "NOTE"))
   :hook prog-mode)
 
 ;;;; dired
@@ -176,11 +286,16 @@
 ;;;; org
 (use-package org
   :ensure t
-  :bind (()
-         :map org-mode-map
-         ("C-c a l" . org-timeline)
-         ("C-c a t" . org-show-todo-tree)
-         ("C-c a d" . org-check-deadlines)))
+  :custom
+  (org-agenda-files "~/.agenda_files")
+  (org-ellipsis "…")
+  (org-log-done t)
+  (org-src-fontify-natively t)
+  :bind
+  (:map org-mode-map
+        ("C-c a l" . org-timeline)
+        ("C-c a t" . org-show-todo-tree)
+        ("C-c a d" . org-check-deadlines)))
 
 ;;;; helm
 (defun my-config--helm-toggle-show-hide-files ()
@@ -203,6 +318,29 @@
          ("C-; C-l" . helm-occur)
          ("C-; C-r" . helm-bookmarks)
          ("C-; C-y" . helm-show-kill-ring))
+  :custom
+  (helm-M-x-fuzzy-match t)
+  (helm-always-two-windows t)
+  (helm-autoresize-mode t)
+  (helm-boring-buffer-regexp-list
+   '("\\` " "\\`\\*helm" "\\`\\*Echo Area" "\\`\\*Minibuf" "\\`\\*Compile" "\\`\\*Ibuffer" "\\`\\*helm" "\\`\\*Messages" "\\`\\*Customize"))
+  (helm-boring-file-regexp-list
+   '("^\\..*" "\\.hi$" "\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/" "\\.hg/" "\\.git/" "\\.bzr/" "CVS/" "_darcs/" "_MTN/" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "\\.cs\\.meta$" "\\^.git$"))
+  (helm-buffer-max-length 50)
+  (helm-ff-skip-boring-files t)
+  (helm-follow-mode-persistent t)
+  (helm-full-frame nil)
+  (helm-grep-file-path-style 'relative)
+  (helm-grep-save-buffer-name-no-confirm t)
+  (helm-imenu-fuzzy-match t)
+  (helm-lsp-treemacs-icons nil)
+  (helm-mode t)
+  (helm-mode-fuzzy-match t)
+  (helm-move-to-line-cycle-in-source t)
+  (helm-split-window-inside-p t)
+  :custom-face
+  (helm-selection ((t (:inherit highlight))))
+  (helm-selection-line ((t (:inherit helm-selection))))
   :config
   (require 'helm-config)
   (global-set-key (kbd "M-x") #'helm-M-x)
@@ -238,6 +376,8 @@
   :bind (("C-; C-c" . goto-last-change)))
 
 (use-package ibuffer
+  :custom
+  (ibuffer-never-show-predicates '("^\\*[^s]") nil (ibuf-ext))
   :bind (("C-; C-b" . ibuffer)))
 
 (use-package expand-region
@@ -250,6 +390,11 @@
 
 (use-package undo-tree
   :ensure t
+  :custom
+  (global-undo-tree-mode t)
+  (undo-tree-auto-save-history t)
+  (undo-tree-history-directory-alist '((".*" . "~/.emacs.d/undo_tree/")))
+  (undo-tree-visualizer-diff t)
   :bind (("C-; C-u" . undo-tree-visualize)))
 
 ;;;; smarter move
@@ -342,6 +487,8 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package go-mode
   :ensure t
   :bind (:map go-mode-map ("C-c" . godef-jump))
+  :custom
+  (gofmt-command "goimports")
   :config
   (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook 'my-config--go-mode-hook))
@@ -405,11 +552,13 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; yasnippet
 (use-package yasnippet
   :ensure t
+  :custom
+  (yas-global-mode t)
+  (yas-prompt-functions '(yas-ido-prompt yas-no-prompt))
   :config
   (setq yas-snippet-dirs
         '("~/.emacs.d/snippets"
-          "~/.emacs.d/local_snippets"))
-  (yas-global-mode 1))
+          "~/.emacs.d/local_snippets")))
 
 (use-package yatemplate
   :ensure t
@@ -426,7 +575,12 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package dockerfile-mode
   :ensure t)
 (use-package diff-hl
-  :ensure t)
+  :ensure t
+  :custom
+  (diff-hl-draw-borders t)
+  (diff-hl-flydiff-delay 2.0)
+  (diff-hl-flydiff-mode t)
+  (global-diff-hl-mode t))
 (use-package lua-mode
   :ensure t)
 (use-package git-commit
@@ -456,6 +610,11 @@ point reaches the beginning or end of the buffer, stop there."
 (add-hook 'sh-mode-hook 'my-config--sh-mode-hook)
 
 (add-to-list 'auto-mode-alist '("zsh.*" . sh-mode))
+
+;;;; JavaScript
+(use-package js
+  :custom
+  (js-indent-level 2))
 
 ;;;; java
 (defun my-config--java-mode-hook ()
@@ -508,6 +667,9 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :init
   (doom-modeline-mode t)
+  :custom-face
+  (doom-modeline-bar ((t (:inherit mode-line))))
+  (doom-modeline-inactive-bar ((t (:inherit mode-line-inactive))))
   :config
   ;; How tall the mode-line should be (only respected in GUI Emacs).
   (setq doom-modeline-height 1)
@@ -615,6 +777,9 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :init
   (setq lsp-keymap-prefix "C-; l")
+  :custom
+  (lsp-headerline-breadcrumb-enable nil)
+  (lsp-headerline-breadcrumb-icons-enable nil)
   :hook ((python-mode . lsp)
          (gdscript-mode . lsp)
          (csharp-mode . lsp) ;https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
@@ -629,6 +794,10 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package lsp-ui
   :ensure t
+  :custom
+  (lsp-ui-doc-enable nil)
+  (lsp-ui-imenu-enable nil)
+  (lsp-ui-sideline-show-code-actions nil)
   :bind
   (([remap xref-find-definitions] . #'lsp-ui-peek-find-definitions)
    ([remap xref-find-references] . #'lsp-ui-peek-find-references))
