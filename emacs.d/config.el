@@ -242,7 +242,8 @@
 
 (use-package expand-region
   :ensure t
-  :bind (("C-=" . er/expand-region)))
+  :bind (("C-=" . er/expand-region)
+         ("C-+" . er/contract-region)))
 
 (use-package calc
   :bind (("C-; =" . quick-calc)))
@@ -663,6 +664,13 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :config
   (add-hook 'arduino-mode-hook 'my-config--arduino-mode-hook))
+
+(use-package reverse-im
+  :ensure t
+  :custom
+  (reverse-im-input-methods '("russian-computer"))
+  :config
+  (reverse-im-mode t))
 
 (load "~/.emacs.d/bitgames")
 
