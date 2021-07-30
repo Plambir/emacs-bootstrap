@@ -834,6 +834,7 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (add-hook 'arduino-mode-hook 'my-config--arduino-mode-hook))
 
+;;;; reverse-im
 (use-package reverse-im
   :ensure t
   :custom
