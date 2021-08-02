@@ -1,10 +1,12 @@
+(load "~/.emacs.d/customize")
+
 (eval-when-compile
     (require 'use-package))
 
 ;;; Base
 (use-package emacs
   :custom
-  (custom-file null-device)
+  (custom-file "~/.emacs.d/customize.el")
   (backup-by-copying t)
   (backup-directory-alist '((".*" . "~/.emacs.d/backup/")))
   (browse-url-browser-function 'browse-url-chromium)
@@ -117,7 +119,8 @@
 
 (use-package bindings
   :bind
-  ("C-`" . mode-line-other-buffer))
+  ("C-`" . mode-line-other-buffer)
+  ("C-§" . mode-line-other-buffer))
 
 ;;;; avy
 (use-package avy
@@ -780,12 +783,15 @@ point reaches the beginning or end of the buffer, stop there."
   :custom
   (lsp-headerline-breadcrumb-enable nil)
   (lsp-headerline-breadcrumb-icons-enable nil)
-  :hook ((python-mode . lsp)
-         (gdscript-mode . lsp)
-         (csharp-mode . lsp) ;https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
-         (c++-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-         (c-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-         (lsp-mode . lsp-enable-which-key-integration))
+  :hook
+  ((python-mode . lsp)
+   (gdscript-mode . lsp)
+                                        ; https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
+                                        ; Replace bin_dir in omnisharp run script to actual after install
+   (csharp-mode . lsp)
+   (c++-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+   (c-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+   (lsp-mode . lsp-enable-which-key-integration))
   :bind
   (("C-c g" . xref-find-definitions)
    ("C-c p" . xref-pop-marker-stack)
