@@ -16,6 +16,7 @@ install: all
 	cp emacs.d/bitgames.el ~/.emacs.d/
 	cp -R emacs.d/snippets ~/.emacs.d/
 	cp -R emacs.d/templates ~/.emacs.d/
+	touch ~/.emacs.d/customize.el
 	touch ~/.emacs.d/local.el
 	mkdir -p ~/.emacs.d/local_snippets
 	emacs -l install.el
