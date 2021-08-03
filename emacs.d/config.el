@@ -115,7 +115,8 @@
   (setq iflipb-wrap-around t)
   :bind
   ([C-tab] . iflipb-next-buffer)
-  ([C-iso-lefttab] . iflipb-previous-buffer))
+  ([C-iso-lefttab] . iflipb-previous-buffer)
+  ([C-S-tab] . iflipb-previous-buffer))
 
 (use-package bindings
   :bind
@@ -444,6 +445,12 @@ point reaches the beginning or end of the buffer, stop there."
     (set-face-attribute 'default nil :font use-font-name)))
 
 ;;;; omnisharp and C#
+(use-package omnisharp ; https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
+  :ensure t
+  :hook (csharp-mode . omnisharp-mode)
+  :config
+  (setq omnisharp-imenu-support t))
+
 (use-package csharp-mode
   :ensure t
   :config
@@ -451,7 +458,16 @@ point reaches the beginning or end of the buffer, stop there."
   (setq csharp-tree-sitter-indent-offset 2)
   (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-mode)))
 
+(eval-after-load
+  'company
+  '(add-to-list 'company-backends #'company-omnisharp))
+
 (defun my-config--csharp-mode-hook ()
+  (define-key csharp-mode-map (kbd "C-c g") 'omnisharp-go-to-definition)
+  (define-key csharp-mode-map (kbd "C-c C-g") 'omnisharp-find-usages)
+  (define-key csharp-mode-map (kbd "C-c p") 'pop-tag-mark)
+  (local-set-key (kbd "C-c r r") 'omnisharp-rename)
+  (local-set-key (kbd "C-c r a") 'omnisharp-run-code-action-refactoring)
   (flycheck-mode)
   (setq indent-tabs-mode nil)
   (setq truncate-lines t)
@@ -786,9 +802,6 @@ point reaches the beginning or end of the buffer, stop there."
   :hook
   ((python-mode . lsp)
    (gdscript-mode . lsp)
-                                        ; https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
-                                        ; Replace bin_dir in omnisharp run script to actual after install
-   (csharp-mode . lsp)
    (c++-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
    (c-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
    (lsp-mode . lsp-enable-which-key-integration))
