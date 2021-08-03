@@ -464,7 +464,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (defun my-config--csharp-mode-hook ()
   (define-key csharp-mode-map (kbd "C-c g") 'omnisharp-go-to-definition)
-  (define-key csharp-mode-map (kbd "C-c C-g") 'omnisharp-find-usages)
+  (define-key csharp-mode-map (kbd "C-c C-g") 'omnisharp-helm-find-usages)
   (define-key csharp-mode-map (kbd "C-c p") 'pop-tag-mark)
   (local-set-key (kbd "C-c r r") 'omnisharp-rename)
   (local-set-key (kbd "C-c r a") 'omnisharp-run-code-action-refactoring)
