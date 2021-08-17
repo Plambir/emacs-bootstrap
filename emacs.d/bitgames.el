@@ -1,20 +1,19 @@
 ;;;; meta
-(setq bit_meta_keyworlds
-      '(("^struct\\>\\|^end\\>\\|\\<extends\\>\\|^enum\\>\\|^func\\>" . font-lock-keyword-face)
+(defvar bit-meta-keyworlds
+      '(("[ \t]\\([+-][^ \t\n]+\\)" 1 font-lock-comment-face)
+        ("^struct\\>\\|^end\\>\\|\\<extends\\>\\|^enum\\>\\|^func\\>" . font-lock-keyword-face)
         ("\\<.?int\\(8\\|16\\|32\\|64\\)\\>\\|\\<string\\>\\|\\<float\\>\\|\\<double\\>\\|\\<bool\\>" . font-lock-type-face)
         ("@[a-zA-Z0-9_]*:*" . font-lock-function-name-face)
         ("#include" . font-lock-preprocessor-face)
-        ("#.*" . font-lock-comment-face)
-        )
-      )
+        ("#.*" . font-lock-comment-face)))
 
 (defvar bit-meta-imenu-expression
   '(("struct"    "^struct *\\(.*\\)" 1)
     ("enum"      "^enum *\\(.*\\)"   1)
     ("func"      "^func *\\(.*\\)"   1)))
 
-(define-derived-mode bit-meta-mode go-mode
-  (setq font-lock-defaults '(bit_meta_keyworlds))
+(define-derived-mode bit-meta-mode prog-mode
+  (setq font-lock-defaults '(bit-meta-keyworlds))
   (setq mode-name "bit meta")
   (set (make-local-variable 'imenu-generic-expression) bit-meta-imenu-expression))
 
