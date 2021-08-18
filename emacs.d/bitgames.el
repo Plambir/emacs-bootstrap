@@ -28,25 +28,5 @@
 (add-to-list 'auto-mode-alist '("\\.bhl\\'" . bhl-mode))
 
 ;;;; configs
-(setq myKeywords-conf
-      '(
-        ("^def\\>\\|^end\\>" . font-lock-keyword-face)
-        ("$\\(\\w\\|_\\)*" . font-lock-type-face)
-        ("<%\\ ?\\(\\w\\|_\\)*\\|%>" . font-lock-preprocessor-face)
-        )
-      )
-
-(defvar bit-meta-conf-imenu-expression
-  '(("def"        "^def *\\(.*\\)" 1)))
-
-(define-derived-mode bit-meta-conf-mode c++-mode
-  (setq font-lock-defaults '(myKeywords-conf))
-  (setq mode-name "bit meta conf")
-  (setq-local electric-indent-mode nil)
-  (setq comment-start "//"
-        comment-end   "")
-  (set (make-local-variable 'imenu-generic-expression) bit-meta-conf-imenu-expression)
-  (setq tab-width 2))
-
-(add-to-list 'auto-mode-alist '("\\.conf\\.js\\'" . bit-meta-conf-mode))
-(add-to-list 'auto-mode-alist '("\\.inc\\.js\\'" . bit-meta-conf-mode))
+(add-to-list 'auto-mode-alist '("\\.conf\\.js\\'" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.inc\\.js\\'" . js-mode))
