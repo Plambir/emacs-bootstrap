@@ -433,7 +433,11 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; mac os x
 (defun fix-mac-os ()
   (if (string= system-type "darwin")   ; Mac OS X
-      (set-face-attribute 'default nil :height 140)))
+      (progn (try-set-font "Liberation Mono")
+             (try-set-font "Source Code Pro")
+             (if (string= system-type "darwin")
+                 (try-set-font "Source Code Variable"))
+             (set-face-attribute 'default nil :height 140))))
 
 (setq mac-command-modifier 'meta)
 (setq mac-option-modifier 'super)
@@ -778,7 +782,9 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package spacemacs-theme
   :defer t
   :ensure t
-  :init (load-theme 'spacemacs-light t))
+  :init
+  (load-theme 'spacemacs-light t)
+  (fix-mac-os))
 
 ;;;; csv-mode
 (use-package csv-mode
@@ -786,10 +792,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;;; for mac os x
 (fix-mac-os)
-(try-set-font "Liberation Mono")
-(try-set-font "Source Code Pro")
-(if (string= system-type "darwin")
-    (try-set-font "Source Code Variable"))
 
 ;;;; lsp
 (use-package lsp-mode
