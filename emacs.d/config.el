@@ -65,7 +65,6 @@
   (x-stretch-cursor t)
   (column-number-mode t)
   (compilation-scroll-output 'first-error)
-  (auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/" t)))
   (auto-revert-verbose nil)
   (global-auto-revert-mode t)
   (auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/" t)))
@@ -73,7 +72,7 @@
   (default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :height 98 :width normal))))
   (aw-leading-char-face ((t (:foreground "red" :weight extra-bold :height 2.0))))
   (mode-line-highlight ((t (:underline t))))
-  (symbol-overlay-default-face ((t (:background "light goldenrod")))))
+  (symbol-overlay-default-face ((t (:background "black")))))
 
 ;;;; iedit
 (use-package iedit
@@ -620,6 +619,8 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package exec-path-from-shell
   :ensure t
   :config
+  (when (daemonp)
+    (exec-path-from-shell-initialize))
   (setq exec-path-from-shell-check-startup-files nil)
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)
@@ -677,9 +678,6 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; symbol-overlay
 (use-package symbol-overlay
   :ensure t
-  :config
-  (custom-set-faces
-   '(symbol-overlay-default-face ((t (:background "light goldenrod")))))
   :hook (prog-mode . symbol-overlay-mode)
   :bind (("M-i" . symbol-overlay-put)
          ("M-p" . symbol-overlay-jump-prev)
@@ -783,7 +781,7 @@ point reaches the beginning or end of the buffer, stop there."
   :defer t
   :ensure t
   :init
-  (load-theme 'spacemacs-light t)
+  (load-theme 'spacemacs-dark t)
   (fix-mac-os))
 
 ;;;; csv-mode
@@ -854,6 +852,10 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :config
   (add-hook 'arduino-mode-hook 'my-config--arduino-mode-hook))
+
+;;;; Renpy
+(use-package renpy
+  :ensure t)
 
 ;;;; reverse-im
 (use-package reverse-im
