@@ -8,6 +8,8 @@
   :custom
   (custom-file "~/.emacs.d/customize.el")
   (backup-by-copying t)
+  (native-comp-deferred-compilation t)
+  (package-native-compile t)
   (backup-directory-alist '((".*" . "~/.emacs.d/backup/")))
   (browse-url-browser-function 'browse-url-chromium)
   (c-basic-offset 2)
@@ -67,6 +69,7 @@
   (compilation-scroll-output 'first-error)
   (auto-revert-verbose nil)
   (global-auto-revert-mode t)
+  (initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
   (auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/" t)))
   :custom-face
   (default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :height 98 :width normal))))
@@ -777,10 +780,17 @@ point reaches the beginning or end of the buffer, stop there."
   (setq doom-modeline-after-update-env-hook nil))
 
 
+
 (use-package spacemacs-theme
   :defer t
   :ensure t
   :init
+  (add-hook 'after-make-frame-functions
+	      (lambda (&optional frame)
+            (when frame
+              (select-frame frame))
+            (load-theme 'spacemacs-dark t)
+            (fix-mac-os)))
   (load-theme 'spacemacs-dark t)
   (fix-mac-os))
 
