@@ -1,3 +1,6 @@
+(set-foreground-color "gray")
+(set-background-color "black")
+
 (setq gc-cons-threshold (* 100 1024 1024))
 (setq read-process-output-max (* 1024 1024))
 
