@@ -8,6 +8,8 @@
   :custom
   (custom-file "~/.emacs.d/customize.el")
   (backup-by-copying t)
+  (native-comp-deferred-compilation t)
+  (package-native-compile t)
   (backup-directory-alist '((".*" . "~/.emacs.d/backup/")))
   (browse-url-browser-function 'browse-url-chromium)
   (c-basic-offset 2)
@@ -67,6 +69,9 @@
   (compilation-scroll-output 'first-error)
   (auto-revert-verbose nil)
   (global-auto-revert-mode t)
+  (initial-buffer-choice (lambda ()
+                           (switch-to-buffer "*dashboard*")
+                           (dashboard-refresh-buffer)))
   (auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/" t)))
   :custom-face
   (default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :height 98 :width normal))))
@@ -99,13 +104,13 @@
 
 (use-package dashboard
   :ensure t
-  :functions dashboard-setup-startup-hook
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-startup-banner 3)
-  (setq dashboard-show-shortcuts t)
-  (setq dashboard-items '((recents  . 10)
-                          (projects . 10))))
+  :custom
+  (dashboard-startup-banner 3)
+  (dashboard-show-shortcuts t)
+  (dashboard-items '((recents  . 10)
+                     (projects . 10))))
 
 ;;;; iflipb
 (use-package iflipb
@@ -328,7 +333,7 @@
   (helm-boring-buffer-regexp-list
    '("\\` " "\\`\\*helm" "\\`\\*Echo Area" "\\`\\*Minibuf" "\\`\\*Compile" "\\`\\*Ibuffer" "\\`\\*helm" "\\`\\*Messages" "\\`\\*Customize"))
   (helm-boring-file-regexp-list
-   '("^\\..*" "\\.hi$" "\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/" "\\.hg/" "\\.git/" "\\.bzr/" "CVS/" "_darcs/" "_MTN/" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "\\.cs\\.meta$" "\\^.git$"))
+   '("\\.hi$" "\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/" "\\.hg/" "\\.git/" "\\.bzr/" "CVS/" "_darcs/" "_MTN/" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "\\.cs\\.meta$" "\\^.git$"))
   (helm-buffer-max-length 50)
   (helm-ff-skip-boring-files t)
   (helm-follow-mode-persistent t)
@@ -345,7 +350,6 @@
   (helm-selection ((t (:inherit highlight))))
   (helm-selection-line ((t (:inherit helm-selection))))
   :config
-  (require 'helm-config)
   (global-set-key (kbd "M-x") #'helm-M-x)
   (global-set-key (kbd "C-x C-f") #'helm-find-files)
   (with-eval-after-load 'helm-mode
@@ -777,10 +781,17 @@ point reaches the beginning or end of the buffer, stop there."
   (setq doom-modeline-after-update-env-hook nil))
 
 
+
 (use-package spacemacs-theme
   :defer t
   :ensure t
   :init
+  (add-hook 'after-make-frame-functions
+	      (lambda (&optional frame)
+            (when frame
+              (select-frame frame))
+            (load-theme 'spacemacs-dark t)
+            (fix-mac-os)))
   (load-theme 'spacemacs-dark t)
   (fix-mac-os))
 
