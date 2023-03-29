@@ -318,8 +318,9 @@
 
 (use-package counsel
   :ensure t
+  :after ivy
   :custom
-  (ivy-use-virtual-buffers t)
+  (ivy-use-virtual-buffers nil)
   (enable-recursive-minibuffers t)
   (ivy-count-format "[%d/%d] ")
   :bind
@@ -334,7 +335,24 @@
   ("C-; C-r" . my-config--counsel-bookmark)
   ("C-; TAB" . imenu)
   :config
-  (ivy-mode 1))
+  (counsel-mode))
+
+(use-package ivy
+  :after emacs
+  :ensure t
+  :custom
+  (ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
+  :config
+  (ivy-mode))
+
+(use-package ivy-rich
+  :after ivy
+  :ensure t
+  :custom
+  (ivy-rich-path-style 'abbrev)
+  :config
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+  (ivy-rich-mode))
 
 (use-package smex
   :ensure t)
