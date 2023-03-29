@@ -305,63 +305,39 @@
         ("C-c a t" . org-show-todo-tree)
         ("C-c a d" . org-check-deadlines)))
 
-;;;; helm
-(defun my-config--helm-toggle-show-hide-files ()
-  (interactive)
-  (setq helm-ff-skip-boring-files (not helm-ff-skip-boring-files))
-  (helm-refresh))
-
-(defun my-config--helm-chose-imenu-or-imenu-in-all-buffers (arg)
+;;;; ivy
+(defun my-config--counsel-bookmark (&optional arg)
   (interactive "P")
-  (if arg
-      (helm-imenu-in-all-buffers)
-    (helm-imenu)))
+  (cond
+   ((equal current-prefix-arg nil)
+    (counsel-bookmark))
+   (t (call-interactively 'bookmark-delete))))
 
-(use-package helm
+(use-package bookmark
+  :custom-face (bookmark-face ((t (:background nil)))))
+
+(use-package counsel
   :ensure t
-  :bind (("C-x C-b" . helm-mini)
-         ("C-x b"   . helm-mini)
-         ("C-; TAB" . my-config--helm-chose-imenu-or-imenu-in-all-buffers)
-         ("C-; C-g" . helm-find-files)
-         ("C-; C-l" . helm-occur)
-         ("C-; C-r" . helm-bookmarks)
-         ("C-; C-y" . helm-show-kill-ring))
   :custom
-  (helm-M-x-fuzzy-match t)
-  (helm-always-two-windows t)
-  (helm-autoresize-mode t)
-  (helm-boring-buffer-regexp-list
-   '("\\` " "\\`\\*helm" "\\`\\*Echo Area" "\\`\\*Minibuf" "\\`\\*Compile" "\\`\\*Ibuffer" "\\`\\*helm" "\\`\\*Messages" "\\`\\*Customize"))
-  (helm-boring-file-regexp-list
-   '("\\.hi$" "\\.o$" "~$" "\\.bin$" "\\.lbin$" "\\.so$" "\\.a$" "\\.ln$" "\\.blg$" "\\.bbl$" "\\.elc$" "\\.lof$" "\\.glo$" "\\.idx$" "\\.lot$" "\\.svn/" "\\.hg/" "\\.git/" "\\.bzr/" "CVS/" "_darcs/" "_MTN/" "\\.fmt$" "\\.tfm$" "\\.class$" "\\.fas$" "\\.lib$" "\\.mem$" "\\.x86f$" "\\.sparcf$" "\\.dfsl$" "\\.pfsl$" "\\.d64fsl$" "\\.p64fsl$" "\\.lx64fsl$" "\\.lx32fsl$" "\\.dx64fsl$" "\\.dx32fsl$" "\\.fx64fsl$" "\\.fx32fsl$" "\\.sx64fsl$" "\\.sx32fsl$" "\\.wx64fsl$" "\\.wx32fsl$" "\\.fasl$" "\\.ufsl$" "\\.fsl$" "\\.dxl$" "\\.lo$" "\\.la$" "\\.gmo$" "\\.mo$" "\\.toc$" "\\.aux$" "\\.cp$" "\\.fn$" "\\.ky$" "\\.pg$" "\\.tp$" "\\.vr$" "\\.cps$" "\\.fns$" "\\.kys$" "\\.pgs$" "\\.tps$" "\\.vrs$" "\\.pyc$" "\\.pyo$" "\\.cs\\.meta$" "\\^.git$"))
-  (helm-buffer-max-length 50)
-  (helm-ff-skip-boring-files t)
-  (helm-follow-mode-persistent t)
-  (helm-full-frame nil)
-  (helm-grep-file-path-style 'relative)
-  (helm-grep-save-buffer-name-no-confirm t)
-  (helm-imenu-fuzzy-match t)
-  (helm-lsp-treemacs-icons nil)
-  (helm-mode t)
-  (helm-mode-fuzzy-match t)
-  (helm-move-to-line-cycle-in-source t)
-  (helm-split-window-inside-p t)
-  :custom-face
-  (helm-selection ((t (:inherit highlight))))
-  (helm-selection-line ((t (:inherit helm-selection))))
+  (ivy-use-virtual-buffers t)
+  (enable-recursive-minibuffers t)
+  (ivy-count-format "[%d/%d] ")
+  :bind
+  ("C-x C-f" . counsel-find-file)
+  ("M-x" . counsel-M-x)
+  ("C-; C-l" . swiper-isearch)
+  ("C-c c" . counsel-compile)
+  ("C-; f" . counsel-fzf)
+  ("C-; g" . counsel-ag)
+  ("C-c C-r" . ivy-resume)
+  ("C-; C-y" . counsel-yank-pop)
+  ("C-; C-r" . my-config--counsel-bookmark)
+  ("C-; TAB" . imenu)
   :config
-  (global-set-key (kbd "M-x") #'helm-M-x)
-  (global-set-key (kbd "C-x C-f") #'helm-find-files)
-  (with-eval-after-load 'helm-mode
-    (define-key helm-find-files-map (kbd "C-c a") #'my-config--helm-toggle-show-hide-files)))
+  (ivy-mode 1))
 
-(use-package wgrep-helm
+(use-package smex
   :ensure t)
-
-(use-package helm-projectile
-  :ensure t
-  :config
-  (helm-projectile-on))
 
 ;;;; global keybinds
 (use-package simple
@@ -471,7 +447,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (defun my-config--csharp-mode-hook ()
   (define-key csharp-mode-map (kbd "C-c g") 'omnisharp-go-to-definition)
-  (define-key csharp-mode-map (kbd "C-c C-g") 'omnisharp-helm-find-usages)
+  (define-key csharp-mode-map (kbd "C-c C-g") 'omnisharp-find-usages)
   (define-key csharp-mode-map (kbd "C-c p") 'pop-tag-mark)
   (local-set-key (kbd "C-c r r") 'omnisharp-rename)
   (local-set-key (kbd "C-c r a") 'omnisharp-run-code-action-refactoring)
@@ -832,10 +808,6 @@ point reaches the beginning or end of the buffer, stop there."
   (([remap xref-find-definitions] . #'lsp-ui-peek-find-definitions)
    ([remap xref-find-references] . #'lsp-ui-peek-find-references))
   :commands lsp-ui-mode)
-
-(use-package helm-lsp
-  :ensure t
-  :commands helm-lsp-workspace-symbol)
 
 (use-package which-key
   :ensure t
