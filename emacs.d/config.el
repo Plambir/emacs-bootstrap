@@ -337,6 +337,9 @@
   :config
   (counsel-mode))
 
+(use-package wgrep
+  :ensure t)
+
 (use-package ivy
   :after emacs
   :ensure t
