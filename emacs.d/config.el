@@ -73,6 +73,7 @@
                            (switch-to-buffer "*dashboard*")
                            (dashboard-refresh-buffer)))
   (auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/" t)))
+  (use-dialog-box nil)
   :custom-face
   (default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :height 98 :width normal))))
   (aw-leading-char-face ((t (:foreground "red" :weight extra-bold :height 2.0))))
@@ -321,12 +322,13 @@
   :after ivy
   :custom
   (ivy-use-virtual-buffers nil)
+  (ivy-use-selectable-prompt t)
   (enable-recursive-minibuffers t)
   (ivy-count-format "[%d/%d] ")
   :bind
   ("C-x C-f" . counsel-find-file)
   ("M-x" . counsel-M-x)
-  ("C-; C-l" . swiper-isearch)
+  ("C-; C-l" . swiper-isearch-thing-at-point)
   ("C-c c" . counsel-compile)
   ("C-; f" . counsel-fzf)
   ("C-; g" . counsel-ag)
@@ -383,6 +385,14 @@
   :custom
   (ibuffer-never-show-predicates '("^\\*[^s]") nil (ibuf-ext))
   :bind (("C-; C-b" . ibuffer)))
+
+(use-package savehist
+  :config
+  (savehist-mode 1))
+
+(use-package saveplace
+  :config
+  (save-place-mode 1))
 
 (use-package expand-region
   :ensure t
