@@ -340,6 +340,9 @@
   ("C-; C-r" . my-config--counsel-bookmark)
   ("C-; TAB" . imenu)
   :config
+  (ivy-add-actions
+   'counsel-find-file
+   '(("s" my-config--counsel-find-file-action-counsel-ag "counsel-ag in current dir")))
   (with-eval-after-load 'counsel
     (let ((done (where-is-internal #'ivy-done     ivy-minibuffer-map t))
           (alt  (where-is-internal #'ivy-alt-done ivy-minibuffer-map t)))
@@ -356,9 +359,6 @@
   :custom
   (ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
   :config
-  (ivy-set-actions
-   'counsel-find-file
-   '(("s" my-config--counsel-find-file-action-counsel-ag "counsel-ag in current dir")))
   (ivy-mode))
 
 (use-package ivy-rich
