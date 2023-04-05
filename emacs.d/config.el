@@ -314,6 +314,9 @@
     (counsel-bookmark))
    (t (call-interactively 'bookmark-delete))))
 
+(defun my-config--counsel-find-file-action-counsel-ag (x)
+  (counsel-ag "" ivy--directory))
+
 (use-package bookmark
   :custom-face (bookmark-face ((t (:background nil)))))
 
@@ -337,6 +340,11 @@
   ("C-; C-r" . my-config--counsel-bookmark)
   ("C-; TAB" . imenu)
   :config
+  (with-eval-after-load 'counsel
+    (let ((done (where-is-internal #'ivy-done     ivy-minibuffer-map t))
+          (alt  (where-is-internal #'ivy-alt-done ivy-minibuffer-map t)))
+      (define-key counsel-find-file-map done #'ivy-alt-done)
+      (define-key counsel-find-file-map alt  #'ivy-done)))
   (counsel-mode))
 
 (use-package wgrep
@@ -348,6 +356,9 @@
   :custom
   (ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
   :config
+  (ivy-set-actions
+   'counsel-find-file
+   '(("s" my-config--counsel-find-file-action-counsel-ag "counsel-ag in current dir")))
   (ivy-mode))
 
 (use-package ivy-rich
