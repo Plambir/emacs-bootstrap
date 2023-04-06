@@ -421,6 +421,13 @@
   (undo-tree-history-directory-alist '((".*" . "~/.emacs.d/undo_tree/")))
   (undo-tree-visualizer-diff t)
   :bind (("C-; C-u" . undo-tree-visualize)))
+
+(use-package winner
+  :ensure t
+  :bind (("C-c /" . winner-undo)
+         ("C-c _" . winner-redo))
+  :config
+  (winner-mode +1))
 
 ;;;; smarter move
 ;; from http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
