@@ -332,6 +332,7 @@
   ("C-x C-f" . counsel-find-file)
   ("M-x" . counsel-M-x)
   ("C-; C-l" . swiper-isearch-thing-at-point)
+  ("C-; C-s" . swiper-isearch)
   ("C-c c" . counsel-compile)
   ("C-; f" . counsel-fzf)
   ("C-; g" . counsel-ag)
@@ -849,6 +850,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package lsp-ui
   :ensure t
+  :after lsp-mode
   :custom
   (lsp-ui-doc-enable nil)
   (lsp-ui-imenu-enable nil)
