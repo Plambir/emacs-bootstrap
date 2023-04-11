@@ -208,6 +208,7 @@
 (use-package company
   :ensure t
   :custom
+  (company-minimum-prefix-length 3)
   (company-idle-delay 0.2)
   (company-tooltip-align-annotations t)
   (global-company-mode t)
@@ -341,9 +342,8 @@
   ("C-; C-r" . my-config--counsel-bookmark)
   ("C-; TAB" . imenu)
   :config
-  (ivy-add-actions
-   'counsel-find-file
-   '(("s" my-config--counsel-find-file-action-counsel-ag "counsel-ag in current dir")))
+  (ivy-add-actions 'counsel-find-file
+                   '(("s" my-config--counsel-find-file-action-counsel-ag "counsel-ag in current dir")))
   (with-eval-after-load 'counsel
     (let ((done (where-is-internal #'ivy-done     ivy-minibuffer-map t))
           (alt  (where-is-internal #'ivy-alt-done ivy-minibuffer-map t)))
@@ -374,7 +374,7 @@
 (use-package smex
   :ensure t)
 
-;;;; global keybinds
+;;;; Other
 (use-package simple
   :bind (("M-SPC" . cycle-spacing)
          ("C-x K" . kill-this-buffer)))
@@ -429,6 +429,11 @@
          ("C-c _" . winner-redo))
   :config
   (winner-mode +1))
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
 
 ;;;; smarter move
 ;; from http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
@@ -828,46 +833,29 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; for mac os x
 (fix-mac-os)
 
-;;;; lsp
-(use-package lsp-mode
+;;;; eglot
+(use-package eglot
   :ensure t
-  :init
-  (setq lsp-keymap-prefix "C-; l")
-  :custom
-  (lsp-headerline-breadcrumb-enable nil)
-  (lsp-headerline-breadcrumb-icons-enable nil)
-  :hook
-  ((python-mode . lsp)
-   (gdscript-mode . lsp)
-   (c++-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-   (c-mode . lsp) ;cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
-   (lsp-mode . lsp-enable-which-key-integration))
   :bind
   (("C-c g" . xref-find-definitions)
    ("C-c p" . xref-pop-marker-stack)
    ("C-C C-G" . xref-find-references))
-  :commands lsp)
-
-(use-package lsp-ui
-  :ensure t
-  :after lsp-mode
-  :custom
-  (lsp-ui-doc-enable nil)
-  (lsp-ui-imenu-enable nil)
-  (lsp-ui-sideline-show-code-actions nil)
-  :bind
-  (([remap xref-find-definitions] . #'lsp-ui-peek-find-definitions)
-   ([remap xref-find-references] . #'lsp-ui-peek-find-references))
-  :commands lsp-ui-mode)
-
-(use-package which-key
-  :ensure t
+  :hook
+  ((c-mode . eglot-ensure)
+   (c++-mode . eglot-ensure))
   :config
-  (which-key-mode))
+  (add-to-list 'eglot-server-programs
+               '(c-mode . ("clangd"))
+               '(c++-mode . ("clangd"))))
 
-;;;; lsp-python
-(use-package lsp-jedi
+(use-package helm-xref
   :ensure t)
+
+(use-package flycheck-eglot
+  :ensure t
+  :after eglot
+  :config
+  (global-flycheck-eglot-mode))
 
 ;;;; GDScript
 (use-package gdscript-mode
