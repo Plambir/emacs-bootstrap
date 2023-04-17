@@ -108,6 +108,8 @@
   :config
   (dashboard-setup-startup-hook)
   :custom
+  (dashboard-footer-icon "")
+  (dashboard-footer-messages '())
   (dashboard-startup-banner 3)
   (dashboard-show-shortcuts t)
   (dashboard-items '((recents  . 10)
@@ -204,24 +206,42 @@
   :config
   (move-text-default-bindings))
 
-;;;; company
-(use-package company
+;;;; Completion
+(use-package corfu
   :ensure t
   :custom
-  (company-minimum-prefix-length 3)
-  (company-idle-delay 0.2)
-  (company-tooltip-align-annotations t)
-  (global-company-mode t)
-  :bind
-  (("C-; C-/" . company-files)
-   :map company-mode-map
-   ("M-TAB" . company-complete)
-   :map company-active-map
-   ("C-n" . company-select-next)
-   ("C-p" . company-select-previous)))
+  (corfu-max-width 150)
+  (corfu-auto t)
+  (corfu-scroll-margin 5)
+  (corfu-popupinfo-delay '(1.0 . 0.5))
+  :init
+  (setq completion-cycle-threshold 3)
+  (setq tab-always-indent 'complete)
+  (corfu-popupinfo-mode)
+  (global-corfu-mode))
 
-(use-package company-go
-  :ensure t)
+(use-package cape
+  :ensure t
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-file))
+
+(use-package cape
+  :after eglot
+  :config
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
+
+(use-package kind-icon
+  :ensure t
+  :after corfu
+  :custom
+  (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+(use-package dabbrev
+  :bind (("M-/" . cape-dabbrev))
+  :custom
+  (dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
 
 ;;;; flycheck
 (use-package flycheck
@@ -229,39 +249,6 @@
   :hook ((python-mode . flycheck-mode))
   :custom
   (flycheck-standard-error-navigation nil))
-
-;;;; popwin
-(use-package popwin
-  :ensure t
-  :custom
-  (popwin:popup-window-height 18)
-  (popwin:special-display-config
-   '(("*Miniedit Help*" :noselect t)
-     (help-mode)
-     (completion-list-mode :noselect t)
-     (compilation-mode :noselect t :dedicated t :stick t)
-     (grep-mode :noselect t)
-     (occur-mode :noselect t)
-     ("*Pp Macroexpand Output*" :noselect t)
-     ("*Shell Command Output*")
-     ("*vc-diff*")
-     ("*vc-change-log*")
-     (" *undo-tree*" :width 60 :position right)
-     ("^\\*anything.*\\*$" :regexp t)
-     ("*slime-apropos*")
-     ("*slime-macroexpansion*")
-     ("*slime-description*")
-     ("*slime-compilation*" :noselect t)
-     ("*slime-xref*")
-     ("*Flycheck errors*")
-     (sldb-mode :stick t)
-     (slime-repl-mode)
-     (slime-connection-list-mode)
-     ("^\\*helm.*\\*$" :regexp t :height 0.3)
-     ("*compilation*" :noselect nil :dedicated t :stick t)))
-  :config
-  (global-set-key (kbd "C-; W") popwin:keymap)
-  (popwin-mode 1))
 
 ;;;; prog mode
 (defun my-config--on-show-trailing-whitespace-prog-mode-hook ()
@@ -297,84 +284,200 @@
 (use-package org
   :ensure t
   :custom
-  (org-agenda-files "~/.agenda_files")
-  (org-ellipsis "…")
+  (org-ellipsis "...")
   (org-log-done t)
   (org-src-fontify-natively t)
+  (org-capture-bookmark nil)
   :bind
   (:map org-mode-map
         ("C-c a l" . org-timeline)
         ("C-c a t" . org-show-todo-tree)
         ("C-c a d" . org-check-deadlines)))
+
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory (file-truename "~/documents/org-roam"))
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n f" . org-roam-node-find)
+         ("C-c n r" . org-roam-node-random)
+         :map org-mode-map
+         ("C-M-i" . completion-at-point)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n o" . org-id-get-create)
+         ("C-c n t" . org-roam-tag-add)
+         ("C-c n T" . org-roam-tag-remove)
+         ("C-c n a" . org-roam-alias-add)
+         ("C-c n l" . org-roam-buffer-toggle))
+  :config
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  (if (not (file-directory-p "~/documents/org-roam")) (make-directory "~/documents/org-roam"))
+  (org-roam-setup))
 
-;;;; ivy
-(defun my-config--counsel-bookmark (&optional arg)
-  (interactive "P")
-  (cond
-   ((equal current-prefix-arg nil)
-    (counsel-bookmark))
-   (t (call-interactively 'bookmark-delete))))
+;;;; Consult
+(use-package consult
+  :ensure t
+  :bind (("C-; C-s" . consult-line)
+         ("C-; C-y" . consult-yank-from-kill-ring)
+         ("C-; TAB" . consult-imenu)
+         ("M-y" . consult-yank-pop)
+         ("C-; C-r" . consult-bookmark)
+         ("C-x C-b" . consult-buffer)
+         ("C-; C-l" . consult-line-thing-at-point)
+         ("C-c k" . consult-kmacro)
+         ("C-; C-g" . consult-ripgrep))
+  :config
+  (consult-customize
+   consult-buffer consult-ripgrep consult-git-grep consult-grep
+   consult-bookmark consult-recent-file
+   consult--source-bookmark consult--source-file-register
+   consult--source-recent-file consult--source-project-recent-file
+   :preview-key "M-.")
+  (consult-customize
+   consult-xref
+   :preview-key '(:debounce 0.4 any))
+  (progn
+    (defalias 'consult-line-thing-at-point 'consult-line)
+    (consult-customize
+     consult-line-thing-at-point
+     :initial (thing-at-point 'symbol)))
+  :init
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref))
 
-(defun my-config--counsel-find-file-action-counsel-ag (x)
-  (counsel-ag "" ivy--directory))
+(use-package consult-org-roam
+   :ensure t
+   :init
+   (require 'consult-org-roam)
+   (consult-org-roam-mode 1)
+   :custom
+   (consult-org-roam-grep-func #'consult-ripgrep)
+   (consult-org-roam-buffer-narrow-key ?r)
+   (consult-org-roam-buffer-after-buffers t)
+   :config
+   (consult-customize
+    consult-org-roam-forward-links
+    :preview-key (kbd "M-."))
+   :bind
+   ("C-c n e" . consult-org-roam-file-find)
+   ("C-c n b" . consult-org-roam-backlinks)
+   ("C-c n l" . consult-org-roam-forward-links)
+   ("C-c n r" . consult-org-roam-search))
 
+(use-package consult-flycheck
+  :ensure t
+  :after consult
+  :bind (("C-; !" . consult-flycheck)))
+
+(defun embark-which-key-indicator ()
+      "An embark indicator that displays keymaps using which-key.
+The which-key help message will show the type and value of the
+current target followed by an ellipsis if there are further
+targets."
+      (lambda (&optional keymap targets prefix)
+        (if (null keymap)
+            (which-key--hide-popup-ignore-command)
+          (which-key--show-keymap
+           (if (eq (plist-get (car targets) :type) 'embark-become)
+               "Become"
+             (format "Act on %s '%s'%s"
+                     (plist-get (car targets) :type)
+                     (embark--truncate-target (plist-get (car targets) :target))
+                     (if (cdr targets) "…" "")))
+           (if prefix
+               (pcase (lookup-key keymap prefix 'accept-default)
+                 ((and (pred keymapp) km) km)
+                 (_ (key-binding prefix 'accept-default)))
+             keymap)
+           nil nil t (lambda (binding)
+                       (not (string-suffix-p "-argument" (cdr binding))))))))
+
+(defun embark-hide-which-key-indicator (fn &rest args)
+  "Hide the which-key indicator immediately when using the completing-read prompter."
+  (which-key--hide-popup-ignore-command)
+  (let ((embark-indicators
+         (remq #'embark-which-key-indicator embark-indicators)))
+    (apply fn args)))
+
+(use-package embark
+  :ensure t
+  :after consult
+  :bind
+  (("C-." . embark-act)
+   ("C-h B" . embark-bindings))
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :custom
+  (embark-indicators
+          '(embark-which-key-indicator
+            embark-highlight-indicator
+            embark-isearch-highlight-indicator))
+  :config
+  (advice-add #'embark-completing-read-prompter
+                :around #'embark-hide-which-key-indicator)
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult
+  :ensure t
+  :after consult
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode)
+  :config
+  (defun marginalia--mode-state (mode) ;;https://github.com/minad/marginalia/issues/155#issuecomment-1478580206
+    "Return MODE state string."
+    (if (and (boundp mode) (symbol-value mode))
+        #(" [On]" 1 5 (face marginalia-on))
+      #(" [Off]" 1 6 (face marginalia-off))))
+  (defun marginalia--annotate-minor-mode-command (orig cand)
+    "Annotate minor-mode command CAND with mode state."
+    (concat
+     (when-let* ((sym (intern-soft cand))
+                 (mode (if (and sym (boundp sym))
+                           sym
+                         (lookup-minor-mode-from-indicator cand))))
+       (marginalia--mode-state mode))
+     (funcall orig cand)))
+  (advice-add #'marginalia-annotate-command
+              :around #'marginalia--annotate-minor-mode-command))
+
+(use-package vertico
+  :ensure t
+  :config
+  (vertico-mode))
+
+(use-package vertico-directory
+  :after vertico
+  :ensure nil
+  :bind (:map vertico-map
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+;;;; Other
 (use-package bookmark
   :custom-face (bookmark-face ((t (:background nil)))))
-
-(use-package counsel
-  :ensure t
-  :after ivy
-  :custom
-  (ivy-use-virtual-buffers nil)
-  (ivy-use-selectable-prompt t)
-  (enable-recursive-minibuffers t)
-  (ivy-count-format "[%d/%d] ")
-  :bind
-  ("C-x C-f" . counsel-find-file)
-  ("M-x" . counsel-M-x)
-  ("C-; C-l" . swiper-isearch-thing-at-point)
-  ("C-; C-s" . swiper-isearch)
-  ("C-c c" . counsel-compile)
-  ("C-; f" . counsel-fzf)
-  ("C-; g" . counsel-ag)
-  ("C-c C-r" . ivy-resume)
-  ("C-; C-y" . counsel-yank-pop)
-  ("C-; C-r" . my-config--counsel-bookmark)
-  ("C-; TAB" . imenu)
-  :config
-  (ivy-add-actions 'counsel-find-file
-                   '(("s" my-config--counsel-find-file-action-counsel-ag "counsel-ag in current dir")))
-  (with-eval-after-load 'counsel
-    (let ((done (where-is-internal #'ivy-done     ivy-minibuffer-map t))
-          (alt  (where-is-internal #'ivy-alt-done ivy-minibuffer-map t)))
-      (define-key counsel-find-file-map done #'ivy-alt-done)
-      (define-key counsel-find-file-map alt  #'ivy-done)))
-  (counsel-mode))
 
 (use-package wgrep
   :ensure t)
 
-(use-package ivy
-  :after emacs
-  :ensure t
-  :custom
-  (ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
-  :config
-  (ivy-mode))
-
-(use-package ivy-rich
-  :after ivy
-  :ensure t
-  :custom
-  (ivy-rich-path-style 'abbrev)
-  :config
-  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-  (ivy-rich-mode))
-
-(use-package smex
-  :ensure t)
-
-;;;; Other
 (use-package simple
   :bind (("M-SPC" . cycle-spacing)
          ("C-x K" . kill-this-buffer)))
@@ -812,7 +915,7 @@ point reaches the beginning or end of the buffer, stop there."
   (setq doom-modeline-after-update-env-hook nil))
 
 
-
+;;;; Theme
 (use-package spacemacs-theme
   :defer t
   :ensure t
@@ -847,9 +950,6 @@ point reaches the beginning or end of the buffer, stop there."
   (add-to-list 'eglot-server-programs
                '(c-mode . ("clangd"))
                '(c++-mode . ("clangd"))))
-
-(use-package helm-xref
-  :ensure t)
 
 (use-package flycheck-eglot
   :ensure t
@@ -886,6 +986,9 @@ point reaches the beginning or end of the buffer, stop there."
   (reverse-im-input-methods '("russian-computer"))
   :config
   (reverse-im-mode t))
+
+(use-package magit
+  :ensure t)
 
 (load "~/.emacs.d/bitgames")
 
