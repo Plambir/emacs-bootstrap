@@ -298,8 +298,10 @@
   :ensure t
   :init
   (setq org-roam-v2-ack t)
+  (setq my-org-roam-directory "~/.org-roam")
+  (if (not (file-directory-p my-org-roam-directory)) (make-directory my-org-roam-directory))
   :custom
-  (org-roam-directory (file-truename "~/documents/org-roam"))
+  (org-roam-directory (file-truename my-org-roam-directory))
   (org-roam-completion-everywhere t)
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n r" . org-roam-node-random)
@@ -314,7 +316,6 @@
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode)
-  (if (not (file-directory-p "~/documents/org-roam")) (make-directory "~/documents/org-roam"))
   (org-roam-setup))
 
 ;;;; Consult
