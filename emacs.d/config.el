@@ -320,6 +320,7 @@
   (setq my-org-roam-directory "~/.org-roam")
   (if (not (file-directory-p my-org-roam-directory)) (make-directory my-org-roam-directory))
   :custom
+  (org-roam-node-display-template (concat "${title} " (propertize "${tags}" 'face 'org-tag)))
   (org-roam-directory (file-truename my-org-roam-directory))
   (org-roam-completion-everywhere t)
   :bind (("C-c n f" . org-roam-node-find)
@@ -333,7 +334,6 @@
          ("C-c n a" . org-roam-alias-add)
          ("C-c n l" . org-roam-buffer-toggle))
   :config
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode)
   (org-roam-setup))
 
