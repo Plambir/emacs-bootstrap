@@ -213,7 +213,7 @@
   (corfu-max-width 150)
   (corfu-auto t)
   (corfu-scroll-margin 5)
-  (corfu-popupinfo-delay '(1.0 . 0.5))
+  (corfu-popupinfo-delay '(1.5 . 0.5))
   :init
   (setq completion-cycle-threshold 3)
   (setq tab-always-indent 'complete)
@@ -260,6 +260,18 @@
 
 (use-package fic-mode
   :ensure t
+  :custom-face
+  (fic-author-face ((((class color))
+                     (:underline
+                      (:color foreground-color :style line)
+                      :foreground "orangered" :background nil))
+                    (t
+                     (:underline
+                      (:color foreground-color :style line)))))
+  (fic-face ((((class color))
+              (:weight bold :foreground "red" :background nil))
+             (t
+              (:weight bold))))
   :custom
   (fic-background-color nil)
   (fic-highlighted-words '("FIXME" "TODO" "BUG" "NOTE"))
@@ -284,6 +296,12 @@
 (use-package org
   :ensure t
   :custom
+  (org-link-frame-setup
+   '((vm . vm-visit-folder-other-frame)
+     (vm-imap . vm-visit-imap-folder-other-frame)
+     (gnus . org-gnus-no-new-news)
+     (file . find-file)
+     (wl . wl-other-frame)))
   (org-ellipsis "...")
   (org-log-done t)
   (org-src-fontify-natively t)
@@ -317,6 +335,9 @@
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode)
   (org-roam-setup))
+
+(use-package org-roam-ui
+  :ensure t)
 
 ;;;; Consult
 (use-package consult
@@ -358,15 +379,11 @@
    (consult-org-roam-grep-func #'consult-ripgrep)
    (consult-org-roam-buffer-narrow-key ?r)
    (consult-org-roam-buffer-after-buffers t)
-   :config
-   (consult-customize
-    consult-org-roam-forward-links
-    :preview-key (kbd "M-."))
-   :bind
-   ("C-c n e" . consult-org-roam-file-find)
-   ("C-c n b" . consult-org-roam-backlinks)
-   ("C-c n l" . consult-org-roam-forward-links)
-   ("C-c n r" . consult-org-roam-search))
+   :bind (("C-c n e" . consult-org-roam-file-find)
+          ("C-c n r" . consult-org-roam-search)
+          :map org-mode-map
+          ("C-c n b" . consult-org-roam-backlinks)
+          ("C-c n B" . consult-org-roam-forward-links)))
 
 (use-package consult-flycheck
   :ensure t
