@@ -310,7 +310,8 @@
   (:map org-mode-map
         ("C-c a l" . org-timeline)
         ("C-c a t" . org-show-todo-tree)
-        ("C-c a d" . org-check-deadlines)))
+        ("C-c a d" . org-check-deadlines)
+        ("C-c p" . org-mark-ring-goto)))
 
 (use-package org-roam
   :ensure t
