@@ -214,6 +214,7 @@
   (company-idle-delay 0.2)
   (company-tooltip-align-annotations t)
   (global-company-mode t)
+  (company-dabbrev-downcase nil)
   :bind
   (("C-; C-/" . company-files)
    ("M-/" . company-dabbrev)
@@ -336,6 +337,8 @@
          ("C-; C-l" . consult-line-thing-at-point)
          ("C-c k" . consult-kmacro)
          ("C-; C-g" . consult-ripgrep))
+  :custom
+  (consult-project-function nil)
   :config
   (consult-customize
    consult-buffer consult-ripgrep consult-git-grep consult-grep
