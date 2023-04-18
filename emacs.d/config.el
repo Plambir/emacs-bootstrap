@@ -207,39 +207,23 @@
   (move-text-default-bindings))
 
 ;;;; Completion
-(use-package corfu
+(use-package company
   :ensure t
   :custom
-  (corfu-max-width 150)
-  (corfu-auto t)
-  (corfu-scroll-margin 5)
-  (corfu-popupinfo-delay '(1.5 . 0.5))
-  :init
-  (setq completion-cycle-threshold 3)
-  (setq tab-always-indent 'complete)
-  (corfu-popupinfo-mode)
-  (global-corfu-mode))
-
-(use-package cape
-  :ensure t
-  :init
-  (add-to-list 'completion-at-point-functions #'cape-file))
-
-(use-package cape
-  :after eglot
-  :config
-  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
-
-(use-package kind-icon
-  :ensure t
-  :after corfu
-  :custom
-  (kind-icon-default-face 'corfu-default) ; to compute blended backgrounds correctly
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+  (company-minimum-prefix-length 3)
+  (company-idle-delay 0.2)
+  (company-tooltip-align-annotations t)
+  (global-company-mode t)
+  :bind
+  (("C-; C-/" . company-files)
+   ("M-/" . company-dabbrev)
+   :map company-mode-map
+   ("M-TAB" . company-complete)
+   :map company-active-map
+   ("C-n" . company-select-next)
+   ("C-p" . company-select-previous)))
 
 (use-package dabbrev
-  :bind (("M-/" . cape-dabbrev))
   :custom
   (dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
 
@@ -319,9 +303,9 @@
   (setq org-roam-v2-ack t)
   (setq my-org-roam-directory "~/.org-roam")
   (if (not (file-directory-p my-org-roam-directory)) (make-directory my-org-roam-directory))
+  (setq org-roam-directory (file-truename my-org-roam-directory))
   :custom
   (org-roam-node-display-template (concat "${title} " (propertize "${tags}" 'face 'org-tag)))
-  (org-roam-directory (file-truename my-org-roam-directory))
   (org-roam-completion-everywhere t)
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n r" . org-roam-node-random)
@@ -663,6 +647,9 @@ point reaches the beginning or end of the buffer, stop there."
   (flycheck-mode t)
   (company-mode t))
 
+(use-package company-go
+  :ensure t)
+
 (use-package go-mode
   :ensure t
   :bind (:map go-mode-map ("C-c" . godef-jump))
@@ -967,8 +954,8 @@ point reaches the beginning or end of the buffer, stop there."
    (c++-mode . eglot-ensure))
   :config
   (add-to-list 'eglot-server-programs
-               '(c-mode . ("clangd"))
-               '(c++-mode . ("clangd"))))
+               '(c-mode . ("clangd" "--background-index" "--clang-tidy"))
+               '(c++-mode . ("clangd" "--background-index" "--clang-tidy"))))
 
 (use-package flycheck-eglot
   :ensure t
