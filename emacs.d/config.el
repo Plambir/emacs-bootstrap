@@ -228,6 +228,12 @@
    ("C-n" . company-select-next)
    ("C-p" . company-select-previous)))
 
+(use-package company-box
+  :ensure t
+  :custom
+  (company-box-enable-icon nil)
+  :hook (company-mode . company-box-mode))
+
 (use-package dabbrev
   :custom
   (dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
