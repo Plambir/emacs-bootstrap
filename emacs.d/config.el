@@ -215,12 +215,16 @@
   (company-tooltip-align-annotations t)
   (global-company-mode t)
   (company-dabbrev-downcase nil)
+  (company-dabbrev-char-regexp "\\sw\\|_")
+  (company-dabbrev-code-everywhere t)
+  (company-dabbrev-ignore-case nil)
   :bind
   (("C-; C-/" . company-files)
    ("M-/" . company-dabbrev)
    :map company-mode-map
-   ("M-TAB" . company-complete)
+   ("M-<tab>" . company-complete)
    :map company-active-map
+   ("<tab>" . company-complete-selection)
    ("C-n" . company-select-next)
    ("C-p" . company-select-previous)))
 
@@ -330,7 +334,7 @@
   :ensure t
   :bind (("C-; C-s" . consult-line)
          ("C-; C-y" . consult-yank-from-kill-ring)
-         ("C-; TAB" . consult-imenu)
+         ("C-; <tab>" . consult-imenu)
          ("M-y" . consult-yank-pop)
          ("C-; C-r" . consult-bookmark)
          ("C-x C-b" . consult-buffer)
