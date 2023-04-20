@@ -231,8 +231,11 @@
 (use-package company-box
   :ensure t
   :custom
-  (company-box-enable-icon nil)
+  (company-box-enable-icon 'all-the-icons)
   :hook (company-mode . company-box-mode))
+
+(use-package all-the-icons ;; use all-the-icons-install-fonts and fc-cache -f -v
+  :ensure t)
 
 (use-package dabbrev
   :custom
