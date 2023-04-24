@@ -765,8 +765,6 @@ point reaches the beginning or end of the buffer, stop there."
   (global-diff-hl-mode t))
 (use-package lua-mode
   :ensure t)
-(use-package git-commit
-  :ensure t)
 (use-package glsl-mode
   :ensure t
   :config
