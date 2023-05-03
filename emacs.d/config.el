@@ -659,16 +659,11 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;;; golang
 (defun my-config--go-mode-hook ()
-  (set (make-local-variable 'company-backends) '(company-go))
   (flycheck-mode t)
   (company-mode t))
 
-(use-package company-go
-  :ensure t)
-
 (use-package go-mode
   :ensure t
-  :bind (:map go-mode-map ("C-c" . godef-jump))
   :custom
   (gofmt-command "goimports")
   :config
