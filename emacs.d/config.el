@@ -731,7 +731,12 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :custom
   (yas-global-mode t)
-  (yas-prompt-functions '(yas-ido-prompt yas-no-prompt))
+  (yas-prompt-functions '(yas-completing-prompt yas-ido-prompt yas-no-prompt))
+  :bind (:map yas-minor-mode-map
+              ("C-; y s" . yas-insert-snippet)
+              ("C-; y n" . yas-new-snippet)
+              ("C-; y v" . yas-visit-snippet-file)
+              ("C-; y r" . yas-reload-all))
   :config
   (setq yas-snippet-dirs
         '("~/.emacs.d/snippets"
