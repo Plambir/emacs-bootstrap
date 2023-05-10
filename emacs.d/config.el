@@ -11,7 +11,7 @@
   (native-comp-deferred-compilation t)
   (package-native-compile t)
   (backup-directory-alist '((".*" . "~/.emacs.d/backup/")))
-  (browse-url-browser-function 'browse-url-chromium)
+  (browse-url-browser-function 'browse-url-default-browser)
   (c-basic-offset 2)
   (c-default-style '((java-mode . "java") (awk-mode . "awk") (other . "user")))
   (c-offsets-alist
