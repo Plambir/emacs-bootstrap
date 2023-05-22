@@ -479,7 +479,7 @@ targets."
 (use-package vertico
   :ensure t
   :config
-  (vertico-mode))
+  (vertico-mode t))
 
 (use-package vertico-directory
   :after vertico
@@ -741,6 +741,13 @@ point reaches the beginning or end of the buffer, stop there."
   (setq yas-snippet-dirs
         '("~/.emacs.d/snippets"
           "~/.emacs.d/local_snippets")))
+
+(use-package yasnippet
+  :ensure t
+  :after company
+  :bind
+  (:map company-mode-map
+        ("M-s" . company-yasnippet)))
 
 (use-package yatemplate
   :ensure t
