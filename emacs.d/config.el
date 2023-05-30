@@ -979,9 +979,9 @@ point reaches the beginning or end of the buffer, stop there."
     (add-to-list 'eglot-server-programs
                  '(c-mode . ("clangd" "--background-index" "--clang-tidy"))
                  '(c++-mode . ("clangd" "--background-index" "--clang-tidy"))))
-  (when (executable-find "pylsp")
+  (when (executable-find "jedi-language-server")
     (add-to-list 'eglot-server-programs
-                 '(python-mode . ("pylsp")))))
+                 '(python-mode . ("jedi-language-server")))))
 
 (use-package flycheck-eglot
   :ensure t
