@@ -972,11 +972,16 @@ point reaches the beginning or end of the buffer, stop there."
    ("C-C C-G" . xref-find-references))
   :hook
   ((c-mode . eglot-ensure)
-   (c++-mode . eglot-ensure))
+   (c++-mode . eglot-ensure)
+   (python-mode . eglot-ensure))
   :config
-  (add-to-list 'eglot-server-programs
-               '(c-mode . ("clangd" "--background-index" "--clang-tidy"))
-               '(c++-mode . ("clangd" "--background-index" "--clang-tidy"))))
+  (when (executable-find "clangd")
+    (add-to-list 'eglot-server-programs
+                 '(c-mode . ("clangd" "--background-index" "--clang-tidy"))
+                 '(c++-mode . ("clangd" "--background-index" "--clang-tidy"))))
+  (when (executable-find "pylsp")
+    (add-to-list 'eglot-server-programs
+                 '(python-mode . ("pylsp")))))
 
 (use-package flycheck-eglot
   :ensure t
