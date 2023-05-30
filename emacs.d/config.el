@@ -346,7 +346,7 @@
          ("C-; <tab>" . consult-imenu)
          ("M-y" . consult-yank-pop)
          ("C-; C-r" . consult-bookmark)
-         ("C-x C-b" . consult-buffer)
+         ("C-x b" . consult-buffer)
          ("C-; C-l" . consult-line-thing-at-point)
          ("C-c k" . consult-kmacro)
          ("C-; C-g" . consult-ripgrep))
