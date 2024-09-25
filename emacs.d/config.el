@@ -627,37 +627,7 @@ point reaches the beginning or end of the buffer, stop there."
   (add-hook 'LaTeX-mode-hook 'my-config--LaTeX-mode-hook))
 
 ;;;; C/C++
-(use-package modern-cpp-font-lock
-  :ensure t
-  :hook (c++-mode . modern-c++-font-lock-mode))
-
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
-(defun inside-class-enum-p (pos)
-  "Checks if POS is within the braces of a C++ \"enum class\"."
-  (ignore-errors
-    (save-excursion
-      (goto-char pos)
-      (up-list -1)
-      (backward-sexp 1)
-      (looking-back "enum[ \t]+class[ \t]+[^}]*"))))
-
-(defun align-enum-class (langelem)
-  (if (inside-class-enum-p (c-langelem-pos langelem))
-      0
-    (c-lineup-topmost-intro-cont langelem)))
-
-(defun align-enum-class-closing-brace (langelem)
-  (if (inside-class-enum-p (c-langelem-pos langelem))
-      '-
-    '+))
-
-(defun fix-enum-class ()
-  "Setup `c++-mode' to better handle \"class enum\"."
-  (add-to-list 'c-offsets-alist '(topmost-intro-cont . align-enum-class))
-  (add-to-list 'c-offsets-alist '(statement-cont . align-enum-class-closing-brace)))
-
-(add-hook 'c++-mode-hook 'fix-enum-class)
 
 ;;;; PHP
 (use-package php-mode
@@ -917,7 +887,9 @@ point reaches the beginning or end of the buffer, stop there."
    ("C-C C-G" . xref-find-references))
   :hook
   ((c-mode . eglot-ensure)
+   (c-ts-mode . eglot-ensure)
    (c++-mode . eglot-ensure)
+   (c++-ts-mode . eglot-ensure)
    (python-mode . eglot-ensure))
   :config
   (when (executable-find "clangd")
@@ -966,6 +938,14 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package magit
   :ensure t)
+
+(use-package treesit-auto
+  :ensure t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 (load "~/.emacs.d/bitgames")
 
