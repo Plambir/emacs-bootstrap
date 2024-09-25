@@ -893,9 +893,10 @@ point reaches the beginning or end of the buffer, stop there."
    (python-mode . eglot-ensure))
   :config
   (when (executable-find "clangd")
+    (setq my-configs--eglot-clangd '("clangd" "--background-index" "--clang-tidy" "-j2" "--malloc-trim" "--completion-style=detailed" "--pch-storage=memory"))
     (add-to-list 'eglot-server-programs
-                 '(c-mode . ("clangd" "--background-index" "--clang-tidy"))
-                 '(c++-mode . ("clangd" "--background-index" "--clang-tidy"))))
+                 '(c-mode . my-configs--eglot-clangd)
+                 '(c++-mode . my-configs--eglot-clangd)))
   (when (executable-find "jedi-language-server")
     (add-to-list 'eglot-server-programs
                  '(python-mode . ("jedi-language-server")))))
@@ -938,14 +939,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package magit
   :ensure t)
-
-(use-package treesit-auto
-  :ensure t
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
 
 (load "~/.emacs.d/bitgames")
 
