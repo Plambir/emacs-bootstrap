@@ -69,16 +69,24 @@
   (compilation-scroll-output 'first-error)
   (auto-revert-verbose nil)
   (global-auto-revert-mode t)
-  (initial-buffer-choice (lambda ()
-                           (switch-to-buffer "*dashboard*")
-                           (dashboard-refresh-buffer)))
   (auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/" t)))
   (use-dialog-box nil)
   :custom-face
-  (default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :height 98 :width normal))))
+  (default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :height 120 :width normal))))
   (aw-leading-char-face ((t (:foreground "red" :weight extra-bold :height 2.0))))
   (mode-line-highlight ((t (:underline t))))
   (symbol-overlay-default-face ((t (:background "black")))))
+
+(defun my-config--disable-electric-pair-mode ()
+  (electric-pair-mode 0))
+
+(defun my-config--enable-electric-pair-mode ()
+  (electric-pair-mode 1))
+
+ ;; Disable pairs when entering minibuffer
+(add-hook 'minibuffer-setup-hook #'my-config--disable-electric-pair-mode)
+;; Renable pairs when existing minibuffer
+(add-hook 'minibuffer-exit-hook #'my-config--enable-electric-pair-mode)
 
 ;;;; iedit
 (use-package iedit
@@ -108,9 +116,12 @@
   :config
   (dashboard-setup-startup-hook)
   :custom
-  (dashboard-footer-icon "")
-  (dashboard-footer-messages '())
-  (dashboard-startup-banner 3)
+  (dashboard-navigation-cycle t)
+  (dashboard-startupify-list '(dashboard-insert-newline
+                               dashboard-insert-init-info
+                               dashboard-insert-items
+                               dashboard-insert-newline))
+  (dashboard-center-content t)
   (dashboard-show-shortcuts t)
   (dashboard-items '((recents  . 10)
                      (projects . 10))))
@@ -142,41 +153,6 @@
    ("C-j" . avy-isearch)))
 
 ;;;; multiple cursor
-;; https://github.com/knu/mc-extras.el/blob/master/mc-rect.el
-;; this version ignore empty line and deactivate rectangle mark
-(defun my-config--mc/rect-rectangle-to-multiple-cursors (start end)
-  "Turn rectangle-mark-mode into multiple-cursors mode, keeping selections."
-  (interactive "*r")
-  (let* ((current-line (line-beginning-position))
-         (reversed (= (current-column)
-                      (min
-                       (save-excursion
-                         (goto-char end)
-                         (current-column))
-                       (save-excursion
-                         (goto-char start)
-                         (current-column)))))
-         (mark-row `(lambda (startcol endcol)
-                      (let ((markcol  ,(if reversed 'endcol 'startcol))
-                            (pointcol ,(if reversed 'startcol 'endcol)))
-                        (move-to-column markcol)
-                        (push-mark (point))
-                        (move-to-column pointcol)
-                        (setq transient-mark-mode (cons 'only transient-mark-mode))
-                        (activate-mark)
-                        (setq deactivate-mark nil)))))
-    (apply-on-rectangle
-     '(lambda (startcol endcol)
-        (if (= (point) current-line)
-            (funcall mark-row startcol endcol)
-          (mc/save-excursion
-           (funcall mark-row startcol endcol)
-           (if (string-match "[^ ]" (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
-               (mc/create-fake-cursor-at-point)))))
-     start end))
-  (deactivate-mark)
-  (mc/maybe-multiple-cursors-mode))
-
 (use-package multiple-cursors
   :ensure t
   :custom
@@ -189,9 +165,15 @@
   (("C-; m" . ace-mc-add-multiple-cursors)
    ("C-; M" . ace-mc-add-single-cursor)))
 
+(use-package phi-search
+  :ensure t
+  :bind
+  (("C-s" . phi-search)
+   ("C-r" . phi-search-backward)))
+
 (with-eval-after-load 'rect
   (require 'multiple-cursors)
-  (define-key rectangle-mark-mode-map (kbd "C-; C-m") #'my-config--mc/rect-rectangle-to-multiple-cursors))
+  (define-key rectangle-mark-mode-map (kbd "C-; C-m") #'mc/edit-lines))
 
 (use-package winum
   :ensure t
@@ -604,45 +586,6 @@ point reaches the beginning or end of the buffer, stop there."
   (when (member use-font-name (font-family-list))
     (set-face-attribute 'default nil :font use-font-name)))
 
-;;;; omnisharp and C#
-(use-package omnisharp ; https://github.com/OmniSharp/omnisharp-roslyn/wiki/Configuration-Options
-  :ensure t
-  :hook (csharp-mode . omnisharp-mode)
-  :config
-  (setq omnisharp-imenu-support t))
-
-(use-package csharp-mode
-  :ensure t
-  :config
-  (setq csharp-mode-indent t)
-  (setq csharp-tree-sitter-indent-offset 2)
-  (add-to-list 'auto-mode-alist '("\\.cs\\'" . csharp-mode)))
-
-(eval-after-load
-  'company
-  '(add-to-list 'company-backends #'company-omnisharp))
-
-(defun my-config--csharp-mode-hook ()
-  (define-key csharp-mode-map (kbd "C-c g") 'omnisharp-go-to-definition)
-  (define-key csharp-mode-map (kbd "C-c C-g") 'omnisharp-find-usages)
-  (define-key csharp-mode-map (kbd "C-c p") 'pop-tag-mark)
-  (local-set-key (kbd "C-c r r") 'omnisharp-rename)
-  (local-set-key (kbd "C-c r a") 'omnisharp-run-code-action-refactoring)
-  (flycheck-mode)
-  (setq indent-tabs-mode nil)
-  (setq truncate-lines t)
-  (c-set-style "ellemtel")
-  (setq c-syntactic-indentation t)
-  (setq tab-width 2)
-  (setq default-tab-width 2)
-  (setq c-basic-offset 2)
-  (setq tab-width 2)
-  (electric-pair-local-mode 1)
-  (electric-indent-mode 1)
-  (electric-pair-mode 1))
-
-(add-hook 'csharp-mode-hook 'my-config--csharp-mode-hook)
-
 ;;;; json
 (defun my-config--json-mode-hook ()
   (flycheck-mode t))
@@ -683,37 +626,7 @@ point reaches the beginning or end of the buffer, stop there."
   (add-hook 'LaTeX-mode-hook 'my-config--LaTeX-mode-hook))
 
 ;;;; C/C++
-(use-package modern-cpp-font-lock
-  :ensure t
-  :hook (c++-mode . modern-c++-font-lock-mode))
-
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
-(defun inside-class-enum-p (pos)
-  "Checks if POS is within the braces of a C++ \"enum class\"."
-  (ignore-errors
-    (save-excursion
-      (goto-char pos)
-      (up-list -1)
-      (backward-sexp 1)
-      (looking-back "enum[ \t]+class[ \t]+[^}]*"))))
-
-(defun align-enum-class (langelem)
-  (if (inside-class-enum-p (c-langelem-pos langelem))
-      0
-    (c-lineup-topmost-intro-cont langelem)))
-
-(defun align-enum-class-closing-brace (langelem)
-  (if (inside-class-enum-p (c-langelem-pos langelem))
-      '-
-    '+))
-
-(defun fix-enum-class ()
-  "Setup `c++-mode' to better handle \"class enum\"."
-  (add-to-list 'c-offsets-alist '(topmost-intro-cont . align-enum-class))
-  (add-to-list 'c-offsets-alist '(statement-cont . align-enum-class-closing-brace)))
-
-(add-hook 'c++-mode-hook 'fix-enum-class)
 
 ;;;; PHP
 (use-package php-mode
@@ -866,6 +779,7 @@ point reaches the beginning or end of the buffer, stop there."
            (set-face-attribute 'mode-line-inactive nil :height 100)))
   ;; How wide the mode-line bar should be (only respected in GUI Emacs).
   (setq doom-modeline-bar-width 12)
+  (setq doom-modeline-time-live-icon nil)
   ;; Determines the style used by `doom-modeline-buffer-file-name'.
   ;;
   ;; Given ~/Projects/FOSS/emacs/lisp/comint.el
@@ -972,13 +886,16 @@ point reaches the beginning or end of the buffer, stop there."
    ("C-C C-G" . xref-find-references))
   :hook
   ((c-mode . eglot-ensure)
+   (c-ts-mode . eglot-ensure)
    (c++-mode . eglot-ensure)
+   (c++-ts-mode . eglot-ensure)
    (python-mode . eglot-ensure))
   :config
   (when (executable-find "clangd")
+    (setq my-configs--eglot-clangd '("clangd" "--background-index" "--clang-tidy" "-j2" "--malloc-trim" "--completion-style=detailed" "--pch-storage=memory"))
     (add-to-list 'eglot-server-programs
-                 '(c-mode . ("clangd" "--background-index" "--clang-tidy"))
-                 '(c++-mode . ("clangd" "--background-index" "--clang-tidy"))))
+                 '(c-mode . my-configs--eglot-clangd)
+                 '(c++-mode . my-configs--eglot-clangd)))
   (when (executable-find "jedi-language-server")
     (add-to-list 'eglot-server-programs
                  '(python-mode . ("jedi-language-server")))))
@@ -992,6 +909,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; GDScript
 (use-package gdscript-mode
   :ensure t
+  :hook (gdscript-mode . eglot-ensure)
   :config
   (setq gdscript-gdformat-save-and-format t)
   (setq gdscript-godot-executable "/bin/godot"))
@@ -1025,3 +943,4 @@ point reaches the beginning or end of the buffer, stop there."
 (load "~/.emacs.d/bitgames")
 
 (unwind-protect (load "~/.emacs.d/local") nil)
+

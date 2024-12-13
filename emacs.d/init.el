@@ -40,6 +40,10 @@ There are two things you can do about this warning:
 (put 'narrow-to-region 'disabled nil)
 
 (require 'server)
+
+(if (not (server-running-p))
+    (setq initial-buffer-choice #'(lambda () (get-buffer-create "*dashboard*"))))
+
 (unless (server-running-p)
   (server-start))
 
