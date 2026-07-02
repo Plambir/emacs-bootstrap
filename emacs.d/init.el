@@ -42,7 +42,9 @@ There are two things you can do about this warning:
 (require 'server)
 
 (if (not (server-running-p))
-    (setq initial-buffer-choice #'(lambda () (get-buffer-create "*dashboard*"))))
+    (setq initial-buffer-choice #'(lambda ()
+                                    (get-buffer-create "*dashboard*")
+                                    (dashboard-refresh-buffer))))
 
 (unless (server-running-p)
   (server-start))

@@ -65,6 +65,7 @@
   (wgrep-auto-save-buffer t)
   (which-function-mode t)
   (x-stretch-cursor t)
+  (eldoc-echo-area-use-multiline-p nil)
   (column-number-mode t)
   (compilation-scroll-output 'first-error)
   (auto-revert-verbose nil)
@@ -72,7 +73,8 @@
   (auto-save-file-name-transforms '((".*" "~/.emacs.d/backup/" t)))
   (use-dialog-box nil)
   :custom-face
-  (default ((t (:family "Source Code Pro" :foundry "ADBO" :slant normal :weight normal :height 120 :width normal))))
+  (default ((t (:family "JetBrainsMonoNL Nerd Font Propo" :foundry "JB" :slant normal :weight normal :height 120 :width normal))))
+  (fixed-pitch ((t (:family "JetBrainsMonoNL Nerd Font Propo" :foundry "JB" :slant normal :weight normal :height 120 :width normal))))
   (aw-leading-char-face ((t (:foreground "red" :weight extra-bold :height 2.0))))
   (mode-line-highlight ((t (:underline t))))
   (symbol-overlay-default-face ((t (:background "black")))))
@@ -83,10 +85,12 @@
 (defun my-config--enable-electric-pair-mode ()
   (electric-pair-mode 1))
 
- ;; Disable pairs when entering minibuffer
+;; Disable pairs when entering minibuffer
 (add-hook 'minibuffer-setup-hook #'my-config--disable-electric-pair-mode)
 ;; Renable pairs when existing minibuffer
 (add-hook 'minibuffer-exit-hook #'my-config--enable-electric-pair-mode)
+;; Save recentf list after open new file
+(add-hook 'find-file-hook 'recentf-save-list)
 
 ;;;; iedit
 (use-package iedit
@@ -113,10 +117,12 @@
 
 (use-package dashboard
   :ensure t
+  :after projectile
   :config
   (dashboard-setup-startup-hook)
   :custom
   (dashboard-navigation-cycle t)
+  (dashboard-projects-backend 'projectile)
   (dashboard-startupify-list '(dashboard-insert-newline
                                dashboard-insert-init-info
                                dashboard-insert-items
@@ -573,8 +579,7 @@ point reaches the beginning or end of the buffer, stop there."
   (if (string= system-type "darwin")   ; Mac OS X
       (progn (try-set-font "Liberation Mono")
              (try-set-font "Source Code Pro")
-             (if (string= system-type "darwin")
-                 (try-set-font "Source Code Variable"))
+             (try-set-font "Source Code Variable")
              (set-face-attribute 'default nil :height 140))))
 
 (setq mac-command-modifier 'meta)
@@ -729,9 +734,9 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; compilation buffer
 ;; http://stackoverflow.com/questions/3072648/cucumbers-ansi-colors-messing-up-emacs-compilation-buffer
 (defun colorize-compilation-buffer ()
-  (toggle-read-only)
+  (read-only-mode 0)
   (ansi-color-apply-on-region (point-min) (point-max))
-  (toggle-read-only))
+  (read-only-mode 1))
 
 (use-package ansi-color
   :ensure t
@@ -911,6 +916,9 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :hook (gdscript-mode . eglot-ensure)
   :config
+  (setq eglot-events-buffer-size 0)
+  (setq gdscript-use-tab-indents nil)
+  (setq gdscript-indent-offset 2)
   (setq gdscript-gdformat-save-and-format t)
   (setq gdscript-godot-executable "/bin/godot"))
 
