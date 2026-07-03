@@ -901,9 +901,9 @@ point reaches the beginning or end of the buffer, stop there."
     (add-to-list 'eglot-server-programs
                  '(c-mode . my-configs--eglot-clangd)
                  '(c++-mode . my-configs--eglot-clangd)))
-  (when (executable-find "jedi-language-server")
+  (when (executable-find "pyright")
     (add-to-list 'eglot-server-programs
-                 '(python-mode . ("jedi-language-server")))))
+                 '(python-mode . ("pyright-langserver" "--stdio")))))
 
 (use-package flycheck-eglot
   :ensure t
